@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "real_estate_agents")
-public class RealStateAgent extends Person{
+public class RealEstateAgent extends Person{
 
     private String licenseNumber;
 
