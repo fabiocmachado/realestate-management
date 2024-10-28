@@ -1,7 +1,7 @@
 package com.realestate.entity.property;
 
 import com.realestate.entity.person.Agent;
-import com.realestate.entity.person.SellerCustomer;
+import com.realestate.entity.person.Seller;
 import com.realestate.enums.PropertyStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -56,7 +56,7 @@ public abstract class Property {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
-    private SellerCustomer owner;
+    private Seller owner;
 
     @ManyToOne
     @JoinColumn(name = "agent_id")

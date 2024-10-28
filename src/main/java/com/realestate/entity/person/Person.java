@@ -22,6 +22,7 @@ public abstract class Person {
     private Long id;
 
     private String name;
+
     @Size(min = 11, max = 11, message = "O CPF deve conter 11 números.")
     private String cpf;
 
