@@ -1,10 +1,7 @@
-package com.realestate.entity;
+package com.realestate.entity.person;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import com.realestate.entity.property.Property;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -14,11 +11,10 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "real_estate_agents")
-public class RealEstateAgent extends Person{
+@DiscriminatorValue("AGENT")
+public class Agent extends Person{
 
     private String licenseNumber;
 

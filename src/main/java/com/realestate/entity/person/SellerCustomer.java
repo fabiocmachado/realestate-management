@@ -1,9 +1,7 @@
-package com.realestate.entity;
+package com.realestate.entity.person;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.realestate.entity.property.Property;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,10 +13,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
 @Entity
-@Table(name = "seller_customers")
+@DiscriminatorValue("SELLER")
 public class SellerCustomer extends Person{
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
