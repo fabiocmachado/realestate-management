@@ -20,18 +20,15 @@ import java.util.List;
 public class Agent extends Person {
 
     private String licenseNumber;
-    private LocalDate hiringDate;
 
     @OneToMany(mappedBy = "prospectedBy", cascade = CascadeType.ALL)
     private List<Property> prospectedProperties = new ArrayList<>();
 
 
     public Agent(Long id, String name, String cpf, String rg, String email,
-                 String phone, String address, String licenseNumber,
-                 LocalDate hiringDate, List<Property> prospectedProperties) {
+                 String phone, String address, String licenseNumber, List<Property> prospectedProperties) {
         super(id, name, cpf, rg, email, phone, address, LocalDate.now());
         this.licenseNumber = licenseNumber;
-        this.hiringDate = hiringDate;
         this.prospectedProperties = prospectedProperties != null ?
                 prospectedProperties : new ArrayList<>();
     }

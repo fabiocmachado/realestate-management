@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,6 +36,7 @@ public class AgentService {
     @Transactional
     public AgentDTO createAgent(AgentDTO agentDTO) {
         Agent agent = agentDTO.toEntity();
+        agent.setRegistrationDate(LocalDate.now());
         validateNewAgent(agent);
         return AgentDTO.fromEntity(agentRepository.save(agent));
     }
@@ -86,7 +88,7 @@ public class AgentService {
         existingAgent.setLicenseNumber(newAgent.getLicenseNumber());
         existingAgent.setAddress(newAgent.getAddress());
         existingAgent.setRg(newAgent.getRg());
-        existingAgent.setHiringDate(newAgent.getHiringDate());
+        existingAgent.setRegistrationDate(newAgent.getRegistrationDate());
 
         return agentRepository.save(existingAgent);
     }

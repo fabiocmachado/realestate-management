@@ -11,7 +11,7 @@
 	<groupId>com.realestate</groupId>
 	<artifactId>realestate-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>realestate-management</name>
+	<name>realEstate-management</name>
 	<description> Real Estate Management System</description>
 	<url/>
 	<licenses>

@@ -1,6 +1,7 @@
 package com.realestate.controller;
 
 import com.realestate.dto.AgentDTO;
+import com.realestate.dto.SellerDTO;
 import com.realestate.service.AgentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,8 @@ public class AgentController {
 
     @PostMapping
     public ResponseEntity<AgentDTO> createAgent(@Valid @RequestBody AgentDTO agentDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(agentService.createAgent(agentDTO));
+        AgentDTO createdAgent = agentService.createAgent(agentDTO);
+        return new ResponseEntity<>(createdAgent, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

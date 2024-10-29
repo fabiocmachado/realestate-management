@@ -49,7 +49,7 @@ public class AgentDTO {
     private String rg;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate hiringDate;
+    private LocalDate registrationDate;
 
     private Integer propertyCount;
 
@@ -63,7 +63,7 @@ public class AgentDTO {
                 .address(agent.getAddress())
                 .cpf(agent.getCpf())
                 .rg(agent.getRg())
-                .hiringDate(agent.getHiringDate())
+                .registrationDate(agent.getRegistrationDate())
                 .propertyCount(agent.getProspectedProperties() != null ?
                         agent.getProspectedProperties().size() : 0)
                 .build();
@@ -78,7 +78,6 @@ public class AgentDTO {
                 .address(this.address)
                 .cpf(this.cpf)
                 .rg(this.rg)
-                .hiringDate(this.hiringDate)
                 .prospectedProperties(new ArrayList<>())
                 .build();
     }
