@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/agent")
+@RequestMapping("/agents")
 public class AgentController {
 
     @Autowired
