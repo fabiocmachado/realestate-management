@@ -1,12 +1,12 @@
 package com.realestate.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.realestate.entity.person.Buyer;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class BuyerDTO {
 
     private Long id;
@@ -49,30 +50,5 @@ public class BuyerDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate firstContactDate;
 
-    public static BuyerDTO fromEntity(Buyer buyer) {
-        return new BuyerDTO(
-                buyer.getId(),
-                buyer.getName(),
-                buyer.getCpf(),
-                buyer.getRg(),
-                buyer.getEmail(),
-                buyer.getPhone(),
-                buyer.getAddress(),
-                buyer.getRegistrationDate(),
-                buyer.getFirstContactDate()
-        );
-    }
-
-    public Buyer toEntity() {
-        Buyer buyer = new Buyer();
-        buyer.setId(this.id);
-        buyer.setName(this.name);
-        buyer.setCpf(this.cpf);
-        buyer.setRg(this.rg);
-        buyer.setEmail(this.email);
-        buyer.setPhone(this.phone);
-        buyer.setAddress(this.address);
-        buyer.setFirstContactDate(this.firstContactDate);
-        return buyer;
-    }
+    private Long responsibleAgentId;
 }

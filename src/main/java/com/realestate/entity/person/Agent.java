@@ -24,6 +24,8 @@ public class Agent extends Person {
     @OneToMany(mappedBy = "prospectedBy", cascade = CascadeType.ALL)
     private List<Property> prospectedProperties = new ArrayList<>();
 
+    @OneToMany(mappedBy = "responsibleAgent")
+    private List<Buyer> responsibleBuyers;
 
     public Agent(Long id, String name, String cpf, String rg, String email,
                  String phone, String address, String licenseNumber, List<Property> prospectedProperties) {

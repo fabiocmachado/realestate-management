@@ -17,7 +17,7 @@ import java.util.List;
 @DiscriminatorValue("SELLER")
 public class Seller extends Person{
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private List<Property> properties;
 
 }
