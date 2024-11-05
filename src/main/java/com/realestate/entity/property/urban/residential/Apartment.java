@@ -1,9 +1,7 @@
 package com.realestate.entity.property.urban.residential;
 
-import com.realestate.enums.PropertyCategory;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import com.realestate.enums.PropertyType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,8 +28,7 @@ public class Apartment extends Residential {
 
     @Column(name = "condominium_fee")
     private Double condominiumFee;
-
     {
-        setPropertyCategory(PropertyCategory.APARTMENT);
+        setPropertyType(PropertyType.APARTMENT);
     }
 }

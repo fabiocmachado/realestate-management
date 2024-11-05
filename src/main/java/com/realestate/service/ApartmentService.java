@@ -1,8 +1,10 @@
 package com.realestate.service;
 
 import com.realestate.dto.ApartmentDTO;
+import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
 import com.realestate.entity.property.urban.residential.Apartment;
+import com.realestate.repository.AgentRepository;
 import com.realestate.repository.ApartmentRepository;
 import com.realestate.repository.SellerRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ApartmentService {
 
+    private final SellerRepository sellerRepository;
     private final ApartmentRepository apartmentRepository;
+    private final AgentRepository agentRepository;
 
     @Transactional
     public ApartmentDTO createApartment(ApartmentDTO apartmentDTO) {
@@ -46,8 +50,6 @@ public class ApartmentService {
         if (existingApartment == null) {
             throw new EntityNotFoundException("Apartment not found with code: " + propertyCode);
         }
-
-
         updateEntityFromDTO(existingApartment, apartmentDTO);
         Apartment updatedApartment = apartmentRepository.save(existingApartment);
         return convertToDTO(updatedApartment);
@@ -62,8 +64,15 @@ public class ApartmentService {
         apartmentRepository.delete(apartment);
     }
 
-
     private Apartment convertToEntity(ApartmentDTO dto) {
+        Seller seller = sellerRepository.findById(dto.getSellerId())
+                .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));
+
+        Agent agent = dto.getAgentId() != null
+                ? agentRepository.findById(dto.getAgentId())
+                .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + dto.getAgentId()))
+                : null;
+
         return Apartment.builder()
                 .price(dto.getPrice())
                 .address(dto.getAddress())
@@ -76,8 +85,12 @@ public class ApartmentService {
                 .floor(dto.getFloor())
                 .livingRoom(dto.getLivingRoom())
                 .condominiumFee(dto.getCondominiumFee())
+                .seller(seller)
+                .status(dto.getStatus())
+                .prospectedBy(agent)
                 .build();
     }
+
 
     private ApartmentDTO convertToDTO(Apartment entity) {
         return ApartmentDTO.builder()
@@ -95,6 +108,7 @@ public class ApartmentService {
                 .livingRoom(entity.getLivingRoom())
                 .condominiumFee(entity.getCondominiumFee())
                 .sellerId(entity.getSeller().getId())
+                .agentId(entity.getProspectedBy().getId())
                 .status(entity.getStatus())
                 .build();
     }
@@ -111,6 +125,16 @@ public class ApartmentService {
         entity.setFloor(dto.getFloor());
         entity.setLivingRoom(dto.getLivingRoom());
         entity.setCondominiumFee(dto.getCondominiumFee());
+        Seller seller = sellerRepository.findById(dto.getSellerId())
+                .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));
+        if (dto.getAgentId() != null) {
+            Agent agent = agentRepository.findById(dto.getAgentId())
+                    .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + dto.getAgentId()));
+            entity.setProspectedBy(agent);
+        } else {
+            entity.setProspectedBy(null);
+        }
         entity.setStatus(dto.getStatus());
     }
+
 }
