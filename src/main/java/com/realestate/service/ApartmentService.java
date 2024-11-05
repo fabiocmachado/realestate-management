@@ -76,14 +76,18 @@ public class ApartmentService {
         return Apartment.builder()
                 .price(dto.getPrice())
                 .address(dto.getAddress())
+                .nameOfBuilding(dto.getNameOfBuilding())
                 .totalArea(dto.getTotalArea())
+                .privateArea(dto.getPrivateArea())
+                .usableArea(dto.getUsableArea())
                 .description(dto.getDescription())
                 .bedrooms(dto.getBedrooms())
                 .bathrooms(dto.getBathrooms())
                 .garageSpaces(dto.getGarageSpaces())
                 .apartmentNumber(dto.getApartmentNumber())
-                .floor(dto.getFloor())
+                .floor(dto.getFloors())
                 .livingRoom(dto.getLivingRoom())
+                .offices(dto.getOffices())
                 .condominiumFee(dto.getCondominiumFee())
                 .seller(seller)
                 .status(dto.getStatus())
@@ -98,14 +102,18 @@ public class ApartmentService {
                 .propertyCode(entity.getPropertyCode())
                 .price(entity.getPrice())
                 .address(entity.getAddress())
+                .nameOfBuilding(entity.getNameOfBuilding())
                 .totalArea(entity.getTotalArea())
+                .privateArea(entity.getPrivateArea())
+                .usableArea(entity.getUsableArea())
                 .description(entity.getDescription())
                 .bedrooms(entity.getBedrooms())
                 .bathrooms(entity.getBathrooms())
                 .garageSpaces(entity.getGarageSpaces())
                 .apartmentNumber(entity.getApartmentNumber())
-                .floor(entity.getFloor())
+                .floors(entity.getFloor())
                 .livingRoom(entity.getLivingRoom())
+                .offices(entity.getOffices())
                 .condominiumFee(entity.getCondominiumFee())
                 .sellerId(entity.getSeller().getId())
                 .agentId(entity.getProspectedBy().getId())
@@ -116,14 +124,18 @@ public class ApartmentService {
     private void updateEntityFromDTO(Apartment entity, ApartmentDTO dto) {
         entity.setPrice(dto.getPrice());
         entity.setAddress(dto.getAddress());
+        entity.setNameOfBuilding(dto.getNameOfBuilding());
         entity.setTotalArea(dto.getTotalArea());
+        entity.setPrivateArea(dto.getPrivateArea());
+        entity.setUsableArea(dto.getUsableArea());
         entity.setDescription(dto.getDescription());
         entity.setBedrooms(dto.getBedrooms());
         entity.setBathrooms(dto.getBathrooms());
         entity.setGarageSpaces(dto.getGarageSpaces());
         entity.setApartmentNumber(dto.getApartmentNumber());
-        entity.setFloor(dto.getFloor());
+        entity.setFloor(dto.getFloors());
         entity.setLivingRoom(dto.getLivingRoom());
+        entity.setOffices(dto.getOffices());
         entity.setCondominiumFee(dto.getCondominiumFee());
         Seller seller = sellerRepository.findById(dto.getSellerId())
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));

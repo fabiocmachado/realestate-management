@@ -28,6 +28,19 @@ public class Apartment extends Residential {
 
     @Column(name = "condominium_fee")
     private Double condominiumFee;
+
+    @Column(name = "name_of_building")
+    private String nameOfBuilding;
+
+    @Column(name = "usable_area")
+    private float usableArea;
+
+    @Column(name = "private_area")
+    private float privateArea;
+
+    @Column(name = "offices")
+    private Integer offices;
+
     {
         setPropertyType(PropertyType.APARTMENT);
     }
