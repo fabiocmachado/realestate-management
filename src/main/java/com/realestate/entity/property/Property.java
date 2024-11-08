@@ -13,8 +13,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+import static com.realestate.dto.PropertyDTO.generateUniquePropertyCode;
 
 
 @Entity
@@ -52,10 +52,6 @@ public abstract class Property {
     @Size(max = 500, message = "Endereço deve ter no máximo 500 caracteres")
     @Column(nullable = false, length = 500)
     private String address;
-
-    @Column(name = "total_area")
-    @Positive(message = "Área total deve ser positiva")
-    private Double totalArea;
 
     @Size(max = 2000, message = "Descrição deve ter no máximo 2000 caracteres")
     @Column(length = 2000)
@@ -96,10 +92,7 @@ public abstract class Property {
             this.isActive = true;
         }
     }
-    private String generateUniquePropertyCode() {
-        String uniquePrefix = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        return String.format("PROP-%s-%d", uniquePrefix, System.currentTimeMillis());
-    }
+
     public boolean isAvailable() {
         return Boolean.TRUE.equals(isActive) && status == PropertyStatus.AVAILABLE;
     }

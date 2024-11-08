@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @SuperBuilder
@@ -17,7 +18,6 @@ public class PropertyDTO {
 
     private Long id;
 
-    @NotBlank(message = "Property code is required")
     private String propertyCode;
 
     @NotNull(message = "Price is required")
@@ -28,9 +28,6 @@ public class PropertyDTO {
     @NotBlank(message = "Address is required")
     @Size(max = 500, message = "Address must have a maximum of 500 characters")
     private String address;
-
-    @Positive(message = "Total area must be positive")
-    private Double totalArea;
 
     @Size(max = 2000, message = "Description must have a maximum of 2000 characters")
     private String description;
@@ -43,4 +40,9 @@ public class PropertyDTO {
 
     @NotNull(message = "Agente é obrigatório")
     private Long agentId;
+
+    public static String generateUniquePropertyCode() {
+        String uniquePrefix = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        return String.format("PROP-%s-%d", uniquePrefix, System.currentTimeMillis());
+    }
 }
