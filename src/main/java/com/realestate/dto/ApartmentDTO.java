@@ -30,4 +30,6 @@ public class ApartmentDTO extends ResidentialDTO {
     private float privateArea;
 
     private String nameOfBuilding;
+
+    private Float totalArea;
 }

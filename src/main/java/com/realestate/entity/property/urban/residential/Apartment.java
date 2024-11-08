@@ -38,6 +38,9 @@ public class Apartment extends Residential {
     @Column(name = "private_area")
     private float privateArea;
 
+    @Column(name = "total_area")
+    private Float totalArea;
+
     @Column(name = "offices")
     private Integer offices;
 
