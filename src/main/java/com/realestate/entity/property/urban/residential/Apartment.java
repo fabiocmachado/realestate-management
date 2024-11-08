@@ -43,8 +43,4 @@ public class Apartment extends Residential {
 
     @Column(name = "offices")
     private Integer offices;
-
-    {
-        setPropertyType(PropertyType.APARTMENT);
-    }
 }

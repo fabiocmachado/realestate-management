@@ -2,6 +2,7 @@ package com.realestate.entity.property.urban.residential;
 
 import com.realestate.entity.property.Property;
 import com.realestate.entity.property.urban.Urban;
+import com.realestate.enums.PropertyType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@DiscriminatorValue("Urban_land")
+@DiscriminatorValue("URBAN_LAND")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -31,4 +32,7 @@ public class UrbanLand extends Urban {
 
     @Column(name = "keyAvailable")
     private String keyAvailable;
+    {
+        setPropertyType(PropertyType.RESIDENTIAL);
+    }
 }
