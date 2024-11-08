@@ -33,18 +33,18 @@ public class Rural extends Property {
     {
         setPropertyType(PropertyType.RURAL);
     }
-//    @PrePersist
-//    @PreUpdate
-//    private void validateAreas() {
-//        if (getTotalArea() == null || getLegalReserveArea() == null) {
-//            throw new IllegalStateException("Total area and legal reserve area must be set");
-//        }
-//
-//        double totalAreaHectares = getTotalArea().getHectares();
-//        double legalReserveAreaHectares = getLegalReserveArea().getHectares();
-//
-//        if (legalReserveAreaHectares > totalAreaHectares) {
-//            throw new IllegalStateException("Legal reserve area cannot exceed total area");
-//        }
-//    }
+    @PrePersist
+    @PreUpdate
+    private void validateAreas() {
+        if (getTotalArea() == null || getLegalReserveArea() == null) {
+            throw new IllegalStateException("Total area and legal reserve area must be set");
+        }
+
+        double totalAreaHectares = getTotalArea().getHectares();
+        double legalReserveAreaHectares = getLegalReserveArea().getHectares();
+
+        if (legalReserveAreaHectares > totalAreaHectares) {
+            throw new IllegalStateException("Legal reserve area cannot exceed total area");
+        }
+    }
 }
