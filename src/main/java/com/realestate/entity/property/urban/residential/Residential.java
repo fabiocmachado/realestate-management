@@ -32,6 +32,8 @@ public class Residential extends Property {
     @Column(name = "bathrooms", nullable = false)
     private Integer bathrooms;
 
+    private Boolean hasKitchen;
+
     @Column(name = "garage_spaces")
     private Integer garageSpaces;
     {
