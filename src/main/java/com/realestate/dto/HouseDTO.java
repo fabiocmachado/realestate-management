@@ -63,4 +63,6 @@ public class HouseDTO extends ResidentialDTO {
 
     private Float totalArea;
 
+    private Boolean pantry;
+
 }

@@ -1,5 +1,6 @@
 package com.realestate.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -14,13 +15,10 @@ public class ApartmentDTO extends ResidentialDTO {
 
     private String apartmentNumber;
 
-    @Min(value = 1, message = "The floor number must be at least 1")
     private Integer floors;
 
-    @Min(value = 1, message = "Minimum of 1 living room is required")
     private Integer livingRoom;
 
-    @Positive(message = "Condominium fee must be positive")
     private Double condominiumFee;
 
     private Integer offices;
@@ -32,4 +30,32 @@ public class ApartmentDTO extends ResidentialDTO {
     private String nameOfBuilding;
 
     private Float totalArea;
+
+    private Boolean pantry;
+
+    private Integer toilet;
+
+    private Boolean hasBarbecueGrill;
+
+    private Boolean hasSwimmingPool;
+
+    private Integer yearsOfConstruction;
+
+    private Boolean hasBalcony;
+
+    private Boolean isRented;
+
+    private Boolean isInhabited;
+
+    private String floorType;
+
+    private Boolean hasAirConditioning;
+
+    private Boolean hasSurveillanceCameras;
+
+    private Boolean hasCabinets;
+
+    private Boolean hasLaundry;
+
+    private Boolean sauna;
 }

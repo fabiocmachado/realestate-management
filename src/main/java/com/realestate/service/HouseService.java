@@ -106,6 +106,7 @@ public class HouseService {
                 .seller(seller)
                 .status(dto.getStatus())
                 .prospectedBy(agent)
+                .pantry(dto.getPantry())
                 .build();
     }
 
@@ -146,6 +147,7 @@ public class HouseService {
                 .status(entity.getStatus())
                 .bedrooms(entity.getBedrooms())
                 .bathrooms(entity.getBathrooms())
+                .pantry(entity.getPantry())
                 .build();
     }
 
@@ -181,5 +183,15 @@ public class HouseService {
         entity.setPrivateArea(dto.getPrivateArea());
         entity.setTotalArea(dto.getTotalArea());
         entity.setStatus(dto.getStatus());
+        entity.setPantry(dto.getPantry());
+        Seller seller = sellerRepository.findById(dto.getSellerId())
+                .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));
+        if (dto.getAgentId() != null) {
+            Agent agent = agentRepository.findById(dto.getAgentId())
+                    .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + dto.getAgentId()));
+            entity.setProspectedBy(agent);
+        } else {
+            entity.setProspectedBy(null);
+        }
     }
 }

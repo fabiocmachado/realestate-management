@@ -92,6 +92,20 @@ public class ApartmentService {
                 .seller(seller)
                 .status(dto.getStatus())
                 .prospectedBy(agent)
+                .pantry(dto.getPantry())
+                .hasLaundry(dto.getHasLaundry())
+                .sauna(dto.getSauna())
+                .hasCabinets(dto.getHasCabinets())
+                .hasSurveillanceCameras(dto.getHasSurveillanceCameras())
+                .hasAirConditioning(dto.getHasAirConditioning())
+                .floorType(dto.getFloorType())
+                .isInhabited(dto.getIsInhabited())
+                .isRented(dto.getIsRented())
+                .hasBalcony(dto.getHasBalcony())
+                .yearsOfConstruction(dto.getYearsOfConstruction())
+                .hasSwimmingPool(dto.getHasSwimmingPool())
+                .hasBarbecueGrill(dto.getHasBarbecueGrill())
+                .toilet(dto.getToilet())
                 .build();
     }
 
@@ -118,6 +132,20 @@ public class ApartmentService {
                 .sellerId(entity.getSeller().getId())
                 .agentId(entity.getProspectedBy().getId())
                 .status(entity.getStatus())
+                .pantry(entity.getPantry())
+                .hasLaundry(entity.getHasLaundry())
+                .sauna(entity.getSauna())
+                .hasCabinets(entity.getHasCabinets())
+                .hasSurveillanceCameras(entity.getHasSurveillanceCameras())
+                .hasAirConditioning(entity.getHasAirConditioning())
+                .floorType(entity.getFloorType())
+                .isInhabited(entity.getIsInhabited())
+                .isRented(entity.getIsRented())
+                .hasBalcony(entity.getHasBalcony())
+                .yearsOfConstruction(entity.getYearsOfConstruction())
+                .hasSwimmingPool(entity.getHasSwimmingPool())
+                .hasBarbecueGrill(entity.getHasBarbecueGrill())
+                .toilet(entity.getToilet())
                 .build();
     }
 
@@ -137,6 +165,20 @@ public class ApartmentService {
         entity.setLivingRoom(dto.getLivingRoom());
         entity.setOffices(dto.getOffices());
         entity.setCondominiumFee(dto.getCondominiumFee());
+        entity.setPantry(dto.getPantry());
+        entity.setHasLaundry(dto.getHasLaundry());
+        entity.setSauna(dto.getSauna());
+        entity.setHasCabinets(dto.getHasCabinets());
+        entity.setHasSurveillanceCameras(dto.getHasSurveillanceCameras());
+        entity.setHasAirConditioning(dto.getHasAirConditioning());
+        entity.setFloorType(dto.getFloorType());
+        entity.setIsInhabited(dto.getIsInhabited());
+        entity.setIsRented(dto.getIsRented());
+        entity.setHasBalcony(dto.getHasBalcony());
+        entity.setYearsOfConstruction(dto.getYearsOfConstruction());
+        entity.setHasSwimmingPool(dto.getHasSwimmingPool());
+        entity.setHasBarbecueGrill(dto.getHasBarbecueGrill());
+        entity.setToilet(dto.getToilet());
         Seller seller = sellerRepository.findById(dto.getSellerId())
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));
         if (dto.getAgentId() != null) {

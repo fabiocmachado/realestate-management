@@ -101,4 +101,7 @@ public class House extends Residential {
     @Column(name = "total_area")
     private Float totalArea;
 
+    @Column(name = "pantry")
+    private Boolean pantry;
+
 }
