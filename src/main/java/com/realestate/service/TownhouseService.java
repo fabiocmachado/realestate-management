@@ -3,7 +3,6 @@ package com.realestate.service;
 import com.realestate.dto.TownhouseDTO;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
-import com.realestate.entity.property.urban.residential.House;
 import com.realestate.entity.property.urban.residential.Townhouse;
 import com.realestate.repository.AgentRepository;
 import com.realestate.repository.TownhouseRepository;
@@ -34,7 +33,7 @@ public class TownhouseService {
     public TownhouseDTO getTownhouseByCode(String propertyCode) {
         Townhouse townhouse = (Townhouse) townhouseRepository.findByPropertyCode(propertyCode);
         if (townhouse == null) {
-            throw new EntityNotFoundException("House not found with code: " + propertyCode);
+            throw new EntityNotFoundException("Townhouse not found with code: " + propertyCode);
         }
         return convertToDTO(townhouse);
     }
@@ -48,7 +47,7 @@ public class TownhouseService {
     public TownhouseDTO updateTownhouse(String propertyCode, TownhouseDTO townhouseDTO) {
         Townhouse existingTownhouse = (Townhouse) townhouseRepository.findByPropertyCode(propertyCode);
         if (existingTownhouse == null) {
-            throw new EntityNotFoundException("House not found with code: " + propertyCode);
+            throw new EntityNotFoundException("Townhouse not found with code: " + propertyCode);
         }
         updateEntityFromDTO(existingTownhouse, townhouseDTO);
         Townhouse updatedTownhouse = townhouseRepository.save(existingTownhouse);
@@ -59,7 +58,7 @@ public class TownhouseService {
     public void deleteTownhouse(String propertyCode) {
         Townhouse townhouse = (Townhouse) townhouseRepository.findByPropertyCode(propertyCode);
         if (townhouse == null) {
-            throw new EntityNotFoundException("House not found with code: " + propertyCode);
+            throw new EntityNotFoundException("Townhouse not found with code: " + propertyCode);
         }
         townhouseRepository.delete(townhouse);
     }
