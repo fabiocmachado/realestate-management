@@ -2,7 +2,6 @@ package com.realestate.dto;
 
 import com.realestate.enums.PropertyStatus;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -13,7 +12,6 @@ import java.util.UUID;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
 public class PropertyDTO {
 
     private Long id;

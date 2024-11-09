@@ -16,7 +16,6 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
-@AllArgsConstructor
 public class FarmDTO extends RuralDTO {
 
     @NotBlank

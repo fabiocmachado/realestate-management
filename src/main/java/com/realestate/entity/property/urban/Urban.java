@@ -12,10 +12,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+@Entity
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@Entity
 @DiscriminatorValue("URBAN")
 @SuperBuilder
 public class Urban extends Property {

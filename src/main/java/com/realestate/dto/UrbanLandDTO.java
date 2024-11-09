@@ -9,8 +9,6 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
 public class UrbanLandDTO extends ResidentialDTO {
 
     @NotBlank(message = "Campo 'has wall' é obrigatório")
