@@ -106,9 +106,30 @@ public class ApartmentService {
                 .hasSwimmingPool(dto.getHasSwimmingPool())
                 .hasBarbecueGrill(dto.getHasBarbecueGrill())
                 .toilet(dto.getToilet())
+                .suites(dto.getSuites())
+                .bars(dto.getBars())
+                .employeeRoom(dto.getEmployeeRoom())
+                .employeeBathroom(dto.getEmployeeBathroom())
+                .garagesInRow(dto.getGaragesInRow())
+                .numberOfBlocks(dto.getNumberOfBlocks())
+                .totalOfApartments(dto.getTotalOfApartments())
+                .partyHall(dto.getPartyHall())
+                .gamesRoom(dto.getGamesRoom())
+                .playground(dto.getPlayground())
+                .toyArea(dto.getToyArea())
+                .sportsCourt(dto.getSportsCourt())
+                .hasElectronicGate(dto.getHasElectronicGate())
+                .electronicDoorman(dto.getElectronicDoorman())
+                .intercom(dto.getIntercom())
+                .gourmetBalcony(dto.getGourmetBalcony())
+                .elevator(dto.getElevator())
+                .compartment(dto.getCompartment())
+                .visitingTime(dto.getVisitingTime())
+                .exclusiveSwimmingPool(dto.getExclusiveSwimmingPool())
+                .exclusiveSauna(dto.getExclusiveSauna())
+                .mezzanine(dto.getMezzanine())
                 .build();
     }
-
 
     private ApartmentDTO convertToDTO(Apartment entity) {
         return ApartmentDTO.builder()
@@ -146,6 +167,28 @@ public class ApartmentService {
                 .hasSwimmingPool(entity.getHasSwimmingPool())
                 .hasBarbecueGrill(entity.getHasBarbecueGrill())
                 .toilet(entity.getToilet())
+                .suites(entity.getSuites())
+                .bars(entity.getBars())
+                .employeeRoom(entity.getEmployeeRoom())
+                .employeeBathroom(entity.getEmployeeBathroom())
+                .garagesInRow(entity.getGaragesInRow())
+                .numberOfBlocks(entity.getNumberOfBlocks())
+                .totalOfApartments(entity.getTotalOfApartments())
+                .partyHall(entity.getPartyHall())
+                .gamesRoom(entity.getGamesRoom())
+                .playground(entity.getPlayground())
+                .toyArea(entity.getToyArea())
+                .sportsCourt(entity.getSportsCourt())
+                .hasElectronicGate(entity.getHasElectronicGate())
+                .electronicDoorman(entity.getElectronicDoorman())
+                .intercom(entity.getIntercom())
+                .gourmetBalcony(entity.getGourmetBalcony())
+                .elevator(entity.getElevator())
+                .compartment(entity.getCompartment())
+                .visitingTime(entity.getVisitingTime())
+                .exclusiveSwimmingPool(entity.getExclusiveSwimmingPool())
+                .exclusiveSauna(entity.getExclusiveSauna())
+                .mezzanine(entity.getMezzanine())
                 .build();
     }
 
@@ -179,8 +222,33 @@ public class ApartmentService {
         entity.setHasSwimmingPool(dto.getHasSwimmingPool());
         entity.setHasBarbecueGrill(dto.getHasBarbecueGrill());
         entity.setToilet(dto.getToilet());
+        entity.setSuites(dto.getSuites());
+        entity.setBars(dto.getBars());
+        entity.setEmployeeRoom(dto.getEmployeeRoom());
+        entity.setEmployeeBathroom(dto.getEmployeeBathroom());
+        entity.setGaragesInRow(dto.getGaragesInRow());
+        entity.setNumberOfBlocks(dto.getNumberOfBlocks());
+        entity.setTotalOfApartments(dto.getTotalOfApartments());
+        entity.setPartyHall(dto.getPartyHall());
+        entity.setGamesRoom(dto.getGamesRoom());
+        entity.setPlayground(dto.getPlayground());
+        entity.setToyArea(dto.getToyArea());
+        entity.setSportsCourt(dto.getSportsCourt());
+        entity.setHasElectronicGate(dto.getHasElectronicGate());
+        entity.setElectronicDoorman(dto.getElectronicDoorman());
+        entity.setIntercom(dto.getIntercom());
+        entity.setGourmetBalcony(dto.getGourmetBalcony());
+        entity.setElevator(dto.getElevator());
+        entity.setCompartment(dto.getCompartment());
+        entity.setVisitingTime(dto.getVisitingTime());
+        entity.setExclusiveSwimmingPool(dto.getExclusiveSwimmingPool());
+        entity.setExclusiveSauna(dto.getExclusiveSauna());
+        entity.setMezzanine(dto.getMezzanine());
+
         Seller seller = sellerRepository.findById(dto.getSellerId())
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));
+        entity.setSeller(seller);
+
         if (dto.getAgentId() != null) {
             Agent agent = agentRepository.findById(dto.getAgentId())
                     .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + dto.getAgentId()));

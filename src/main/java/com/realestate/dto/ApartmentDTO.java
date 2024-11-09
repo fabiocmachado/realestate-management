@@ -1,8 +1,5 @@
 package com.realestate.dto;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -57,4 +54,48 @@ public class ApartmentDTO extends ResidentialDTO {
     private Boolean hasLaundry;
 
     private Boolean sauna;
+
+    private Integer suites;
+
+    private Boolean bars;
+
+    private Boolean employeeRoom;
+
+    private Boolean employeeBathroom;
+
+    private Boolean garagesInRow;
+
+    private Integer numberOfBlocks;
+
+    private Boolean totalOfApartments;
+
+    private Boolean partyHall;
+
+    private Boolean gamesRoom;
+
+    private Boolean playground;
+
+    private Boolean toyArea;
+
+    private Boolean sportsCourt;
+
+    private Boolean hasElectronicGate;
+
+    private Boolean electronicDoorman;
+
+    private Boolean intercom;
+
+    private Integer gourmetBalcony;
+
+    private Integer elevator;
+
+    private Boolean compartment;
+
+    private String visitingTime;
+
+    private Boolean exclusiveSwimmingPool;
+
+    private Boolean exclusiveSauna;
+
+    private Boolean mezzanine;
 }
