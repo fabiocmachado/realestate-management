@@ -19,7 +19,6 @@ import lombok.experimental.SuperBuilder;
 @DiscriminatorValue("URBAN")
 @SuperBuilder
 public class Urban extends Property {
-
     {
         setPropertyType(PropertyType.URBAN);
     }

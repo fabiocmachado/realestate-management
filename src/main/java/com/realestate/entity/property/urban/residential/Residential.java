@@ -1,6 +1,7 @@
 package com.realestate.entity.property.urban.residential;
 
 import com.realestate.entity.property.Property;
+import com.realestate.entity.property.urban.Urban;
 import com.realestate.enums.PropertyType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
@@ -19,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder
-public class Residential extends Property {
+public class Residential extends Urban {
 
     @NotNull(message = "Número de quartos é obrigatório")
     @Min(value = 1, message = "Número de quartos deve ser no mínimo 1")
@@ -35,7 +36,4 @@ public class Residential extends Property {
 
     @Column(name = "garage_spaces")
     private Integer garageSpaces;
-    {
-        setPropertyType(PropertyType.RESIDENTIAL);
-    }
 }

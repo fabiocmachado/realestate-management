@@ -78,6 +78,5 @@ public class FarmDTO extends RuralDTO {
                 new AreaMeasurementDTO(legalReserveAreaAlqueirosGoianos)
         );
         this.formedArea = new AreaMeasurementDTO(formedAreaAlqueirosGoianos);
-        this.setPropertyType(PropertyType.FARM);
     }
 }
