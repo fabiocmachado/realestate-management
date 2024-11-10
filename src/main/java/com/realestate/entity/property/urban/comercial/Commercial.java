@@ -76,4 +76,7 @@ public class Commercial extends Urban {
 
     @Column(name = "solar_energy")
     private Boolean hasSolarEnergy;
+
+    @Column(name = "keyAvailable")
+    private String keyAvailable;
 }

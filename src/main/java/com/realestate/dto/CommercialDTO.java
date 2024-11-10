@@ -50,4 +50,7 @@ public class CommercialDTO extends PropertyDTO{
     private Boolean garagesInRow;
 
     private Boolean hasSolarEnergy;
+
+    private String keyAvailable;
+
 }

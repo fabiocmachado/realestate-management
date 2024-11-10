@@ -1,11 +1,11 @@
 package com.realestate.service;
 
-import com.realestate.dto.WarehouseDTO;
+import com.realestate.dto.CommercialAreaDTO;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
-import com.realestate.entity.property.urban.comercial.Warehouse;
+import com.realestate.entity.property.urban.comercial.CommercialArea;
 import com.realestate.repository.AgentRepository;
-import com.realestate.repository.WarehouseRepository;
+import com.realestate.repository.CommercialAreaRepository;
 import com.realestate.repository.SellerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,55 +16,55 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class WarehouseService {
+public class CommercialAreaService {
 
     private final SellerRepository sellerRepository;
-    private final WarehouseRepository warehouseRepository;
+    private final CommercialAreaRepository commercialAreaRepository;
     private final AgentRepository agentRepository;
 
     @Transactional
-    public WarehouseDTO createWarehouse(WarehouseDTO warehouseDTO) {
-        Warehouse warehouse = convertToEntity(warehouseDTO);
-        Warehouse savedWarehouse = warehouseRepository.save(warehouse);
-        return convertToDTO(savedWarehouse);
+    public CommercialAreaDTO createCommercialArea(CommercialAreaDTO commercialAreaDTO) {
+        CommercialArea commercialArea = convertToEntity(commercialAreaDTO);
+        CommercialArea savedCommercialArea = commercialAreaRepository.save(commercialArea);
+        return convertToDTO(savedCommercialArea);
     }
 
     @Transactional(readOnly = true)
-    public WarehouseDTO getWarehouseByCode(String propertyCode) {
-        Warehouse warehouse = warehouseRepository.findByPropertyCode(propertyCode);
-        if (warehouse == null) {
-            throw new EntityNotFoundException("Warehouse not found with code: " + propertyCode);
+    public CommercialAreaDTO getCommercialAreaByCode(String propertyCode) {
+        CommercialArea commercialArea = commercialAreaRepository.findByPropertyCode(propertyCode);
+        if (commercialArea == null) {
+            throw new EntityNotFoundException("Commercial Area not found with code: " + propertyCode);
         }
-        return convertToDTO(warehouse);
+        return convertToDTO(commercialArea);
     }
 
     @Transactional(readOnly = true)
-    public Page<WarehouseDTO> getAllWarehouses(Pageable pageable) {
-        return warehouseRepository.findAll(pageable)
+    public Page<CommercialAreaDTO> getAllCommercialAreas(Pageable pageable) {
+        return commercialAreaRepository.findAll(pageable)
                 .map(this::convertToDTO);
     }
 
     @Transactional
-    public WarehouseDTO updateWarehouse(String propertyCode, WarehouseDTO warehouseDTO) {
-        Warehouse existingWarehouse = warehouseRepository.findByPropertyCode(propertyCode);
-        if (existingWarehouse == null) {
-            throw new EntityNotFoundException("Warehouse not found with code: " + propertyCode);
+    public CommercialAreaDTO updateCommercialArea(String propertyCode, CommercialAreaDTO commercialAreaDTO) {
+        CommercialArea existingCommercialArea = commercialAreaRepository.findByPropertyCode(propertyCode);
+        if (existingCommercialArea == null) {
+            throw new EntityNotFoundException("Commercial Area not found with code: " + propertyCode);
         }
-        updateEntityFromDTO(existingWarehouse, warehouseDTO);
-        Warehouse updatedWarehouse = warehouseRepository.save(existingWarehouse);
-        return convertToDTO(updatedWarehouse);
+        updateEntityFromDTO(existingCommercialArea, commercialAreaDTO);
+        CommercialArea updatedCommercialArea = commercialAreaRepository.save(existingCommercialArea);
+        return convertToDTO(updatedCommercialArea);
     }
 
     @Transactional
-    public void deleteWarehouse(String propertyCode) {
-        Warehouse warehouse = warehouseRepository.findByPropertyCode(propertyCode);
-        if (warehouse == null) {
-            throw new EntityNotFoundException("Warehouse not found with code: " + propertyCode);
+    public void deleteCommercialArea(String propertyCode) {
+        CommercialArea commercialArea = commercialAreaRepository.findByPropertyCode(propertyCode);
+        if (commercialArea == null) {
+            throw new EntityNotFoundException("Commercial Area not found with code: " + propertyCode);
         }
-        warehouseRepository.delete(warehouse);
+        commercialAreaRepository.delete(commercialArea);
     }
 
-    private Warehouse convertToEntity(WarehouseDTO dto) {
+    private CommercialArea convertToEntity(CommercialAreaDTO dto) {
         Seller seller = sellerRepository.findById(dto.getSellerId())
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));
 
@@ -73,7 +73,7 @@ public class WarehouseService {
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + dto.getAgentId()))
                 : null;
 
-        return Warehouse.builder()
+        return CommercialArea.builder()
                 .price(dto.getPrice())
                 .address(dto.getAddress())
                 .nameOfBuilding(dto.getNameOfBuilding())
@@ -101,11 +101,13 @@ public class WarehouseService {
                 .garagesInRow(dto.getGaragesInRow())
                 .hasSolarEnergy(dto.getHasSolarEnergy())
                 .keyAvailable(dto.getKeyAvailable())
+                .hasWall(dto.getHasWall())
+                .hasAsphalt(dto.getHasAsphalt())
                 .build();
     }
 
-    private WarehouseDTO convertToDTO(Warehouse entity) {
-        return WarehouseDTO.builder()
+    private CommercialAreaDTO convertToDTO(CommercialArea entity) {
+        return CommercialAreaDTO.builder()
                 .id(entity.getId())
                 .propertyCode(entity.getPropertyCode())
                 .price(entity.getPrice())
@@ -135,10 +137,12 @@ public class WarehouseService {
                 .garagesInRow(entity.getGaragesInRow())
                 .hasSolarEnergy(entity.getHasSolarEnergy())
                 .keyAvailable(entity.getKeyAvailable())
+                .hasWall(entity.getHasWall())
+                .hasAsphalt(entity.getHasAsphalt())
                 .build();
     }
 
-    private void updateEntityFromDTO(Warehouse entity, WarehouseDTO dto) {
+    private void updateEntityFromDTO(CommercialArea entity, CommercialAreaDTO dto) {
         entity.setPrice(dto.getPrice());
         entity.setAddress(dto.getAddress());
         entity.setNameOfBuilding(dto.getNameOfBuilding());
@@ -163,6 +167,8 @@ public class WarehouseService {
         entity.setGaragesInRow(dto.getGaragesInRow());
         entity.setHasSolarEnergy(dto.getHasSolarEnergy());
         entity.setKeyAvailable(dto.getKeyAvailable());
+        entity.setHasWall(dto.getHasWall());
+        entity.setHasAsphalt(dto.getHasAsphalt());
 
         Seller seller = sellerRepository.findById(dto.getSellerId())
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));
