@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
+@NoArgsConstructor
 public class RuralDTO extends PropertyDTO {
 
     private AreaMeasurementDTO totalArea;

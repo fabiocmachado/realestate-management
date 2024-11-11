@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.realestate.enums.ConservationStatus;
 import com.realestate.enums.EnergyType;
-import com.realestate.enums.PropertyType;
 import com.realestate.repository.SellerRepository;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
+@NoArgsConstructor
 public class FarmDTO extends RuralDTO {
 
     @NotBlank
