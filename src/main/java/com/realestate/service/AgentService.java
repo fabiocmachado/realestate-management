@@ -22,7 +22,7 @@ public class AgentService {
 
     @Transactional(readOnly = true)
     public List<AgentDTO> findAllAgents() {
-        return agentRepository.findAll().stream()
+        return agentRepository.findAllByOrderByIdAsc().stream()
                 .map(AgentDTO::fromEntity)
                 .collect(Collectors.toList());
     }

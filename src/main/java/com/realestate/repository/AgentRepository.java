@@ -15,7 +15,7 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
     Optional<Agent> findByLicenseNumber(String licenseNumber);
     boolean existsByCpf(String cpf);
     boolean existsByLicenseNumber(String licenseNumber);
-
+    List<Agent> findAllByOrderByIdAsc();
     @Query("SELECT a FROM Agent a WHERE SIZE(a.prospectedProperties) > 0")
     List<Agent> findAllWithProperties();
 
