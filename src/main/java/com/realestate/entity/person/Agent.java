@@ -1,5 +1,6 @@
 package com.realestate.entity.person;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.realestate.entity.property.Property;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,9 +23,11 @@ public class Agent extends Person {
     private String licenseNumber;
 
     @OneToMany(mappedBy = "prospectedBy", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Property> prospectedProperties = new ArrayList<>();
 
     @OneToMany(mappedBy = "responsibleAgent")
+    @JsonBackReference
     private List<Buyer> responsibleBuyers;
 
     public Agent(Long id, String name, String cpf, String rg, String email,

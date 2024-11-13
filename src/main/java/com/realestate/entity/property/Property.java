@@ -1,5 +1,6 @@
 package com.realestate.entity.property;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
 import com.realestate.enums.PropertyType;
@@ -77,11 +78,12 @@ public abstract class Property {
     @NotNull(message = "Vendedor é obrigatório")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", nullable = false)
+    @JsonIgnore
     private Seller seller;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prospected_by_id",referencedColumnName = "id")
-    private Agent prospectedBy;
+    @JsonIgnore    private Agent prospectedBy;
 
     @PrePersist
     protected void onCreate() {

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Data
 @SuperBuilder
@@ -39,8 +38,10 @@ public class PropertyDTO {
     @NotNull(message = "Agente é obrigatório")
     private Long agentId;
 
+    private static long counter = 0;
+
     public static String generateUniquePropertyCode() {
-        String uniquePrefix = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        return String.format("PROP-%s-%d", uniquePrefix, System.currentTimeMillis());
+        counter++;
+        return String.format("PROP-%06d", counter);
     }
 }
