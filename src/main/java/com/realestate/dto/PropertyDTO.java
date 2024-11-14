@@ -38,6 +38,8 @@ public class PropertyDTO {
     @NotNull(message = "Agente é obrigatório")
     private Long agentId;
 
+    private String propertyCategory;
+
     private static long counter = 0;
 
     public static String generateUniquePropertyCode() {

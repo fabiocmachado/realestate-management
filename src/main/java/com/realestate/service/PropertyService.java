@@ -1,14 +1,13 @@
 package com.realestate.service;
 
+import com.realestate.dto.PropertyDTO;
 import com.realestate.entity.property.Property;
 import com.realestate.exception.ResourceNotFoundException;
 import com.realestate.repository.PropertyRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PropertyService {
@@ -16,24 +15,24 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
-    public Property getProperty(Long id) {
-        Optional<Property> propertyOptional = propertyRepository.findById(id);
-        if (propertyOptional.isPresent()) {
-            Property property = propertyOptional.get();
-            Hibernate.initialize(property.getSeller());
-            Hibernate.initialize(property.getProspectedBy());
-            return property;
-        } else {
-            throw new ResourceNotFoundException("Property not found");
-        }
+    public PropertyDTO getPropertyDTOByCode(String propertyCode) {
+        Property property = propertyRepository.getPropertyByPropertyCode(propertyCode)
+                .orElseThrow(() -> new ResourceNotFoundException("Property not found with code: " + propertyCode));
+        return mapToDTO(property);
     }
 
-    public List<Property> getAllProperties() {
-        List<Property> properties = propertyRepository.findAll(Sort.by(Sort.Order.desc("id")));
-        for (Property property : properties) {
-            Hibernate.initialize(property.getSeller());
-            Hibernate.initialize(property.getProspectedBy());
-        }
-        return properties;
+    public Page<PropertyDTO> getAllProperties(Pageable pageable) {
+        Page<Property> propertyPage = propertyRepository.findAll(pageable);
+        return propertyPage.map(this::mapToDTO);
+    }
+
+    private PropertyDTO mapToDTO(Property property) {
+        return PropertyDTO.builder()
+                .propertyCode(property.getPropertyCode())
+                .price(property.getPrice())
+                .address(property.getAddress())
+                .description(property.getDescription())
+                .propertyCategory(property.getClass().getSimpleName())  // 'Apartment', 'Townhouse', etc.
+                .build();
     }
 }
