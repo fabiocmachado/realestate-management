@@ -3,8 +3,8 @@ package com.realestate.entity.property;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
-import com.realestate.enums.PropertyType;
 import com.realestate.enums.PropertyStatus;
+import com.realestate.enums.PropertyType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -17,20 +17,17 @@ import java.time.LocalDateTime;
 
 import static com.realestate.dto.PropertyDTO.generateUniquePropertyCode;
 
-
-@Entity
-@Table(name = "properties",
-        indexes = {
-                @Index(name = "idx_property_status", columnList = "status"),
-                @Index(name = "idx_property_price", columnList = "price"),
-        }
-)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "property_category", discriminatorType = DiscriminatorType.STRING)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@Entity
+@Table(name = "properties", indexes = {
+        @Index(name = "idx_property_status", columnList = "status"),
+        @Index(name = "idx_property_price", columnList = "price")
+})
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "property_category", discriminatorType = DiscriminatorType.STRING)
 public abstract class Property {
 
     @Id
@@ -46,6 +43,7 @@ public abstract class Property {
 
     @NotNull(message = "Preço é obrigatório")
     @Positive(message = "Preço deve ser positivo")
+    @Digits(integer = 10, fraction = 2, message = "Price should have up to 10 digits with up to 2 decimal places")
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal price;
 
@@ -72,18 +70,22 @@ public abstract class Property {
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @NotNull(message = "Vendedor é obrigatório")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id", nullable = false)
     @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "agent_id")
+    private Agent agent;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id")
     private Seller seller;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prospected_by_id",referencedColumnName = "id")
-    @JsonIgnore    private Agent prospectedBy;
+    private Agent prospectedBy;
 
     @PrePersist
     protected void onCreate() {

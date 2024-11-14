@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @SuperBuilder
@@ -40,10 +41,8 @@ public class PropertyDTO {
 
     private String propertyCategory;
 
-    private static long counter = 0;
-
     public static String generateUniquePropertyCode() {
-        counter++;
-        return String.format("PROP-%06d", counter);
+        String uniquePrefix = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        return String.format("PROP-%s-%d", uniquePrefix, System.currentTimeMillis());
     }
 }
