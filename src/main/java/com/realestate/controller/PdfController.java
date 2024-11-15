@@ -32,13 +32,10 @@ public class PdfController {
     @GetMapping("/{propertyType}/empty-pdf")
     public ResponseEntity<byte[]> generateEmptyPropertyPdf(@PathVariable String propertyType) {
         try {
-            // Cria um DTO vazio com base no tipo de propriedade
             PropertyDTO propertyDTO = createEmptyPropertyDto(propertyType);
 
-            // Gera o PDF
             byte[] pdfBytes = pdfGenerationService.generatePropertyPdf(propertyDTO);
 
-            // Configura o cabeçalho da resposta
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Disposition", "inline; filename=ficha_cadastral_" + propertyType + ".pdf");
 
@@ -47,10 +44,8 @@ public class PdfController {
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(pdfBytes);
         } catch (IllegalArgumentException e) {
-            // Tipo de propriedade inválido
             return ResponseEntity.badRequest().body(null);
         } catch (IOException e) {
-            // Erro interno no servidor
             return ResponseEntity.internalServerError().body(null);
         }
     }
@@ -84,7 +79,6 @@ public class PdfController {
     private PropertyDTO mapPropertyToDto(Property property) {
         PropertyDTO propertyDTO;
 
-        // Verifica o tipo da propriedade e cria o DTO apropriado
         if (property instanceof Apartment) {
             propertyDTO = new ApartmentDTO();
         } else if (property instanceof House) {
@@ -99,7 +93,6 @@ public class PdfController {
             throw new IllegalArgumentException("Tipo de propriedade desconhecido: " + property.getClass().getSimpleName());
         }
 
-        // Preenche os campos do DTO usando reflexão
         mapFields(property, propertyDTO);
 
         return propertyDTO;
@@ -107,6 +100,7 @@ public class PdfController {
 
     private void mapFields(Object source, Object target) {
         Class<?> currentClass = source.getClass();
+
         while (currentClass != null) {
             Field[] fields = currentClass.getDeclaredFields();
             for (Field field : fields) {
@@ -127,6 +121,7 @@ public class PdfController {
         }
     }
 
+
     private Field getField(Class<?> clazz, String fieldName) {
         Class<?> currentClass = clazz;
         while (currentClass != null) {
@@ -141,20 +136,32 @@ public class PdfController {
 
 
     private PropertyDTO createEmptyPropertyDto(String propertyType) {
+        PropertyDTO propertyDTO;
         switch (propertyType.toLowerCase()) {
             case "apartment":
-                return new ApartmentDTO();
+                propertyDTO = new ApartmentDTO();
+                propertyDTO.setPropertyCategory("Apartment");
+                break;
             case "house":
-                return new HouseDTO();
+                propertyDTO = new HouseDTO();
+                propertyDTO.setPropertyCategory("House");
+                break;
             case "townhouse":
-                return new TownhouseDTO();
+                propertyDTO = new TownhouseDTO();
+                propertyDTO.setPropertyCategory("Townhouse");
+                break;
             case "urbanland":
-                return new UrbanLandDTO();
+                propertyDTO = new UrbanLandDTO();
+                propertyDTO.setPropertyCategory("Urban Land");
+                break;
             case "penthouse":
-                return new PenthouseDTO();
+                propertyDTO = new PenthouseDTO();
+                propertyDTO.setPropertyCategory("Penthouse");
+                break;
             default:
-                throw new IllegalArgumentException("Unknown property type: " + propertyType);
+                throw new IllegalArgumentException("Tipo de imóvel desconhecido: " + propertyType);
         }
+        return propertyDTO;
     }
 }
 

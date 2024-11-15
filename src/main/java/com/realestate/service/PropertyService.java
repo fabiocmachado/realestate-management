@@ -41,7 +41,6 @@ public class PropertyService {
         }
     }
 
-    // Métodos de mapeamento para cada tipo de imóvel (DTO)
     private ApartmentDTO mapToApartmentDTO(Property property) {
         return new ApartmentDTO();
     }
