@@ -62,12 +62,10 @@ public class PropertyService {
         return new PenthouseDTO();
     }
 
-    // Método para obter todas as propriedades com paginação
     public Page<PropertyDTO> getAllProperties(Pageable pageable) {
         return propertyRepository.findAll(pageable).map(this::mapToDTO);
     }
 
-    // Método genérico de mapeamento para PropertyDTO
     private PropertyDTO mapToDTO(Property property) {
         return PropertyDTO.builder()
                 .propertyCode(property.getPropertyCode())

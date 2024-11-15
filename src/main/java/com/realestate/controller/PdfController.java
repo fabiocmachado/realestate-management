@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Optional;
 
 @RestController
@@ -81,31 +82,63 @@ public class PdfController {
     }
 
     private PropertyDTO mapPropertyToDto(Property property) {
-        PropertyDTO propertyDTO = new PropertyDTO();
-        propertyDTO.setPropertyCode(property.getPropertyCode());
-        propertyDTO.setPrice(property.getPrice());
-        propertyDTO.setAddress(property.getAddress());
-        propertyDTO.setDescription(property.getDescription());
+        PropertyDTO propertyDTO;
 
+        // Verifica o tipo da propriedade e cria o DTO apropriado
         if (property instanceof Apartment) {
-            Apartment apartment = (Apartment) property;
-            // Mapeie campos específicos de Apartment aqui
+            propertyDTO = new ApartmentDTO();
         } else if (property instanceof House) {
-            House house = (House) property;
-            // Mapeie campos específicos de House aqui
+            propertyDTO = new HouseDTO();
         } else if (property instanceof Townhouse) {
-            Townhouse townhouse = (Townhouse) property;
-            // Mapeie campos específicos de Townhouse aqui
+            propertyDTO = new TownhouseDTO();
         } else if (property instanceof UrbanLand) {
-            UrbanLand urbanLand = (UrbanLand) property;
-            // Mapeie campos específicos de UrbanLand aqui
+            propertyDTO = new UrbanLandDTO();
         } else if (property instanceof Penthouse) {
-            Penthouse penthouse = (Penthouse) property;
-            // Mapeie campos específicos de Penthouse aqui
+            propertyDTO = new PenthouseDTO();
+        } else {
+            throw new IllegalArgumentException("Tipo de propriedade desconhecido: " + property.getClass().getSimpleName());
         }
+
+        // Preenche os campos do DTO usando reflexão
+        mapFields(property, propertyDTO);
 
         return propertyDTO;
     }
+
+    private void mapFields(Object source, Object target) {
+        Class<?> currentClass = source.getClass();
+        while (currentClass != null) {
+            Field[] fields = currentClass.getDeclaredFields();
+            for (Field field : fields) {
+                try {
+                    field.setAccessible(true);
+                    Object value = field.get(source);
+
+                    Field targetField = getField(target.getClass(), field.getName());
+                    if (targetField != null) {
+                        targetField.setAccessible(true);
+                        targetField.set(target, value);
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            currentClass = currentClass.getSuperclass();
+        }
+    }
+
+    private Field getField(Class<?> clazz, String fieldName) {
+        Class<?> currentClass = clazz;
+        while (currentClass != null) {
+            try {
+                return currentClass.getDeclaredField(fieldName);
+            } catch (NoSuchFieldException e) {
+                currentClass = currentClass.getSuperclass();
+            }
+        }
+        return null;
+    }
+
 
     private PropertyDTO createEmptyPropertyDto(String propertyType) {
         switch (propertyType.toLowerCase()) {
