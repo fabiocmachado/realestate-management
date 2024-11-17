@@ -10,11 +10,11 @@ import com.realestate.repository.HouseRepository;
 import com.realestate.repository.SellerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class HouseService {
@@ -72,6 +72,7 @@ public class HouseService {
         House updatedHouse = houseRepository.save(existingHouse);
         return houseMapper.toDto(updatedHouse);
     }
+
     @Transactional
     public void deleteHouse(String propertyCode) {
         House house = houseRepository.findByPropertyCode(propertyCode);
@@ -81,4 +82,3 @@ public class HouseService {
         houseRepository.delete(house);
     }
 }
-

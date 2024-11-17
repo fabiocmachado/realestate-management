@@ -29,7 +29,7 @@ public class PenthouseController {
     public ResponseEntity<PenthouseDTO> getPenthouseByCode(
             @PathVariable String propertyCode
     ) {
-        PenthouseDTO penthouse = penthouseService.getPenthouseByCode(propertyCode);
+        PenthouseDTO penthouse = penthouseService.getPenthouseByPropertyCode(propertyCode);
         return ResponseEntity.ok(penthouse);
     }
 

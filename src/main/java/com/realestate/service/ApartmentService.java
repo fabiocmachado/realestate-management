@@ -26,9 +26,9 @@ public class ApartmentService {
 
     @Transactional
     public ApartmentDTO createApartment(ApartmentDTO apartmentDTO) {
-        Apartment apartment = apartmentMapper.toEntity(apartmentDTO, sellerRepository, agentRepository);
+        Apartment apartment = apartmentMapper.toEntity(apartmentDTO, sellerRepository.findById(apartmentDTO.getSellerId()).orElseThrow(), agentRepository.findById(apartmentDTO.getAgentId()).orElseThrow());
         Apartment savedApartment = apartmentRepository.save(apartment);
-        return apartmentMapper.toDTO(savedApartment);
+        return apartmentMapper.toDto(savedApartment);
     }
 
     @Transactional(readOnly = true)
@@ -37,13 +37,13 @@ public class ApartmentService {
         if (apartment == null) {
             throw new EntityNotFoundException("Apartment not found with code: " + propertyCode);
         }
-        return apartmentMapper.toDTO(apartment);
+        return apartmentMapper.toDto(apartment);
     }
 
     @Transactional(readOnly = true)
     public Page<ApartmentDTO> getAllApartments(Pageable pageable) {
         return apartmentRepository.findAll(pageable)
-                .map(apartmentMapper::toDTO);
+                .map(apartmentMapper::toDto);
     }
 
     @Transactional
@@ -52,9 +52,9 @@ public class ApartmentService {
         if (existingApartment == null) {
             throw new EntityNotFoundException("Apartment not found with code: " + propertyCode);
         }
-        apartmentMapper.updateEntityFromDTO(existingApartment, apartmentDTO, sellerRepository, agentRepository);
+        apartmentMapper.updateEntity(existingApartment, apartmentDTO, sellerRepository.findById(apartmentDTO.getSellerId()).orElseThrow(), agentRepository.findById(apartmentDTO.getAgentId()).orElseThrow());
         Apartment updatedApartment = apartmentRepository.save(existingApartment);
-        return apartmentMapper.toDTO(updatedApartment);
+        return apartmentMapper.toDto(updatedApartment);
     }
 
     @Transactional

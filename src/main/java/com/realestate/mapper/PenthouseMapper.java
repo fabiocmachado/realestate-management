@@ -1,13 +1,15 @@
 package com.realestate.mapper;
 
 import com.realestate.dto.ApartmentDTO;
+import com.realestate.dto.PenthouseDTO;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
 import com.realestate.entity.property.urban.residential.Apartment;
+import com.realestate.entity.property.urban.residential.Penthouse;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
-public interface ApartmentMapper {
+@Mapper(componentModel = "spring", uses = {ApartmentMapper.class})
+public interface PenthouseMapper {
 
     @Mapping(target = "propertyCode", source = "entity.propertyCode")
     @Mapping(target = "price", source = "entity.price")
@@ -20,7 +22,7 @@ public interface ApartmentMapper {
     @Mapping(target = "bedrooms", source = "entity.bedrooms")
     @Mapping(target = "bathrooms", source = "entity.bathrooms")
     @Mapping(target = "garageSpaces", source = "entity.garageSpaces")
-    ApartmentDTO toDto(Apartment entity);
+    PenthouseDTO toDto(Penthouse entity);
 
     @Mapping(target = "propertyCode", source = "dto.propertyCode")
     @Mapping(target = "price", source = "dto.price")
@@ -33,7 +35,8 @@ public interface ApartmentMapper {
     @Mapping(target = "bedrooms", source = "dto.bedrooms")
     @Mapping(target = "bathrooms", source = "dto.bathrooms")
     @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
-    Apartment toEntity(ApartmentDTO dto, Seller seller, Agent agent);
+    Penthouse toEntity(PenthouseDTO dto, Seller seller, Agent agent);
+
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "propertyCode", source = "dto.propertyCode")
@@ -47,5 +50,6 @@ public interface ApartmentMapper {
     @Mapping(target = "bedrooms", source = "dto.bedrooms")
     @Mapping(target = "bathrooms", source = "dto.bathrooms")
     @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
-    void updateEntity(@MappingTarget Apartment entity, ApartmentDTO dto, Seller seller, Agent agent);
+    void updateEntity(@MappingTarget Penthouse entity, PenthouseDTO dto, Seller seller, Agent agent);
+
 }

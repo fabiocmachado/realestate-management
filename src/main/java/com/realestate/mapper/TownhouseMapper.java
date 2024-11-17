@@ -1,13 +1,13 @@
 package com.realestate.mapper;
 
-import com.realestate.dto.ApartmentDTO;
+import com.realestate.dto.TownhouseDTO;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
-import com.realestate.entity.property.urban.residential.Apartment;
+import com.realestate.entity.property.urban.residential.Townhouse;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
-public interface ApartmentMapper {
+@Mapper(componentModel = "spring", uses = {HouseMapper.class})
+public interface TownhouseMapper {
 
     @Mapping(target = "propertyCode", source = "entity.propertyCode")
     @Mapping(target = "price", source = "entity.price")
@@ -20,20 +20,20 @@ public interface ApartmentMapper {
     @Mapping(target = "bedrooms", source = "entity.bedrooms")
     @Mapping(target = "bathrooms", source = "entity.bathrooms")
     @Mapping(target = "garageSpaces", source = "entity.garageSpaces")
-    ApartmentDTO toDto(Apartment entity);
+    TownhouseDTO toDto(Townhouse entity);
 
     @Mapping(target = "propertyCode", source = "dto.propertyCode")
     @Mapping(target = "price", source = "dto.price")
     @Mapping(target = "address", source = "dto.address")
     @Mapping(target = "description", source = "dto.description")
     @Mapping(target = "status", source = "dto.status")
-    @Mapping(target = "seller", source = "seller")
-    @Mapping(target = "agent", source = "agent")
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "seller", source = "seller") // seller passará como parâmetro
+    @Mapping(target = "agent", source = "agent")   // agent passará como parâmetro
+    @Mapping(target = "id", ignore = true)          // Ignore o ID para criação
     @Mapping(target = "bedrooms", source = "dto.bedrooms")
     @Mapping(target = "bathrooms", source = "dto.bathrooms")
     @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
-    Apartment toEntity(ApartmentDTO dto, Seller seller, Agent agent);
+    Townhouse toEntity(TownhouseDTO dto, Seller seller, Agent agent);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "propertyCode", source = "dto.propertyCode")
@@ -47,5 +47,5 @@ public interface ApartmentMapper {
     @Mapping(target = "bedrooms", source = "dto.bedrooms")
     @Mapping(target = "bathrooms", source = "dto.bathrooms")
     @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
-    void updateEntity(@MappingTarget Apartment entity, ApartmentDTO dto, Seller seller, Agent agent);
+    void updateEntity(@MappingTarget Townhouse entity, TownhouseDTO dto, Seller seller, Agent agent);
 }
