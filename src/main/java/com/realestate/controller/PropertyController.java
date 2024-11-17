@@ -1,9 +1,11 @@
 package com.realestate.controller;
 
 import com.realestate.dto.*;
+import com.realestate.entity.property.Property;
 import com.realestate.service.PdfGenerationService;
 import com.realestate.service.PropertyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +21,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class PropertyController {
 
-    private final PdfGenerationService pdfGenerationService;
     private final PropertyService propertyService;
 
     @GetMapping()
@@ -30,4 +31,12 @@ public class PropertyController {
         Pageable pageable = PageRequest.of(page, size);
         return propertyService.getAllProperties(pageable);
     }
+
+    @GetMapping("/{propertyCode}")
+    public ResponseEntity<PropertyDTO> getPropertyByCode(@PathVariable String propertyCode) {
+        return propertyService.getPropertyByCode(propertyCode)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
+

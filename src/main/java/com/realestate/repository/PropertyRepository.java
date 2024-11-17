@@ -10,11 +10,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PropertyRepository extends JpaRepository<Property, Long> , JpaSpecificationExecutor<Property> {
-    Page<Property> findAll(Pageable pageable);;
+public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSpecificationExecutor<Property> {
+    Page<Property> findAll(Pageable pageable);
     Optional<Property> getPropertyByPropertyCode(String propertyCode);
     Optional<Property> findTopByOrderByIdDesc();
     boolean existsByPropertyCode(String propertyCode);
 }
+
 
 

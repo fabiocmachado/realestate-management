@@ -17,6 +17,11 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
+    public Optional<PropertyDTO> getPropertyByCode(String propertyCode) {
+        return propertyRepository.getPropertyByPropertyCode(propertyCode)
+                .map(this::mapToDTO);
+    }
+
     public PropertyDTO getPropertyDTOByCode(String propertyCode, Class<? extends PropertyDTO> propertyClass) {
         Optional<Property> propertyOptional = propertyRepository.getPropertyByPropertyCode(propertyCode);
 
