@@ -50,7 +50,7 @@ public class PdfController {
         }
     }
 
-    @GetMapping("/{propertyCode}/pdf")
+    @GetMapping("/{propertyType}/{propertyCode}/pdf")
     public ResponseEntity<byte[]> generatePropertyPdf(@PathVariable String propertyCode) {
         Optional<Property> propertyOptional = propertyRepository.getPropertyByPropertyCode(propertyCode);
 

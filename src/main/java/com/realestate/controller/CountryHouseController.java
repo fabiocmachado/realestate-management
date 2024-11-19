@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/country-houses")
+@RequestMapping("/properties/country-houses")
 @RequiredArgsConstructor
 public class CountryHouseController {
 

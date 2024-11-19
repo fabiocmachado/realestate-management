@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/urban-lands")
+@RequestMapping("/properties/urban-lands")
 @RequiredArgsConstructor
 public class UrbanLandController {
 

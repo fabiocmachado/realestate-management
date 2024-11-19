@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/townhouses")
+@RequestMapping("/properties/townhouses")
 @RequiredArgsConstructor
 public class TownhouseController {
     private final TownhouseService townhouseService;

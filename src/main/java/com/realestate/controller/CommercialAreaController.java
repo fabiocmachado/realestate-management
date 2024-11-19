@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/commercial-areas")
+@RequestMapping("/properties/commercial-areas")
 @RequiredArgsConstructor
 public class CommercialAreaController {
 

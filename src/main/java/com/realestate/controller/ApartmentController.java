@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/apartments")
+@RequestMapping("/properties/apartments")
 @RequiredArgsConstructor
 public class ApartmentController {
 

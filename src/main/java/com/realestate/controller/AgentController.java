@@ -1,7 +1,6 @@
 package com.realestate.controller;
 
 import com.realestate.dto.AgentDTO;
-import com.realestate.dto.SellerDTO;
 import com.realestate.service.AgentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
