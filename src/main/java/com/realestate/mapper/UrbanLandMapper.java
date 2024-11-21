@@ -4,77 +4,40 @@ import com.realestate.dto.UrbanLandDTO;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
 import com.realestate.entity.property.urban.residential.UrbanLand;
-import com.realestate.repository.AgentRepository;
-import com.realestate.repository.SellerRepository;
-import jakarta.persistence.EntityNotFoundException;
-import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
+import org.mapstruct.*;
+import org.springframework.boot.context.properties.PropertyMapper;
 
-@Component
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {PropertyMapper.class}) // Use outros mappers se necessário
 public interface UrbanLandMapper {
 
-    default UrbanLand toEntity(UrbanLandDTO dto, SellerRepository sellerRepository, AgentRepository agentRepository) {
-        Seller seller = sellerRepository.findById(dto.getSellerId())
-                .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));
+    @Mapping(target = "propertyCode", source = "entity.propertyCode")
+    @Mapping(target = "price", source = "entity.price")
+    @Mapping(target = "address", source = "entity.address")
+    @Mapping(target = "description", source = "entity.description")
+    @Mapping(target = "status", source = "entity.status")
+    @Mapping(target = "sellerId", source = "entity.seller.id")
+    @Mapping(target = "id", source = "entity.id")
+    UrbanLandDTO toDTO(UrbanLand entity);
 
-        Agent agent = dto.getAgentId() != null
-                ? agentRepository.findById(dto.getAgentId())
-                .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + dto.getAgentId()))
-                : null;
+    @Mapping(target = "propertyCode", source = "dto.propertyCode")
+    @Mapping(target = "price", source = "dto.price")
+    @Mapping(target = "address", source = "dto.address")
+    @Mapping(target = "description", source = "dto.description")
+    @Mapping(target = "status", source = "dto.status")
+    @Mapping(target = "seller", source = "seller") //
+    @Mapping(target = "agent", source = "agent")
+    @Mapping(target = "id", ignore = true)
+    UrbanLand toEntity(UrbanLandDTO dto, Seller seller, Agent agent);
 
-        return UrbanLand.builder()
-                .price(dto.getPrice())
-                .address(dto.getAddress())
-                .description(dto.getDescription())
-                .totalArea(dto.getTotalArea())
-                .hasWall(dto.getHasWall())
-                .hasAsphalt(dto.getHasAsphalt())
-                .keyAvailable(dto.getKeyAvailable())
-                .status(dto.getStatus())
-                .seller(seller)
-                .prospectedBy(agent)
-                .build();
-    }
-
-    default UrbanLandDTO toDTO(UrbanLand entity) {
-        return UrbanLandDTO.builder()
-                .id(entity.getId())
-                .propertyCode(entity.getPropertyCode())
-                .price(entity.getPrice())
-                .address(entity.getAddress())
-                .description(entity.getDescription())
-                .totalArea(entity.getTotalArea())
-                .hasWall(entity.getHasWall())
-                .hasAsphalt(entity.getHasAsphalt())
-                .keyAvailable(entity.getKeyAvailable())
-                .sellerId(entity.getSeller().getId())
-                .agentId(entity.getProspectedBy() != null ? entity.getProspectedBy().getId() : null)
-                .status(entity.getStatus())
-                .build();
-    }
-
-    default void updateEntityFromDTO(UrbanLand entity, UrbanLandDTO dto, SellerRepository sellerRepository, AgentRepository agentRepository) {
-        entity.setPrice(dto.getPrice());
-        entity.setAddress(dto.getAddress());
-        entity.setDescription(dto.getDescription());
-        entity.setTotalArea(dto.getTotalArea());
-        entity.setHasWall(dto.getHasWall());
-        entity.setHasAsphalt(dto.getHasAsphalt());
-        entity.setKeyAvailable(dto.getKeyAvailable());
-
-        Seller seller = sellerRepository.findById(dto.getSellerId())
-                .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + dto.getSellerId()));
-        entity.setSeller(seller);
-
-        if (dto.getAgentId() != null) {
-            Agent agent = agentRepository.findById(dto.getAgentId())
-                    .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + dto.getAgentId()));
-            entity.setProspectedBy(agent);
-        } else {
-            entity.setProspectedBy(null);
-        }
-
-        entity.setStatus(dto.getStatus());
-    }
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "propertyCode", source = "dto.propertyCode")
+    @Mapping(target = "price", source = "dto.price")
+    @Mapping(target = "address", source = "dto.address")
+    @Mapping(target = "description", source = "dto.description")
+    @Mapping(target = "status", source = "dto.status")
+    @Mapping(target = "seller", source = "seller")
+    @Mapping(target = "agent", source = "agent")
+    @Mapping(target = "id", source = "dto.id")
+    void updateEntity(@MappingTarget UrbanLand entity, UrbanLandDTO dto, Seller seller, Agent agent);
 }
+

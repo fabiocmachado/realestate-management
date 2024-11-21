@@ -22,9 +22,9 @@ public class WarehouseController {
     }
 
     @GetMapping("/{propertyCode}")
-    public ResponseEntity<WarehouseDTO> getWarehouseByCode(@PathVariable String propertyCode) {
-        WarehouseDTO warehouse = warehouseService.getWarehouseByCode(propertyCode);
-        return ResponseEntity.ok(warehouse);
+    public ResponseEntity<WarehouseDTO> getWarehouseByPropertyCode(@PathVariable String propertyCode) {
+        WarehouseDTO warehouseDTO = warehouseService.getWarehouseByCode(propertyCode);
+        return ResponseEntity.ok(warehouseDTO);
     }
 
     @GetMapping
@@ -36,7 +36,8 @@ public class WarehouseController {
     @PutMapping("/{propertyCode}")
     public ResponseEntity<WarehouseDTO> updateWarehouse(
             @PathVariable String propertyCode,
-            @RequestBody WarehouseDTO warehouseDTO) {
+            @RequestBody WarehouseDTO warehouseDTO
+    ) {
         WarehouseDTO updatedWarehouse = warehouseService.updateWarehouse(propertyCode, warehouseDTO);
         return ResponseEntity.ok(updatedWarehouse);
     }

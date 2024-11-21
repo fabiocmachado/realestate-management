@@ -6,7 +6,7 @@ import com.realestate.entity.person.Seller;
 import com.realestate.entity.property.urban.residential.Townhouse;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = {HouseMapper.class})
+@Mapper(componentModel = "spring")
 public interface TownhouseMapper {
 
     @Mapping(target = "propertyCode", source = "entity.propertyCode")
@@ -27,25 +27,18 @@ public interface TownhouseMapper {
     @Mapping(target = "address", source = "dto.address")
     @Mapping(target = "description", source = "dto.description")
     @Mapping(target = "status", source = "dto.status")
-    @Mapping(target = "seller", source = "seller") // seller passará como parâmetro
-    @Mapping(target = "agent", source = "agent")   // agent passará como parâmetro
-    @Mapping(target = "id", ignore = true)          // Ignore o ID para criação
+    @Mapping(target = "seller", source = "seller")
+    @Mapping(target = "agent", source = "agent")
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "bedrooms", source = "dto.bedrooms")
     @Mapping(target = "bathrooms", source = "dto.bathrooms")
     @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
     Townhouse toEntity(TownhouseDTO dto, Seller seller, Agent agent);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "propertyCode", source = "dto.propertyCode")
-    @Mapping(target = "price", source = "dto.price")
-    @Mapping(target = "address", source = "dto.address")
-    @Mapping(target = "description", source = "dto.description")
-    @Mapping(target = "status", source = "dto.status")
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "id", source = "dto.id")
-    @Mapping(target = "bedrooms", source = "dto.bedrooms")
-    @Mapping(target = "bathrooms", source = "dto.bathrooms")
-    @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
+    @Mapping(target = "address", source = "dto.address")
     void updateEntity(@MappingTarget Townhouse entity, TownhouseDTO dto, Seller seller, Agent agent);
 }

@@ -1,13 +1,13 @@
 package com.realestate.mapper;
 
-import com.realestate.dto.HouseDTO;
+import com.realestate.dto.WarehouseDTO;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
-import com.realestate.entity.property.urban.residential.House;
+import com.realestate.entity.property.urban.comercial.Warehouse;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
-public interface HouseMapper {
+public interface WarehouseMapper {
 
     @Mapping(target = "propertyCode", source = "entity.propertyCode")
     @Mapping(target = "price", source = "entity.price")
@@ -17,10 +17,7 @@ public interface HouseMapper {
     @Mapping(target = "sellerId", source = "entity.seller.id")
     @Mapping(target = "agentId", source = "entity.agent.id")
     @Mapping(target = "id", source = "entity.id")
-    @Mapping(target = "bedrooms", source = "entity.bedrooms")
-    @Mapping(target = "bathrooms", source = "entity.bathrooms")
-    @Mapping(target = "garageSpaces", source = "entity.garageSpaces")
-    HouseDTO toDto(House entity);
+    WarehouseDTO toDTO(Warehouse entity);
 
     @Mapping(target = "propertyCode", source = "dto.propertyCode")
     @Mapping(target = "price", source = "dto.price")
@@ -30,15 +27,12 @@ public interface HouseMapper {
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "bedrooms", source = "dto.bedrooms")
-    @Mapping(target = "bathrooms", source = "dto.bathrooms")
-    @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
-    House toEntity(HouseDTO dto, Seller seller, Agent agent);
+    Warehouse toEntity(WarehouseDTO dto, Seller seller, Agent agent);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "id", source = "dto.id")
     @Mapping(target = "address", source = "dto.address")
-    House updateEntity(@MappingTarget House entity, HouseDTO dto, Seller seller, Agent agent);
+    Warehouse updateEntityFromDTO(@MappingTarget Warehouse entity, WarehouseDTO dto, Seller seller, Agent agent);
 }

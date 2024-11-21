@@ -24,9 +24,9 @@ public class CommercialAreaController {
     }
 
     @GetMapping("/{propertyCode}")
-    public ResponseEntity<CommercialAreaDTO> getCommercialArea(@PathVariable String propertyCode) {
-        CommercialAreaDTO commercialArea = commercialAreaService.getCommercialAreaByCode(propertyCode);
-        return ResponseEntity.ok(commercialArea);
+    public ResponseEntity<CommercialAreaDTO> getCommercialAreaByCode(@PathVariable String propertyCode) {
+        CommercialAreaDTO commercialAreaDTO = commercialAreaService.getCommercialAreaByCode(propertyCode);
+        return ResponseEntity.ok(commercialAreaDTO);
     }
 
     @GetMapping
@@ -36,9 +36,7 @@ public class CommercialAreaController {
     }
 
     @PutMapping("/{propertyCode}")
-    public ResponseEntity<CommercialAreaDTO> updateCommercialArea(
-            @PathVariable String propertyCode,
-            @Valid @RequestBody CommercialAreaDTO commercialAreaDTO) {
+    public ResponseEntity<CommercialAreaDTO> updateCommercialArea(@PathVariable String propertyCode, @RequestBody CommercialAreaDTO commercialAreaDTO) {
         CommercialAreaDTO updatedCommercialArea = commercialAreaService.updateCommercialArea(propertyCode, commercialAreaDTO);
         return ResponseEntity.ok(updatedCommercialArea);
     }

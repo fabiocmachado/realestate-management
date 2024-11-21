@@ -1,14 +1,12 @@
 package com.realestate.mapper;
 
-import com.realestate.dto.ApartmentDTO;
 import com.realestate.dto.PenthouseDTO;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
-import com.realestate.entity.property.urban.residential.Apartment;
 import com.realestate.entity.property.urban.residential.Penthouse;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = {ApartmentMapper.class})
+@Mapper(componentModel = "spring")
 public interface PenthouseMapper {
 
     @Mapping(target = "propertyCode", source = "entity.propertyCode")
@@ -37,19 +35,10 @@ public interface PenthouseMapper {
     @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
     Penthouse toEntity(PenthouseDTO dto, Seller seller, Agent agent);
 
-
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "propertyCode", source = "dto.propertyCode")
-    @Mapping(target = "price", source = "dto.price")
-    @Mapping(target = "address", source = "dto.address")
-    @Mapping(target = "description", source = "dto.description")
-    @Mapping(target = "status", source = "dto.status")
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "id", source = "dto.id")
-    @Mapping(target = "bedrooms", source = "dto.bedrooms")
-    @Mapping(target = "bathrooms", source = "dto.bathrooms")
-    @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
-    void updateEntity(@MappingTarget Penthouse entity, PenthouseDTO dto, Seller seller, Agent agent);
-
+    @Mapping(target = "address", source = "dto.address")
+    Penthouse updateEntity(@MappingTarget Penthouse entity, PenthouseDTO dto, Seller seller, Agent agent);
 }

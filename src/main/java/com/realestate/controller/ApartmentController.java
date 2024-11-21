@@ -18,9 +18,7 @@ public class ApartmentController {
     private final ApartmentService apartmentService;
 
     @PostMapping
-    public ResponseEntity<ApartmentDTO> createApartment(
-            @Valid @RequestBody ApartmentDTO apartmentDTO
-    ) {
+    public ResponseEntity<ApartmentDTO> createApartment(@Valid @RequestBody ApartmentDTO apartmentDTO) {
         ApartmentDTO createdApartment = apartmentService.createApartment(apartmentDTO);
         return new ResponseEntity<>(createdApartment, HttpStatus.CREATED);
     }

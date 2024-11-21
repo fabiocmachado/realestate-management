@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface UrbanLandRepository extends JpaRepository<UrbanLand, Long> {
-
     Optional<UrbanLand> findByPropertyCode(String propertyCode);
 }

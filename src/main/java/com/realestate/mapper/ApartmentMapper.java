@@ -47,5 +47,5 @@ public interface ApartmentMapper {
     @Mapping(target = "bedrooms", source = "dto.bedrooms")
     @Mapping(target = "bathrooms", source = "dto.bathrooms")
     @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
-    void updateEntity(@MappingTarget Apartment entity, ApartmentDTO dto, Seller seller, Agent agent);
+    Apartment updateEntity(@MappingTarget Apartment entity, ApartmentDTO dto, Seller seller, Agent agent);
 }

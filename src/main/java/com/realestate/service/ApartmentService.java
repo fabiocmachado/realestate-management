@@ -1,8 +1,6 @@
 package com.realestate.service;
 
 import com.realestate.dto.ApartmentDTO;
-import com.realestate.entity.person.Agent;
-import com.realestate.entity.person.Seller;
 import com.realestate.entity.property.urban.residential.Apartment;
 import com.realestate.mapper.ApartmentMapper;
 import com.realestate.repository.AgentRepository;
