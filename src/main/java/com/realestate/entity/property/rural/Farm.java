@@ -12,10 +12,10 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @DiscriminatorValue("FARM")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @SuperBuilder
+@EqualsAndHashCode(callSuper = true)
 public class Farm extends Rural {
 
     @NotBlank
@@ -61,10 +61,10 @@ public class Farm extends Rural {
     @Column(name = "dams", length = 50)
     private String dams;
 
-    @Column(name = "main_house", length = 50)
+    @Column(name = "main_house", length = 100)
     private String mainHouse;
 
-    @Column(name = "staff_house", length = 50)
+    @Column(name = "staff_house", length = 100)
     private String staffHouse;
 
     @Enumerated(EnumType.STRING)
@@ -74,13 +74,13 @@ public class Farm extends Rural {
     @Column(name = "orchard")
     private Boolean orchard;
 
-    @Column(name = "warehouse", length = 50)
+    @Column(name = "warehouse", length = 100)
     private String warehouse;
 
-    @Column(name = "accommodation", length = 50)
+    @Column(name = "accommodation", length = 100)
     private String accommodation;
 
-    @Column(name = "pens", length = 50)
+    @Column(name = "pens", length = 100)
     private String pens;
 
     @Column(name = "landing_strip")

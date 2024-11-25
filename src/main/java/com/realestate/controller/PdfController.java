@@ -1,9 +1,14 @@
 package com.realestate.controller;
 
 import com.realestate.dto.*;
+import com.realestate.entity.property.rural.CountryHouse;
+import com.realestate.entity.property.rural.Farm;
+import com.realestate.entity.property.urban.comercial.CommercialArea;
+import com.realestate.entity.property.urban.comercial.CommercialBuilding;
+import com.realestate.entity.property.urban.comercial.Warehouse;
 import com.realestate.entity.property.urban.residential.*;
+import com.realestate.entity.property.*;
 import com.realestate.service.PdfGenerationService;
-import com.realestate.entity.property.Property;
 import com.realestate.repository.PropertyRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -51,11 +56,11 @@ public class PdfController {
     }
 
     @GetMapping("/{propertyType}/{propertyCode}/pdf")
-    public ResponseEntity<byte[]> generatePropertyPdf(@PathVariable String propertyCode) {
+    public ResponseEntity<byte[]> generatePropertyPdf(@PathVariable String propertyType, @PathVariable String propertyCode) {
         Optional<Property> propertyOptional = propertyRepository.getPropertyByPropertyCode(propertyCode);
 
-        if (!propertyOptional.isPresent()) {
-            return ResponseEntity.status(404).body(("Property not found with code: " + propertyCode).getBytes());
+        if (propertyOptional.isEmpty()) {
+            return ResponseEntity.status(404).body(("Propriedade não encontrada com código: " + propertyCode).getBytes());
         }
 
         Property property = propertyOptional.get();
@@ -65,14 +70,14 @@ public class PdfController {
             byte[] pdfBytes = pdfGenerationService.generatePropertyPdf(propertyDTO);
 
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition", "inline; filename=ficha_cadastral_" + propertyCode + ".pdf");
+            headers.add("Content-Disposition", "inline; filename=ficha_cadastral_" + propertyType + "_" + propertyCode + ".pdf");
 
             return ResponseEntity.ok()
                     .headers(headers)
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(pdfBytes);
         } catch (IOException e) {
-            return ResponseEntity.internalServerError().body(null);
+            return ResponseEntity.internalServerError().body(("Erro ao gerar o PDF: " + e.getMessage()).getBytes());
         }
     }
 
@@ -89,12 +94,71 @@ public class PdfController {
             propertyDTO = new UrbanLandDTO();
         } else if (property instanceof Penthouse) {
             propertyDTO = new PenthouseDTO();
+        } else if (property instanceof CommercialArea) {
+            propertyDTO = new CommercialAreaDTO();
+        } else if (property instanceof CommercialBuilding) {
+            propertyDTO = new CommercialBuildingDTO();
+        } else if (property instanceof CountryHouse) {
+            propertyDTO = new CountryHouseDTO();
+        } else if (property instanceof Farm) {
+            propertyDTO = new FarmDTO();
+        } else if (property instanceof Warehouse) {
+            propertyDTO = new WarehouseDTO();
         } else {
             throw new IllegalArgumentException("Tipo de propriedade desconhecido: " + property.getClass().getSimpleName());
         }
 
         mapFields(property, propertyDTO);
 
+        return propertyDTO;
+    }
+
+    private PropertyDTO createEmptyPropertyDto(String propertyType) {
+        PropertyDTO propertyDTO;
+        switch (propertyType.toLowerCase()) {
+            case "apartment":
+                propertyDTO = new ApartmentDTO();
+                propertyDTO.setPropertyCategory("Apartment");
+                break;
+            case "house":
+                propertyDTO = new HouseDTO();
+                propertyDTO.setPropertyCategory("House");
+                break;
+            case "townhouse":
+                propertyDTO = new TownhouseDTO();
+                propertyDTO.setPropertyCategory("Townhouse");
+                break;
+            case "urban-land":
+                propertyDTO = new UrbanLandDTO();
+                propertyDTO.setPropertyCategory("Urban Land");
+                break;
+            case "penthouse":
+                propertyDTO = new PenthouseDTO();
+                propertyDTO.setPropertyCategory("Penthouse");
+                break;
+            case "commercial-area":
+                propertyDTO = new CommercialAreaDTO();
+                propertyDTO.setPropertyCategory("Commercial Area");
+                break;
+            case "commercial-building":
+                propertyDTO = new CommercialBuildingDTO();
+                propertyDTO.setPropertyCategory("Commercial Building");
+                break;
+            case "country-house":
+                propertyDTO = new CountryHouseDTO();
+                propertyDTO.setPropertyCategory("Country House");
+                break;
+            case "farm":
+                propertyDTO = new FarmDTO();
+                propertyDTO.setPropertyCategory("Farm");
+                break;
+            case "warehouse":
+                propertyDTO = new WarehouseDTO();
+                propertyDTO.setPropertyCategory("Warehouse");
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de imóvel desconhecido: " + propertyType);
+        }
         return propertyDTO;
     }
 
@@ -121,7 +185,6 @@ public class PdfController {
         }
     }
 
-
     private Field getField(Class<?> clazz, String fieldName) {
         Class<?> currentClass = clazz;
         while (currentClass != null) {
@@ -133,35 +196,4 @@ public class PdfController {
         }
         return null;
     }
-
-
-    private PropertyDTO createEmptyPropertyDto(String propertyType) {
-        PropertyDTO propertyDTO;
-        switch (propertyType.toLowerCase()) {
-            case "apartment":
-                propertyDTO = new ApartmentDTO();
-                propertyDTO.setPropertyCategory("Apartment");
-                break;
-            case "house":
-                propertyDTO = new HouseDTO();
-                propertyDTO.setPropertyCategory("House");
-                break;
-            case "townhouse":
-                propertyDTO = new TownhouseDTO();
-                propertyDTO.setPropertyCategory("Townhouse");
-                break;
-            case "urbanland":
-                propertyDTO = new UrbanLandDTO();
-                propertyDTO.setPropertyCategory("Urban Land");
-                break;
-            case "penthouse":
-                propertyDTO = new PenthouseDTO();
-                propertyDTO.setPropertyCategory("Penthouse");
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de imóvel desconhecido: " + propertyType);
-        }
-        return propertyDTO;
-    }
 }
-

@@ -1,11 +1,15 @@
 package com.realestate.service;
 
+import com.realestate.dto.CommercialAreaDTO;
 import com.realestate.dto.CommercialBuildingDTO;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
+import com.realestate.entity.property.urban.comercial.CommercialArea;
 import com.realestate.entity.property.urban.comercial.CommercialBuilding;
 import com.realestate.mapper.CommercialBuildingMapper;
+import com.realestate.repository.AgentRepository;
 import com.realestate.repository.CommercialBuildingRepository;
+import com.realestate.repository.SellerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,18 +23,14 @@ public class CommercialBuildingService {
 
     private final CommercialBuildingRepository commercialBuildingRepository;
     private final CommercialBuildingMapper commercialBuildingMapper;
-    private final SellerService sellerService;
-    private final AgentService agentService;
+    private final SellerRepository sellerRepository;
+    private final AgentRepository agentRepository;
 
     @Transactional
     public CommercialBuildingDTO createCommercialBuilding(CommercialBuildingDTO commercialBuildingDTO) {
-        Seller seller = sellerService.findById(commercialBuildingDTO.getSellerId()).toEntity();
-        Agent agent = agentService.findAgentById(commercialBuildingDTO.getAgentId())
-                .orElseThrow(() -> new EntityNotFoundException("Agente não encontrado com ID: " + commercialBuildingDTO.getAgentId()))
-                .toEntity();
-        CommercialBuilding commercialBuilding = commercialBuildingMapper.toEntity(commercialBuildingDTO, seller, agent);
-        CommercialBuilding savedEntity = commercialBuildingRepository.save(commercialBuilding);
-        return commercialBuildingMapper.toDTO(savedEntity);
+        CommercialBuilding commercialBuilding = commercialBuildingMapper.toEntity(commercialBuildingDTO, sellerRepository.findById(commercialBuildingDTO.getSellerId()).orElseThrow(), agentRepository.findById(commercialBuildingDTO.getAgentId()).orElseThrow());
+        CommercialBuilding savedCommercialBuilding = commercialBuildingRepository.save(commercialBuilding);
+        return commercialBuildingMapper.toDTO(savedCommercialBuilding);
     }
 
     @Transactional(readOnly = true)
@@ -55,14 +55,11 @@ public class CommercialBuildingService {
             throw new EntityNotFoundException("Commercial Building not found with PropertyCode: " + propertyCode);
         }
 
-        Seller seller = sellerService.findById(commercialBuildingDTO.getSellerId()).toEntity();
-        Agent agent = agentService.findAgentById(commercialBuildingDTO.getAgentId())
-                .orElseThrow(() -> new EntityNotFoundException("Agente não encontrado com ID: " + commercialBuildingDTO.getAgentId()))
-                .toEntity();
-        commercialBuildingMapper.updateEntityFromDTO(existingEntity, commercialBuildingDTO, seller, agent);
+        commercialBuildingMapper.updateEntityFromDTO(existingEntity, commercialBuildingDTO,sellerRepository.findById(commercialBuildingDTO.getSellerId()).orElseThrow(), agentRepository.findById(commercialBuildingDTO.getAgentId()).orElseThrow()); // Passe os parâmetros Seller e Agent conforme necessário
         CommercialBuilding updatedEntity = commercialBuildingRepository.save(existingEntity);
         return commercialBuildingMapper.toDTO(updatedEntity);
     }
+
 
     @Transactional
     public void deleteCommercialBuilding(String propertyCode) {

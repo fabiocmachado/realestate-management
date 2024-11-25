@@ -9,10 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @DiscriminatorValue("RURAL")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @SuperBuilder
+@EqualsAndHashCode(callSuper = true)
 public class Rural extends Property {
     @NotNull
     @Embedded
