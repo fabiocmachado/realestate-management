@@ -2,7 +2,6 @@ package com.realestate.dto;
 
 import com.realestate.entity.property.rural.Rural;
 import com.realestate.enums.PropertyType;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

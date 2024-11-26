@@ -1,40 +1,37 @@
 package com.realestate.entity.person;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.realestate.entity.property.Property;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
-@SuperBuilder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @DiscriminatorValue("AGENT")
 public class Agent extends Person {
 
+    @Column(name = "license_number", nullable = false, unique = true)
     private String licenseNumber;
 
-    @OneToMany(mappedBy = "prospectedBy", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<Property> prospectedProperties = new ArrayList<>();
+    @Column(name = "registration_date")
+    private LocalDate registrationDate;
 
-    @OneToMany(mappedBy = "responsibleAgent")
-    @JsonBackReference
-    private List<Buyer> responsibleBuyers;
+    @Column(name = "has_admin_permissions", nullable = false)
+    private Boolean hasAdminPermissions = false;
 
-    public Agent(Long id, String name, String cpf, String rg, String email,
-                 String phone, String address, String licenseNumber, List<Property> prospectedProperties) {
-        super(id, name, cpf, rg, email, phone, address, LocalDate.now());
-        this.licenseNumber = licenseNumber;
-        this.prospectedProperties = prospectedProperties != null ?
-                prospectedProperties : new ArrayList<>();
-    }
+    @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Property> prospectedProperties;
+
+    @ManyToOne
+    @JoinColumn(name = "responsible_buyer_id")
+    private Buyer responsibleBuyer;
+
 }
+

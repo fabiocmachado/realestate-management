@@ -19,12 +19,13 @@ public class AgentController {
 
     @GetMapping
     public ResponseEntity<List<AgentDTO>> listAllAgents() {
-        return ResponseEntity.ok(agentService.findAllAgents());
+        List<AgentDTO> agents = agentService.findAllAgents();
+        return ResponseEntity.ok(agents);
     }
 
     @PostMapping
     public ResponseEntity<AgentDTO> createAgent(@Valid @RequestBody AgentDTO agentDTO) {
-        AgentDTO createdAgent = agentService.createAgent(agentDTO);
+        AgentDTO createdAgent = agentService.registerAgent(agentDTO);
         return new ResponseEntity<>(createdAgent, HttpStatus.CREATED);
     }
 

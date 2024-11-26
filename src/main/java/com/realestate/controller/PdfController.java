@@ -1,15 +1,16 @@
 package com.realestate.controller;
 
-import com.realestate.dto.*;
+import com.realestate.dto.PropertyDTO;
+import com.realestate.entity.property.Property;
 import com.realestate.entity.property.rural.CountryHouse;
 import com.realestate.entity.property.rural.Farm;
 import com.realestate.entity.property.urban.comercial.CommercialArea;
 import com.realestate.entity.property.urban.comercial.CommercialBuilding;
 import com.realestate.entity.property.urban.comercial.Warehouse;
 import com.realestate.entity.property.urban.residential.*;
-import com.realestate.entity.property.*;
-import com.realestate.service.PdfGenerationService;
+import com.realestate.mapper.*;
 import com.realestate.repository.PropertyRepository;
+import com.realestate.service.PdfGenerationService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.Optional;
 
 @RestController
@@ -28,10 +28,41 @@ public class PdfController {
 
     private final PdfGenerationService pdfGenerationService;
     private final PropertyRepository propertyRepository;
+    private final ApartmentMapper apartmentMapper;
+    private final FarmMapper farmMapper;
+    private final HouseMapper houseMapper;
+    private final TownhouseMapper townhouseMapper;
+    private final UrbanLandMapper urbanLandMapper;
+    private final PenthouseMapper penthouseMapper;
+    private final CommercialAreaMapper commercialAreaMapper;
+    private final CommercialBuildingMapper commercialBuildingMapper;
+    private final CountryHouseMapper countryHouseMapper;
+    private final WarehouseMapper warehouseMapper;
 
-    public PdfController(PdfGenerationService pdfGenerationService, PropertyRepository propertyRepository) {
+    public PdfController(PdfGenerationService pdfGenerationService,
+                         PropertyRepository propertyRepository,
+                         ApartmentMapper apartmentMapper,
+                         FarmMapper farmMapper,
+                         HouseMapper houseMapper,
+                         TownhouseMapper townhouseMapper,
+                         UrbanLandMapper urbanLandMapper,
+                         PenthouseMapper penthouseMapper,
+                         CommercialAreaMapper commercialAreaMapper,
+                         CommercialBuildingMapper commercialBuildingMapper,
+                         CountryHouseMapper countryHouseMapper,
+                         WarehouseMapper warehouseMapper) {
         this.pdfGenerationService = pdfGenerationService;
         this.propertyRepository = propertyRepository;
+        this.apartmentMapper = apartmentMapper;
+        this.farmMapper = farmMapper;
+        this.houseMapper = houseMapper;
+        this.townhouseMapper = townhouseMapper;
+        this.urbanLandMapper = urbanLandMapper;
+        this.penthouseMapper = penthouseMapper;
+        this.commercialAreaMapper = commercialAreaMapper;
+        this.commercialBuildingMapper = commercialBuildingMapper;
+        this.countryHouseMapper = countryHouseMapper;
+        this.warehouseMapper = warehouseMapper;
     }
 
     @GetMapping("/{propertyType}/empty-pdf")
@@ -82,118 +113,54 @@ public class PdfController {
     }
 
     private PropertyDTO mapPropertyToDto(Property property) {
-        PropertyDTO propertyDTO;
-
         if (property instanceof Apartment) {
-            propertyDTO = new ApartmentDTO();
-        } else if (property instanceof House) {
-            propertyDTO = new HouseDTO();
-        } else if (property instanceof Townhouse) {
-            propertyDTO = new TownhouseDTO();
-        } else if (property instanceof UrbanLand) {
-            propertyDTO = new UrbanLandDTO();
-        } else if (property instanceof Penthouse) {
-            propertyDTO = new PenthouseDTO();
-        } else if (property instanceof CommercialArea) {
-            propertyDTO = new CommercialAreaDTO();
-        } else if (property instanceof CommercialBuilding) {
-            propertyDTO = new CommercialBuildingDTO();
-        } else if (property instanceof CountryHouse) {
-            propertyDTO = new CountryHouseDTO();
+            return apartmentMapper.toDto((Apartment) property);
         } else if (property instanceof Farm) {
-            propertyDTO = new FarmDTO();
+            return farmMapper.toDTO((Farm) property);
+        } else if (property instanceof House) {
+            return houseMapper.toDto((House) property);
+        } else if (property instanceof Townhouse) {
+            return townhouseMapper.toDto((Townhouse) property);
+        } else if (property instanceof UrbanLand) {
+            return urbanLandMapper.toDTO((UrbanLand) property);
+        } else if (property instanceof Penthouse) {
+            return penthouseMapper.toDto((Penthouse) property);
+        } else if (property instanceof CommercialArea) {
+            return commercialAreaMapper.toDTO((CommercialArea) property);
+        } else if (property instanceof CommercialBuilding) {
+            return commercialBuildingMapper.toDTO((CommercialBuilding) property);
+        } else if (property instanceof CountryHouse) {
+            return countryHouseMapper.toDTO((CountryHouse) property);
         } else if (property instanceof Warehouse) {
-            propertyDTO = new WarehouseDTO();
-        } else {
-            throw new IllegalArgumentException("Tipo de propriedade desconhecido: " + property.getClass().getSimpleName());
+            return warehouseMapper.toDTO((Warehouse) property);
         }
-
-        mapFields(property, propertyDTO);
-
-        return propertyDTO;
+        throw new IllegalArgumentException("Tipo de propriedade desconhecido: " + property.getClass().getSimpleName());
     }
 
     private PropertyDTO createEmptyPropertyDto(String propertyType) {
-        PropertyDTO propertyDTO;
         switch (propertyType.toLowerCase()) {
             case "apartment":
-                propertyDTO = new ApartmentDTO();
-                propertyDTO.setPropertyCategory("Apartment");
-                break;
-            case "house":
-                propertyDTO = new HouseDTO();
-                propertyDTO.setPropertyCategory("House");
-                break;
-            case "townhouse":
-                propertyDTO = new TownhouseDTO();
-                propertyDTO.setPropertyCategory("Townhouse");
-                break;
-            case "urban-land":
-                propertyDTO = new UrbanLandDTO();
-                propertyDTO.setPropertyCategory("Urban Land");
-                break;
-            case "penthouse":
-                propertyDTO = new PenthouseDTO();
-                propertyDTO.setPropertyCategory("Penthouse");
-                break;
-            case "commercial-area":
-                propertyDTO = new CommercialAreaDTO();
-                propertyDTO.setPropertyCategory("Commercial Area");
-                break;
-            case "commercial-building":
-                propertyDTO = new CommercialBuildingDTO();
-                propertyDTO.setPropertyCategory("Commercial Building");
-                break;
-            case "country-house":
-                propertyDTO = new CountryHouseDTO();
-                propertyDTO.setPropertyCategory("Country House");
-                break;
+                return apartmentMapper.toDto(new Apartment());
             case "farm":
-                propertyDTO = new FarmDTO();
-                propertyDTO.setPropertyCategory("Farm");
-                break;
+                return farmMapper.toDTO(new Farm());
+            case "house":
+                return houseMapper.toDto(new House());
+            case "townhouse":
+                return townhouseMapper.toDto(new Townhouse());
+            case "urban-land":
+                return urbanLandMapper.toDTO(new UrbanLand());
+            case "penthouse":
+                return penthouseMapper.toDto(new Penthouse());
+            case "commercial-area":
+                return commercialAreaMapper.toDTO(new CommercialArea());
+            case "commercial-building":
+                return commercialBuildingMapper.toDTO(new CommercialBuilding());
+            case "country-house":
+                return countryHouseMapper.toDTO(new CountryHouse());
             case "warehouse":
-                propertyDTO = new WarehouseDTO();
-                propertyDTO.setPropertyCategory("Warehouse");
-                break;
+                return warehouseMapper.toDTO(new Warehouse());
             default:
                 throw new IllegalArgumentException("Tipo de imóvel desconhecido: " + propertyType);
         }
-        return propertyDTO;
-    }
-
-    private void mapFields(Object source, Object target) {
-        Class<?> currentClass = source.getClass();
-
-        while (currentClass != null) {
-            Field[] fields = currentClass.getDeclaredFields();
-            for (Field field : fields) {
-                try {
-                    field.setAccessible(true);
-                    Object value = field.get(source);
-
-                    Field targetField = getField(target.getClass(), field.getName());
-                    if (targetField != null) {
-                        targetField.setAccessible(true);
-                        targetField.set(target, value);
-                    }
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-            currentClass = currentClass.getSuperclass();
-        }
-    }
-
-    private Field getField(Class<?> clazz, String fieldName) {
-        Class<?> currentClass = clazz;
-        while (currentClass != null) {
-            try {
-                return currentClass.getDeclaredField(fieldName);
-            } catch (NoSuchFieldException e) {
-                currentClass = currentClass.getSuperclass();
-            }
-        }
-        return null;
     }
 }

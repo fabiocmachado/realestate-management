@@ -1,28 +1,26 @@
 package com.realestate.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.realestate.entity.person.Agent;
-import jakarta.validation.constraints.Email;
+import com.realestate.entity.person.Buyer;
+import com.realestate.enums.UserRole;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
-
+import lombok.AllArgsConstructor;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AgentDTO {
+
     private Long id;
 
     @NotBlank(message = "O nome é obrigatório")
-    @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
     private String name;
 
     @NotBlank(message = "O email é obrigatório")
@@ -30,9 +28,12 @@ public class AgentDTO {
     private String email;
 
     @NotBlank(message = "O telefone é obrigatório")
-    @Pattern(regexp = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[1-9])[0-9]{3}\\-?[0-9]{4}$",
-            message = "Formato de telefone inválido")
+    @Pattern(regexp = "\\d{10,11}", message = "Telefone inválido")
     private String phone;
+
+    @NotBlank(message = "O CPF é obrigatório")
+    @Pattern(regexp = "\\d{11}", message = "CPF inválido")
+    private String cpf;
 
     @NotBlank(message = "O número da licença é obrigatório")
     private String licenseNumber;
@@ -40,45 +41,55 @@ public class AgentDTO {
     @NotBlank(message = "O endereço é obrigatório")
     private String address;
 
-    @NotBlank(message = "O CPF é obrigatório")
-    @Size(min = 11, max = 11, message = "O CPF deve conter 11 números")
-    @Pattern(regexp = "^[0-9]{11}$", message = "CPF deve conter apenas números")
-    private String cpf;
-
     @NotBlank(message = "O RG é obrigatório")
     private String rg;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Buyer responsibleBuyer;
+
     private LocalDate registrationDate;
 
-    private Integer propertyCount;
+    private Boolean hasAdminPermissions = false;
+
+    @NotBlank(message = "A senha é obrigatória")
+    private String password;
+
+    private UserRole role;
 
     public static AgentDTO fromEntity(Agent agent) {
-        return AgentDTO.builder()
-                .id(agent.getId())
-                .name(agent.getName())
-                .email(agent.getEmail())
-                .phone(agent.getPhone())
-                .licenseNumber(agent.getLicenseNumber())
-                .address(agent.getAddress())
-                .cpf(agent.getCpf())
-                .rg(agent.getRg())
-                .registrationDate(agent.getRegistrationDate())
-                .propertyCount(agent.getProspectedProperties() != null ?
-                        agent.getProspectedProperties().size() : 0)
-                .build();
+        if (agent == null) {
+            return null;
+        }
+
+        AgentDTO dto = new AgentDTO();
+        dto.setId(agent.getId());
+        dto.setName(agent.getName());
+        dto.setEmail(agent.getEmail());
+        dto.setPhone(agent.getPhone());
+        dto.setCpf(agent.getCpf());
+        dto.setLicenseNumber(agent.getLicenseNumber());
+        dto.setAddress(agent.getAddress());
+        dto.setRg(agent.getRg());
+        dto.setPassword(agent.getPassword());
+        dto.setRegistrationDate(agent.getRegistrationDate());
+        dto.setHasAdminPermissions(agent.getHasAdminPermissions());
+        dto.setRole(agent.getRole());
+        return dto;
     }
 
     public Agent toEntity() {
-        return Agent.builder()
-                .name(this.name)
-                .email(this.email)
-                .phone(this.phone)
-                .licenseNumber(this.licenseNumber)
-                .address(this.address)
-                .cpf(this.cpf)
-                .rg(this.rg)
-                .prospectedProperties(new ArrayList<>())
-                .build();
+        Agent agent = new Agent();
+        agent.setId(this.id);
+        agent.setName(this.name);
+        agent.setEmail(this.email);
+        agent.setPhone(this.phone);
+        agent.setCpf(this.cpf);
+        agent.setLicenseNumber(this.licenseNumber);
+        agent.setAddress(this.address);
+        agent.setRg(this.rg);
+        agent.setPassword(this.password);
+        agent.setRegistrationDate(this.registrationDate);
+        agent.setHasAdminPermissions(this.hasAdminPermissions);
+        agent.setRole(this.role);
+        return agent;
     }
 }
