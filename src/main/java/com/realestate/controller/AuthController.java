@@ -34,20 +34,14 @@ public class AuthController {
             AgentDTO createdAdmin = agentService.createFirstAdmin(agentDTO);
             return ResponseEntity.ok(createdAdmin);
         } catch (BusinessException e) {
-            return ResponseEntity.badRequest().body(null); // Se já existir um admin, retorna erro
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<AgentDTO> registerAgent(@Valid @RequestBody AgentDTO agentDTO) {
-        AgentDTO createdAgent = agentService.registerAgent(agentDTO);
-        return ResponseEntity.ok(createdAgent);
-    }
-
-    @GetMapping("/auth/validate")
-    public ResponseEntity<Void> validateToken(@RequestHeader("Authorization") String authorizationHeader) {
+    @PostMapping("/validate")
+    public ResponseEntity<String> validateToken(@RequestHeader("Authorization") String authorizationHeader) {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token não fornecido ou formato inválido.");
         }
 
         String token = authorizationHeader.substring(7);
@@ -56,7 +50,8 @@ public class AuthController {
         if (isValid) {
             return ResponseEntity.ok().build();
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido ou expirado.");
         }
     }
+
 }

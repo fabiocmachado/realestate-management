@@ -8,6 +8,7 @@ import com.realestate.enums.UserRole;
 import com.realestate.repository.PersonRepository;
 import com.realestate.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +23,24 @@ public class AuthService {
     public AuthResponseDTO login(LoginDTO loginDTO) {
         Person person = personRepository.findByEmail(loginDTO.getEmail())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
         if (!passwordEncoder.matches(loginDTO.getPassword(), person.getPassword())) {
             throw new RuntimeException("Senha inválida");
         }
-
         String role = determineRole(person);
         String token = jwtTokenProvider.createToken(person.getEmail(), role);
-
         return AuthResponseDTO.builder()
                 .token(token)
                 .email(person.getEmail())
                 .role(UserRole.valueOf(role))
                 .type("Bearer")
+                .name(person.getName())
                 .build();
+    }
+
+    public String getUserNameByEmail(String email) {
+        return personRepository.findByEmail(email)
+                .map(Person::getName)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
     }
 
     private String determineRole(Person person) {
@@ -46,3 +51,4 @@ public class AuthService {
         return "AGENT";
     }
 }
+
