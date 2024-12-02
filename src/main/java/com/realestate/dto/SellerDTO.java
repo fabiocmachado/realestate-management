@@ -50,14 +50,15 @@ public class SellerDTO {
         return new SellerDTO(
                 seller.getId(),
                 seller.getName(),
-                seller.getCpf(),
-                seller.getRg(),
                 seller.getEmail(),
                 seller.getPhone(),
                 seller.getAddress(),
+                seller.getCpf(),
+                seller.getRg(),
                 seller.getRegistrationDate()
         );
     }
+
 
     public Seller toEntity() {
         Seller seller = new Seller();
@@ -68,7 +69,9 @@ public class SellerDTO {
         seller.setEmail(this.email);
         seller.setPhone(this.phone);
         seller.setAddress(this.address);
+        seller.setRegistrationDate(this.registrationDate);
         return seller;
     }
+
 }
 
