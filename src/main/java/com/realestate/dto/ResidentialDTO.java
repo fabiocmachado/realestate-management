@@ -11,4 +11,5 @@ public class ResidentialDTO extends PropertyDTO {
     private Integer bedrooms;
     private Integer bathrooms;
     private Integer garageSpaces;
+    private Boolean hasKitchen;
 }

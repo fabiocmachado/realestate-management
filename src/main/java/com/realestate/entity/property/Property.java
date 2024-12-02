@@ -52,6 +52,9 @@ public abstract class Property {
     @Column(nullable = false, length = 500)
     private String address;
 
+    @Column(name = "orientation")
+    private String orientation;
+
     @Size(max = 2000, message = "Descrição deve ter no máximo 2000 caracteres")
     @Column(length = 2000)
     private String description;
@@ -86,6 +89,9 @@ public abstract class Property {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prospected_by_id",referencedColumnName = "id")
     private Agent prospectedBy;
+
+    @Column(name = "property_category", insertable = false, updatable = false)
+    private String propertyCategory;
 
     @PrePersist
     protected void onCreate() {

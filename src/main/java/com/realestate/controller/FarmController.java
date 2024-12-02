@@ -29,8 +29,8 @@ public class FarmController {
     public ResponseEntity<FarmDTO> getFarmByCode(
             @PathVariable String propertyCode
     ) {
-        FarmDTO farm = farmService.getFarmByCode(propertyCode);
-        return ResponseEntity.ok(farm);
+        FarmDTO farmDTO = farmService.getFarmByCode(propertyCode);
+        return ResponseEntity.ok(farmDTO);
     }
 
     @GetMapping

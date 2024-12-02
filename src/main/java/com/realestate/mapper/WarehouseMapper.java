@@ -17,6 +17,8 @@ public interface WarehouseMapper {
     @Mapping(target = "sellerId", source = "entity.seller.id")
     @Mapping(target = "agentId", source = "entity.agent.id")
     @Mapping(target = "id", source = "entity.id")
+    @Mapping(target = "orientation", source = "entity.orientation")
+    @Mapping(target = "propertyCategory", constant = "WAREHOUSE")
     WarehouseDTO toDTO(Warehouse entity);
 
     @Mapping(target = "propertyCode", source = "dto.propertyCode")
@@ -27,6 +29,8 @@ public interface WarehouseMapper {
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "orientation", source = "dto.orientation")
+    @Mapping(target = "propertyCategory", constant = "WAREHOUSE")
     Warehouse toEntity(WarehouseDTO dto, Seller seller, Agent agent);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -34,5 +38,7 @@ public interface WarehouseMapper {
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "id", source = "dto.id")
     @Mapping(target = "address", source = "dto.address")
+    @Mapping(target = "orientation", source = "dto.orientation")
+    @Mapping(target = "propertyCategory", constant = "WAREHOUSE")
     Warehouse updateEntityFromDTO(@MappingTarget Warehouse entity, WarehouseDTO dto, Seller seller, Agent agent);
 }

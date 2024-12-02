@@ -39,10 +39,32 @@ public class PropertyDTO {
     @NotNull(message = "Agente é obrigatório")
     private Long agentId;
 
+    private SellerDTO seller;
+    private AgentDTO agent;
     private String propertyCategory;
+
+    private String orientation;
 
     public static String generateUniquePropertyCode() {
         String uniquePrefix = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         return String.format("PROP-%s-%d", uniquePrefix, System.currentTimeMillis());
+    }
+
+    @Data
+    public static class SellerDTO {
+        private Long id;
+        private String name;
+        private String phone;
+        private String email;
+
+
+    }
+
+    @Data
+    public static class AgentDTO {
+        private Long id;
+        private String name;
+        private String phone;
+        private String email;
     }
 }

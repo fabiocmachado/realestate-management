@@ -38,6 +38,7 @@ public interface CountryHouseMapper {
     @Mapping(target = "distanceOfCity", source = "entity.distanceOfCity")
     @Mapping(target = "distanceDirtRoad", source = "entity.distanceDirtRoad")
     @Mapping(target = "pastures", source = "entity.pastures")
+    @Mapping(target = "propertyCategory", constant = "COUNTRY_HOUSE")
     CountryHouseDTO toDTO(CountryHouse entity);
 
     @Mapping(target = "id", ignore = true)
@@ -70,6 +71,7 @@ public interface CountryHouseMapper {
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "address", source = "countryHouseDTO.address")
+    @Mapping(target = "propertyCategory", constant = "COUNTRY_HOUSE")
     CountryHouse toEntity(CountryHouseDTO countryHouseDTO, Seller seller, Agent agent);
 
     @Mapping(target = "id", ignore = true)
@@ -77,6 +79,7 @@ public interface CountryHouseMapper {
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "address", source = "countryHouseDTO.address")
+    @Mapping(target = "propertyCategory", constant = "COUNTRY_HOUSE")
     CountryHouse updateEntityFromDTO(CountryHouseDTO countryHouseDTO, @MappingTarget CountryHouse entity, Seller seller, Agent agent);
 
     default AreaMeasurementDTO map(Double value) {

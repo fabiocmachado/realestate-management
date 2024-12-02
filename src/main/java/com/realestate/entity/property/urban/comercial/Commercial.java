@@ -1,6 +1,5 @@
 package com.realestate.entity.property.urban.comercial;
 
-import com.realestate.entity.property.Property;
 import com.realestate.entity.property.urban.Urban;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class AgentService {
 
     private final AgentRepository agentRepository;
-    private final PasswordEncoder passwordEncoder; // Injetando o PasswordEncoder
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public AgentDTO createFirstAdmin(AgentDTO agentDTO) {
@@ -51,7 +51,6 @@ public class AgentService {
         Agent agent = agentDTO.toEntity();
         validateAgent(agent);
 
-        // Codificando a senha antes de salvar
         String encodedPassword = passwordEncoder.encode(agentDTO.getPassword());
         agent.setPassword(encodedPassword);
 
@@ -65,8 +64,6 @@ public class AgentService {
                 .orElseThrow(() -> new EntityNotFoundException("Agente não encontrado com ID: " + id));
 
         updateExistingAgent(agent, agentDTO);
-
-        // Codificando a senha antes de salvar ao atualizar
         if (agentDTO.getPassword() != null && !agentDTO.getPassword().isEmpty()) {
             agent.setPassword(passwordEncoder.encode(agentDTO.getPassword()));
         }

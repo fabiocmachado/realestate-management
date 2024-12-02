@@ -12,8 +12,5 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 public class CommercialAreaDTO extends CommercialDTO{
     private String hasWall;
-
     private String hasAsphalt;
-
-    private Float totalArea;
 }

@@ -11,7 +11,7 @@ public class ApartmentDTO extends ResidentialDTO {
 
     private String apartmentNumber;
 
-    private Integer floors;
+    private Integer floor;
 
     private Integer livingRoom;
 

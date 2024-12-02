@@ -20,6 +20,8 @@ public interface PenthouseMapper {
     @Mapping(target = "bedrooms", source = "entity.bedrooms")
     @Mapping(target = "bathrooms", source = "entity.bathrooms")
     @Mapping(target = "garageSpaces", source = "entity.garageSpaces")
+    @Mapping(target = "orientation", source = "entity.orientation")
+    @Mapping(target = "propertyCategory", constant = "PENTHOUSE")
     PenthouseDTO toDto(Penthouse entity);
 
     @Mapping(target = "propertyCode", source = "dto.propertyCode")
@@ -33,6 +35,8 @@ public interface PenthouseMapper {
     @Mapping(target = "bedrooms", source = "dto.bedrooms")
     @Mapping(target = "bathrooms", source = "dto.bathrooms")
     @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
+    @Mapping(target = "orientation", source = "dto.orientation")
+    @Mapping(target = "propertyCategory", constant = "PENTHOUSE")
     Penthouse toEntity(PenthouseDTO dto, Seller seller, Agent agent);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -40,5 +44,7 @@ public interface PenthouseMapper {
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "id", source = "dto.id")
     @Mapping(target = "address", source = "dto.address")
+    @Mapping(target = "orientation", source = "dto.orientation")
+    @Mapping(target = "propertyCategory", constant = "PENTHOUSE")
     Penthouse updateEntity(@MappingTarget Penthouse entity, PenthouseDTO dto, Seller seller, Agent agent);
 }

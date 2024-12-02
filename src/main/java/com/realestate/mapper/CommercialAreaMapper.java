@@ -17,6 +17,7 @@ public interface CommercialAreaMapper {
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "propertyCategory", constant = "COMMERCIAL_AREA")
     CommercialArea toEntity(CommercialAreaDTO dto, Seller seller, Agent agent);
 
     @Mapping(target = "propertyCode", source = "entity.propertyCode")
@@ -27,6 +28,7 @@ public interface CommercialAreaMapper {
     @Mapping(target = "sellerId", source = "entity.seller.id")
     @Mapping(target = "agentId", source = "entity.agent.id")
     @Mapping(target = "id", source = "entity.id")
+    @Mapping(target = "propertyCategory", constant = "COMMERCIAL_AREA")
     CommercialAreaDTO toDTO(CommercialArea entity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -38,5 +40,6 @@ public interface CommercialAreaMapper {
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "id", source = "dto.id")
+    @Mapping(target = "propertyCategory", constant = "COMMERCIAL_AREA")
     CommercialArea updateEntityFromDTO(@MappingTarget CommercialArea entity, CommercialAreaDTO dto, Seller seller, Agent agent);
 }

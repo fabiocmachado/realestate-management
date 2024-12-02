@@ -37,6 +37,9 @@ public interface FarmMapper {
     @Mapping(target = "distanceDirtRoad", source = "entity.distanceDirtRoad")
     @Mapping(target = "pastures", source = "entity.pastures")
     @Mapping(target = "address", source = "entity.address")
+    @Mapping(target = "seller", source = "entity.seller")
+    @Mapping(target = "agent", source = "entity.agent")
+    @Mapping(target = "propertyCategory", constant = "FARM")
     FarmDTO toDTO(Farm entity);
 
     @Mapping(target = "id", ignore = true)
@@ -66,10 +69,12 @@ public interface FarmMapper {
     @Mapping(target = "distanceOfCity", source = "farmDTO.distanceOfCity")
     @Mapping(target = "distanceDirtRoad", source = "farmDTO.distanceDirtRoad")
     @Mapping(target = "pastures", source = "farmDTO.pastures")
+    @Mapping(target = "address", source = "farmDTO.address")
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
-    @Mapping(target = "address", source = "farmDTO.address")
+    @Mapping(target = "propertyCategory", constant = "FARM")
     Farm toEntity(FarmDTO farmDTO, Seller seller, Agent agent);
+
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", source = "farmDTO.name")
@@ -79,7 +84,9 @@ public interface FarmMapper {
     @Mapping(target = "seller", source = "seller")
     @Mapping(target = "agent", source = "agent")
     @Mapping(target = "address", source = "farmDTO.address")
+    @Mapping(target = "propertyCategory", constant = "FARM")
     Farm updateEntityFromDTO(FarmDTO farmDTO, @MappingTarget Farm entity, Seller seller, Agent agent);
+
 
     default AreaMeasurementDTO map(Double value) {
         return value == null ? null : new AreaMeasurementDTO(value);

@@ -28,7 +28,7 @@ public class AuthController {
         return ResponseEntity.ok(authResponse);
     }
 
-    @PostMapping("/create-first-admin")
+        @PostMapping("/create-first-admin")
     public ResponseEntity<AgentDTO> createFirstAdmin(@Valid @RequestBody AgentDTO agentDTO) {
         try {
             AgentDTO createdAdmin = agentService.createFirstAdmin(agentDTO);

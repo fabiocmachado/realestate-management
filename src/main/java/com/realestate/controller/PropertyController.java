@@ -34,4 +34,3 @@ public class PropertyController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
-
