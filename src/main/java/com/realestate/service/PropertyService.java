@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,6 +45,13 @@ public class PropertyService {
         } else {
             throw new ResourceNotFoundException("Tipo de imóvel não encontrado");
         }
+    }
+
+    public List<PropertyDTO> getPropertiesByFilter(String searchTerm) {
+        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+            return propertyRepository.findByNameContainingIgnoreCase(searchTerm);
+        }
+        return propertyRepository.findAllProperties();
     }
 
     private ApartmentDTO mapToApartmentDTO(Property property) {

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/properties")
@@ -32,5 +33,11 @@ public class PropertyController {
         return propertyService.getPropertyByCode(propertyCode)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PropertyDTO>> getPropertiesByFilter(@RequestParam(required = false) String searchTerm) {
+        List<PropertyDTO> properties = propertyService.getPropertiesByFilter(searchTerm);
+        return ResponseEntity.ok(properties);
     }
 }
