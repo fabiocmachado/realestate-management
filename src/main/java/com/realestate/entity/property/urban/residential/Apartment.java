@@ -60,7 +60,7 @@ public class Apartment extends Residential {
     private Boolean hasLaundry;
 
     @Column(name = "sauna")
-    private Boolean sauna;
+    private Boolean hasSauna;
 
     @Column(name = "condominium_fee")
     private Double condominiumFee;
@@ -81,73 +81,73 @@ public class Apartment extends Residential {
     private Integer offices;
 
     @Column(name = "pantry")
-    private Boolean pantry;
+    private Boolean hasPantry;
 
     @Column(name = "suites")
     private Integer suites;
 
     @Column(name = "bars")
-    private Boolean bars;
+    private Boolean hasBars;
 
     @Column(name = "employee_room")
-    private Boolean employeeRoom;
+    private Boolean hasEmployeeRoom;
 
     @Column(name = "employee_bathroom")
-    private Boolean employeeBathroom;
+    private Boolean hasEmployeeBathroom;
 
     @Column(name = "garages_in_row")
-    private Boolean garagesInRow;
+    private Boolean hasGaragesInRow;
 
     @Column(name = "number_of_Blocks")
     private Integer numberOfBlocks;
 
     @Column(name = "total_of_apartments")
-    private Boolean totalOfApartments;
+    private Integer totalOfApartments;
 
     @Column(name = "party_hall")
-    private Boolean partyHall;
+    private Boolean hasPartyHall;
 
     @Column(name = "games_room")
-    private Boolean gamesRoom;
+    private Boolean hasGamesRoom;
 
     @Column(name = "playground")
-    private Boolean playground;
+    private Boolean hasPlayground;
 
     @Column(name = "toy_area")
-    private Boolean toyArea;
+    private Boolean hasToyArea;
 
     @Column(name = "sports_court")
-    private Boolean sportsCourt;
+    private Boolean hasSportsCourt;
 
     @Column(name = "electronic_gate")
     private Boolean hasElectronicGate;
 
     @Column(name = "electronic_doorman")
-    private Boolean electronicDoorman;
+    private Boolean hasElectronicDoorman;
 
     @Column(name = "intercom")
-    private Boolean intercom;
+    private Boolean hasIntercom;
 
     @Column(name = "gourmet_balcony")
-    private Integer gourmetBalcony;
+    private Boolean hasGourmetBalcony;
 
     @Column(name = "elevator")
     private Integer elevator;
 
     @Column(name = "compartment")
-    private Boolean compartment;
+    private Boolean hasCompartment;
 
     @Column(name = "visiting_time")
     private String visitingTime;
 
     @Column(name = "exclusive_swimming_pool")
-    private Boolean exclusiveSwimmingPool;
+    private Boolean hasExclusiveSwimmingPool;
 
     @Column(name = "exclusive_saunsa")
-    private Boolean exclusiveSauna;
+    private Boolean hasExclusiveSauna;
 
     @Column(name = "mezzanine")
-    private Boolean mezzanine;
+    private Boolean hasMezzanine;
 
 
 }

@@ -21,6 +21,8 @@ public interface HouseMapper {
     @Mapping(target = "bathrooms", source = "entity.bathrooms")
     @Mapping(target = "garageSpaces", source = "entity.garageSpaces")
     @Mapping(target = "orientation", source = "entity.orientation")
+    @Mapping(target = "hasSauna", source = "entity.hasSauna")
+    @Mapping(target = "hasPantry", source = "entity.hasPantry")
     @Mapping(target = "propertyCategory", constant = "HOUSE")
     HouseDTO toDto(House entity);
 
@@ -36,6 +38,8 @@ public interface HouseMapper {
     @Mapping(target = "bathrooms", source = "dto.bathrooms")
     @Mapping(target = "garageSpaces", source = "dto.garageSpaces")
     @Mapping(target = "orientation", source = "dto.orientation")
+    @Mapping(target = "hasSauna", source = "dto.hasSauna")
+    @Mapping(target = "hasPantry", source = "dto.hasPantry")
     @Mapping(target = "propertyCategory", constant = "HOUSE")
     House toEntity(HouseDTO dto, Seller seller, Agent agent);
 
@@ -45,6 +49,8 @@ public interface HouseMapper {
     @Mapping(target = "id", source = "dto.id")
     @Mapping(target = "address", source = "dto.address")
     @Mapping(target = "orientation", source = "dto.orientation")
+    @Mapping(target = "hasSauna", source = "dto.hasSauna")
+    @Mapping(target = "hasPantry", source = "dto.hasPantry")
     @Mapping(target = "propertyCategory", constant = "HOUSE")
     House updateEntity(@MappingTarget House entity, HouseDTO dto, Seller seller, Agent agent);
 }

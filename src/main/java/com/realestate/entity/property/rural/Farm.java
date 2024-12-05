@@ -47,13 +47,13 @@ public class Farm extends Rural {
     private ConservationStatus pastureConservation;
 
     @Column(name = "smooth_wire_fence")
-    private Boolean smoothWireFence;
+    private Boolean hasSmoothWireFence;
 
     @Column(name = "topography", length = 50)
     private String topography;
 
     @Column(name = "rocks")
-    private Boolean rocks;
+    private Boolean hasRocks;
 
     @Column(name = "rivers", length = 50)
     private String rivers;
@@ -72,7 +72,7 @@ public class Farm extends Rural {
     private EnergyType energy;
 
     @Column(name = "orchard")
-    private Boolean orchard;
+    private Boolean hasOrchard;
 
     @Column(name = "warehouse", length = 100)
     private String warehouse;
@@ -84,7 +84,7 @@ public class Farm extends Rural {
     private String pens;
 
     @Column(name = "landing_strip")
-    private Boolean landingStrip;
+    private Boolean hasLandingStrip;
 
     @Column(name = "herd_support")
     private Integer herdSupport;

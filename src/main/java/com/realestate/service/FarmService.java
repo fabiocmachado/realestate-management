@@ -1,8 +1,7 @@
 package com.realestate.service;
 
 import com.realestate.dto.FarmDTO;
-import com.realestate.dto.SellerDTO;
-import com.realestate.dto.AgentDTO;
+
 import com.realestate.entity.person.Seller;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.property.rural.Farm;

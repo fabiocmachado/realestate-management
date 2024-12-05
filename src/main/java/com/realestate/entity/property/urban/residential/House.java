@@ -30,7 +30,7 @@ public class House extends Residential {
     private Boolean hasLaundry;
 
     @Column(name = "sauna")
-    private Boolean sauna;
+    private Boolean hasSauna;
 
     @Column(name = "cabinets")
     private Boolean hasCabinets;
@@ -96,6 +96,6 @@ public class House extends Residential {
     private Float totalArea;
 
     @Column(name = "pantry")
-    private Boolean pantry;
+    private Boolean hasPantry;
 
 }
