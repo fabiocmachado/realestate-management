@@ -14,13 +14,13 @@ import lombok.experimental.SuperBuilder;
 public class UrbanLandDTO extends ResidentialDTO {
 
     @NotBlank(message = "Campo 'has wall' é obrigatório")
-    private String hasWall;
+    private Boolean hasWall;
 
     @NotBlank(message = "Campo 'has asphalt' é obrigatório")
-    private String hasAsphalt;
+    private Boolean hasAsphalt;
 
     @NotBlank(message = "Campo 'key available' é obrigatório")
-    private String keyAvailable;
+    private Boolean keyAvailable;
 
     @NotNull(message = "Campo 'total area' é obrigatório")
     private Float totalArea;

@@ -11,6 +11,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CommercialAreaDTO extends CommercialDTO{
-    private String hasWall;
-    private String hasAsphalt;
+    private Boolean hasWall;
+    private Boolean hasAsphalt;
 }

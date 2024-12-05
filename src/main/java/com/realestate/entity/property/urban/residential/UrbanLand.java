@@ -18,14 +18,14 @@ import lombok.experimental.SuperBuilder;
 public class UrbanLand extends Urban {
 
     @Column(name = "wall")
-    private String hasWall;
+    private Boolean hasWall;
 
     @Column(name = "asphalt")
-    private String hasAsphalt;
+    private Boolean hasAsphalt;
 
     @Column(name = "total_area")
     private Float totalArea;
 
     @Column(name = "keyAvailable")
-    private String keyAvailable;
+    private Boolean keyAvailable;
 }

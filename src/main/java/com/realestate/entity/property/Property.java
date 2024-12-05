@@ -86,8 +86,9 @@ public abstract class Property {
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "prospected_by_id",referencedColumnName = "id")
+    @JoinColumn(name = "prospected_by_id", referencedColumnName = "id")
     private Agent prospectedBy;
 
     @Column(name = "property_category", insertable = false, updatable = false)
@@ -102,6 +103,7 @@ public abstract class Property {
             this.isActive = true;
         }
     }
+
 
     public boolean isAvailable() {
         return Boolean.TRUE.equals(isActive) && status == PropertyStatus.AVAILABLE;

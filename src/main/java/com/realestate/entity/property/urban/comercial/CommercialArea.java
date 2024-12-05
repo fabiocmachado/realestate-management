@@ -17,10 +17,10 @@ import lombok.experimental.SuperBuilder;
 public class CommercialArea extends Commercial{
 
     @Column(name = "wall")
-    private String hasWall;
+    private Boolean hasWall;
 
     @Column(name = "asphalt")
-    private String hasAsphalt;
+    private Boolean hasAsphalt;
 
     @Column(name = "total_area")
     private Float totalArea;
