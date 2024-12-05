@@ -18,7 +18,7 @@ public class HouseDTO extends ResidentialDTO {
 
     private Boolean hasLaundry;
 
-    private Boolean sauna;
+    private Boolean hasSauna;
 
     private Boolean hasCabinets;
 
@@ -62,6 +62,6 @@ public class HouseDTO extends ResidentialDTO {
 
     private Float totalArea;
 
-    private Boolean pantry;
+    private Boolean hasPantry;
 
 }

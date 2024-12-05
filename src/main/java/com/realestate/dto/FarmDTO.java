@@ -36,19 +36,19 @@ public class FarmDTO extends RuralDTO {
     private String predominantPasture;
     private String otherPastures;
     private ConservationStatus pastureConservation;
-    private Boolean smoothWireFence;
+    private Boolean hasSmoothWireFence;
     private String topography;
-    private Boolean rocks;
+    private Boolean hasRocks;
     private String rivers;
     private String dams;
     private String mainHouse;
     private String staffHouse;
     private EnergyType energy;
-    private Boolean orchard;
+    private Boolean hasOrchard;
     private String warehouse;
     private String accommodation;
     private String pens;
-    private Boolean landingStrip;
+    private Boolean hasLandingStrip;
     private Integer herdSupport;
 
     @NotNull

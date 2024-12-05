@@ -27,7 +27,7 @@ public class ApartmentDTO extends ResidentialDTO {
 
     private Float totalArea;
 
-    private Boolean pantry;
+    private Boolean hasPantry;
 
     private Integer toilet;
 
@@ -53,49 +53,49 @@ public class ApartmentDTO extends ResidentialDTO {
 
     private Boolean hasLaundry;
 
-    private Boolean sauna;
+    private Boolean hasSauna;
 
     private Integer suites;
 
-    private Boolean bars;
+    private Boolean hasBars;
 
-    private Boolean employeeRoom;
+    private Boolean hasEmployeeRoom;
 
-    private Boolean employeeBathroom;
+    private Boolean hasEmployeeBathroom;
 
-    private Boolean garagesInRow;
+    private Boolean hasGaragesInRow;
 
     private Integer numberOfBlocks;
 
-    private Boolean totalOfApartments;
+    private Integer totalOfApartments;
 
-    private Boolean partyHall;
+    private Boolean hasPartyHall;
 
-    private Boolean gamesRoom;
+    private Boolean hasGamesRoom;
 
-    private Boolean playground;
+    private Boolean hasPlayground;
 
-    private Boolean toyArea;
+    private Boolean hasToyArea;
 
-    private Boolean sportsCourt;
+    private Boolean hasSportsCourt;
 
     private Boolean hasElectronicGate;
 
-    private Boolean electronicDoorman;
+    private Boolean hasElectronicDoorman;
 
-    private Boolean intercom;
+    private Boolean hasIntercom;
 
-    private Integer gourmetBalcony;
+    private Boolean hasGourmetBalcony;
 
     private Integer elevator;
 
-    private Boolean compartment;
+    private Boolean hasCompartment;
 
     private String visitingTime;
 
-    private Boolean exclusiveSwimmingPool;
+    private Boolean hasExclusiveSwimmingPool;
 
-    private Boolean exclusiveSauna;
+    private Boolean hasExclusiveSauna;
 
-    private Boolean mezzanine;
+    private Boolean hasMezzanine;
 }
