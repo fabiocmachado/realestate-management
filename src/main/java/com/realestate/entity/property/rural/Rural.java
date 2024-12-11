@@ -20,7 +20,7 @@ public class Rural extends Property {
             @AttributeOverride(name = "hectares", column = @Column(name = "total_area_hectares")),
             @AttributeOverride(name = "alqueiresGoianos", column = @Column(name = "total_area_alqueires"))
     })
-    private AreaMeasurement totalArea;
+    private AreaMeasurement totalAreaRural;
 
     @NotNull
     @Embedded
@@ -36,15 +36,23 @@ public class Rural extends Property {
     @PrePersist
     @PreUpdate
     private void validateAreas() {
-        if (getTotalArea() == null || getLegalReserveArea() == null) {
+        if (totalAreaRural == null || legalReserveArea == null) {
             throw new IllegalStateException("Total area and legal reserve area must be set");
         }
 
-        double totalAreaHectares = getTotalArea().getHectares();
-        double legalReserveAreaHectares = getLegalReserveArea().getHectares();
+        double totalAreaHectares = totalAreaRural.getHectares();
+        double legalReserveAreaHectares = legalReserveArea.getHectares();
 
         if (legalReserveAreaHectares > totalAreaHectares) {
             throw new IllegalStateException("Legal reserve area cannot exceed total area");
+        }
+
+        if (totalAreaHectares <= 0) {
+            throw new IllegalStateException("Total area must be greater than zero");
+        }
+
+        if (legalReserveAreaHectares < 0) {
+            throw new IllegalStateException("Legal reserve area cannot be negative");
         }
     }
 }

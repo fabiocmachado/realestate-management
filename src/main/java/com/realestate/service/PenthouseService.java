@@ -30,12 +30,12 @@ public class PenthouseService {
                 new EntityNotFoundException("Seller not found with ID: " + penthouseDTO.getSellerId()));
         Agent agent = agentRepository.findById(penthouseDTO.getAgentId()).orElseThrow(() ->
                 new EntityNotFoundException("Agent not found with ID: " + penthouseDTO.getAgentId()));
-        Penthouse penthouse = penthouseMapper.toEntity(penthouseDTO, seller, agent);
+        Penthouse penthouse = penthouseMapper.toEntity(penthouseDTO);
         penthouse.setSeller(seller);
         penthouse.setAgent(agent);
         Penthouse savedPenthouse = penthouseRepository.save(penthouse);
 
-        return penthouseMapper.toDto(savedPenthouse);
+        return penthouseMapper.toDTO(savedPenthouse);
     }
 
     @Transactional(readOnly = true)
@@ -44,13 +44,13 @@ public class PenthouseService {
         if (penthouse == null) {
             throw new EntityNotFoundException("Penthouse not found with code: " + propertyCode);
         }
-        return penthouseMapper.toDto(penthouse);
+        return penthouseMapper.toDTO(penthouse);
     }
 
     @Transactional(readOnly = true)
     public Page<PenthouseDTO> getAllPenthouses(Pageable pageable) {
         return penthouseRepository.findAll(pageable)
-                .map(penthouseMapper::toDto);
+                .map(penthouseMapper::toDTO);
     }
 
     @Transactional
@@ -63,9 +63,9 @@ public class PenthouseService {
                 new EntityNotFoundException("Seller not found with ID: " + penthouseDTO.getSellerId()));
         Agent agent = agentRepository.findById(penthouseDTO.getAgentId()).orElseThrow(() ->
                 new EntityNotFoundException("Agent not found with ID: " + penthouseDTO.getAgentId()));
-        penthouseMapper.updateEntity(existingPenthouse, penthouseDTO, seller, agent);
+        penthouseMapper.updateEntityFromDTO(penthouseDTO, existingPenthouse);
         Penthouse updatedPenthouse = penthouseRepository.save(existingPenthouse);
-        return penthouseMapper.toDto(updatedPenthouse);
+        return penthouseMapper.toDTO(updatedPenthouse);
     }
 
     @Transactional

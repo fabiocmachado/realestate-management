@@ -1,70 +1,40 @@
 package com.realestate.dto;
 
 import com.realestate.enums.PropertyStatus;
-import jakarta.validation.constraints.*;
+import com.realestate.enums.PropertyType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.math.BigDecimal;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Data
 @SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 public class PropertyDTO {
-
     private Long id;
-
     private String propertyCode;
-
-    @NotNull(message = "Price is required")
-    @Positive(message = "Price must be positive")
-    @Digits(integer = 10, fraction = 2, message = "Price should have up to 10 digits with up to 2 decimal places")
-    private BigDecimal price;
-
-    @NotBlank(message = "Address is required")
-    @Size(max = 500, message = "Address must have a maximum of 500 characters")
-    private String address;
-
-    @Size(max = 2000, message = "Description must have a maximum of 2000 characters")
-    private String description;
-
-    @NotNull(message = "Property status is required")
-    private PropertyStatus status;
-
-    @NotNull(message = "Seller ID is required")
-    private Long sellerId;
-
-    @NotNull(message = "Agente é obrigatório")
-    private Long agentId;
-
-    private SellerDTO seller;
-    private AgentDTO agent;
-    private String propertyCategory;
-
+    private PropertyType propertyType;
+    private Integer price;
+    private String street;
+    private String block;
+    private String lot;
+    private String complement;
+    private String number;
+    private String city;
+    private String state;
+    private String placeOfKeys;
     private String orientation;
-
-    public static String generateUniquePropertyCode() {
-        String uniquePrefix = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        return String.format("PROP-%s-%d", uniquePrefix, System.currentTimeMillis());
-    }
-
-    @Data
-    public static class SellerDTO {
-        private Long id;
-        private String name;
-        private String phone;
-        private String email;
-
-
-    }
-
-    @Data
-    public static class AgentDTO {
-        private Long id;
-        private String name;
-        private String phone;
-        private String email;
-    }
+    private String description;
+    private PropertyStatus status;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private String propertyCategory;
+    private Float usableArea;
+    private Float privateArea;
+    private Float totalArea;
+    private Long agentId;
+    private Long sellerId;
 }

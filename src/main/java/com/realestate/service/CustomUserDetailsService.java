@@ -1,5 +1,6 @@
 package com.realestate.service;
 
+import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Person;
 import com.realestate.repository.PersonRepository;
 import com.realestate.security.CustomUserDetails;
@@ -22,6 +23,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         Person person = personRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
-        return new CustomUserDetails(person);
+        if (person instanceof Agent) {
+            Agent agent = (Agent) person;
+            return new CustomUserDetails(agent, person);
+        } else {
+            return new CustomUserDetails(null, person);
+        }
     }
 }
+

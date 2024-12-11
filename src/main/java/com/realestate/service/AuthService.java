@@ -22,19 +22,25 @@ public class AuthService {
 
     public AuthResponseDTO login(LoginDTO loginDTO) {
         Person person = personRepository.findByEmail(loginDTO.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        if (!passwordEncoder.matches(loginDTO.getPassword(), person.getPassword())) {
-            throw new RuntimeException("Senha inválida");
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+
+        if (person instanceof Agent agent) {
+            if (!passwordEncoder.matches(loginDTO.getPassword(), agent.getPassword())) {
+                throw new RuntimeException("Senha inválida");
+            }
+
+            String role = determineRole(agent);
+            String token = jwtTokenProvider.createToken(person.getEmail(), role);
+            return AuthResponseDTO.builder()
+                    .token(token)
+                    .email(person.getEmail())
+                    .role(UserRole.valueOf(role))
+                    .type("Bearer")
+                    .name(person.getName())
+                    .build();
+        } else {
+            throw new RuntimeException("A pessoa não é um agente.");
         }
-        String role = determineRole(person);
-        String token = jwtTokenProvider.createToken(person.getEmail(), role);
-        return AuthResponseDTO.builder()
-                .token(token)
-                .email(person.getEmail())
-                .role(UserRole.valueOf(role))
-                .type("Bearer")
-                .name(person.getName())
-                .build();
     }
 
     public String getUserNameByEmail(String email) {
@@ -43,12 +49,7 @@ public class AuthService {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
     }
 
-    private String determineRole(Person person) {
-        if (person instanceof Agent) {
-            Agent agent = (Agent) person;
-            return agent.getHasAdminPermissions() ? "ADMIN" : "AGENT";
-        }
-        return "AGENT";
+    private String determineRole(Agent agent) {
+        return agent.getHasAdminPermissions() ? UserRole.ADMIN.name() : UserRole.AGENT.name();
     }
 }
-

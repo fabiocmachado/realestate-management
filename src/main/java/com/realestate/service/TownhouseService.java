@@ -30,9 +30,9 @@ public class TownhouseService {
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + townhouseDTO.getSellerId()));
         Agent agent = agentRepository.findById(townhouseDTO.getAgentId())
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + townhouseDTO.getAgentId()));
-        Townhouse townhouse = townhouseMapper.toEntity(townhouseDTO, seller, agent);
+        Townhouse townhouse = townhouseMapper.toEntity(townhouseDTO);
         Townhouse savedTownhouse = townhouseRepository.save(townhouse);
-        return townhouseMapper.toDto(savedTownhouse);
+        return townhouseMapper.toDTO(savedTownhouse);
     }
 
     @Transactional(readOnly = true)
@@ -41,12 +41,12 @@ public class TownhouseService {
         if (townhouse == null) {
             throw new EntityNotFoundException("Townhouse not found with code: " + propertyCode);
         }
-        return townhouseMapper.toDto(townhouse);
+        return townhouseMapper.toDTO(townhouse);
     }
 
     @Transactional(readOnly = true)
     public Page<TownhouseDTO> getAllTownhouses(Pageable pageable) {
-        return townhouseRepository.findAll(pageable).map(townhouseMapper::toDto);
+        return townhouseRepository.findAll(pageable).map(townhouseMapper::toDTO);
     }
 
     @Transactional
@@ -59,9 +59,9 @@ public class TownhouseService {
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + townhouseDTO.getSellerId()));
         Agent agent = agentRepository.findById(townhouseDTO.getAgentId())
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + townhouseDTO.getAgentId()));
-        townhouseMapper.updateEntity(existingTownhouse, townhouseDTO, seller, agent);
+        townhouseMapper.updateEntityFromDTO(townhouseDTO, existingTownhouse);
         Townhouse updatedTownhouse = townhouseRepository.save(existingTownhouse);
-        return townhouseMapper.toDto(updatedTownhouse);
+        return townhouseMapper.toDTO(updatedTownhouse);
     }
 
     @Transactional

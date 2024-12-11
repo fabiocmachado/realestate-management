@@ -3,7 +3,6 @@ package com.realestate.entity.property.urban.residential;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -26,8 +25,8 @@ public class House extends Residential {
     @Column(name = "offices")
     private Integer offices;
 
-    @Column(name = "laundry")
-    private Boolean hasLaundry;
+    @Column(name = "laundry_room")
+    private Boolean hasLaundryRoom;
 
     @Column(name = "sauna")
     private Boolean hasSauna;
@@ -47,7 +46,7 @@ public class House extends Residential {
     @Column(name = "air_conditioning")
     private Boolean hasAirConditioning;
 
-    @Column(name = "Kennel")
+    @Column(name = "kennel")
     private Boolean hasKennel;
 
     @Column(name = "floor_type")
@@ -71,8 +70,8 @@ public class House extends Residential {
     @Column(name = "swimming_pool")
     private Boolean hasSwimmingPool;
 
-    @Column(name = "barbecue_grill")
-    private Boolean hasBarbecueGrill;
+    @Column(name = "barbecue")
+    private Boolean hasBarbecue;
 
     @Column(name = "toilet")
     private Integer toilet;
@@ -81,19 +80,10 @@ public class House extends Residential {
     private Boolean hasSolarEnergy;
 
     @Column(name = "condominium_fee")
-    private Double condominiumFee;
+    private Integer condominiumFee;
 
     @Column(name = "name_of_gated_community")
     private String nameOfGatedCommunity;
-
-    @Column(name = "usable_area")
-    private float usableArea;
-
-    @Column(name = "private_area")
-    private float privateArea;
-
-    @Column(name = "total_area")
-    private Float totalArea;
 
     @Column(name = "pantry")
     private Boolean hasPantry;

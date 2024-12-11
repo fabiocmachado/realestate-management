@@ -2,36 +2,39 @@ package com.realestate.service;
 
 import com.realestate.dto.SellerDTO;
 import com.realestate.entity.person.Seller;
+import com.realestate.mapper.SellerMapper;
+import com.realestate.repository.PropertyRepository;
 import com.realestate.repository.SellerRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SellerService {
 
     private final SellerRepository sellerRepository;
+    private final SellerMapper sellerMapper;
+    private final PropertyRepository propertyRepository;
 
-    @Autowired
-    public SellerService(SellerRepository sellerRepository) {
+    public SellerService(SellerRepository sellerRepository,
+                         SellerMapper sellerMapper,
+                         PropertyRepository propertyRepository) {
         this.sellerRepository = sellerRepository;
+        this.sellerMapper = sellerMapper;
+        this.propertyRepository = propertyRepository;
     }
 
     @Transactional(readOnly = true)
     public List<SellerDTO> findAll() {
-        return sellerRepository.findAll().stream()
-                .map(SellerDTO::fromEntity)
-                .collect(Collectors.toList());
+        return sellerMapper.toDTOList(sellerRepository.findAll());
     }
 
     @Transactional(readOnly = true)
     public SellerDTO findById(Long id) {
         return sellerRepository.findById(id)
-                .map(SellerDTO::fromEntity)
+                .map(sellerMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Vendedor não encontrado com ID: " + id));
     }
 
@@ -40,35 +43,27 @@ public class SellerService {
         if (sellerRepository.existsByCpf(sellerDTO.getCpf())) {
             throw new IllegalArgumentException("CPF já cadastrado");
         }
-        Seller seller = sellerDTO.toEntity();
-        seller = sellerRepository.save(seller);
-        return SellerDTO.fromEntity(seller);
+        Seller seller = sellerMapper.toEntity(sellerDTO, propertyRepository);
+        return sellerMapper.toDTO(sellerRepository.save(seller));
     }
 
     @Transactional
     public SellerDTO update(Long id, SellerDTO sellerDTO) {
-        if (!sellerRepository.existsById(id)) {
-            throw new EntityNotFoundException("Vendedor não encontrado com ID: " + id);
-        }
+        Seller seller = sellerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Vendedor não encontrado com ID: " + id));
 
-        Seller existingSeller = sellerRepository.findByCpf(sellerDTO.getCpf())
-                .orElse(null);
-
-        if (existingSeller != null && !existingSeller.getId().equals(id)) {
+        if (sellerRepository.existsByCpf(sellerDTO.getCpf()) && !seller.getCpf().equals(sellerDTO.getCpf())) {
             throw new IllegalArgumentException("CPF já cadastrado para outro vendedor");
         }
-
-        Seller seller = sellerDTO.toEntity();
-        seller.setId(id);
-        seller = sellerRepository.save(seller);
-        return SellerDTO.fromEntity(seller);
+        sellerMapper.updateEntityFromDTO(sellerDTO, seller, propertyRepository);
+        return sellerMapper.toDTO(sellerRepository.save(seller));
     }
+
 
     @Transactional
     public void delete(Long id) {
-        if (!sellerRepository.existsById(id)) {
-            throw new EntityNotFoundException("Vendedor não encontrado com ID: " + id);
-        }
-        sellerRepository.deleteById(id);
+        Seller seller = sellerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Vendedor não encontrado com ID: " + id));
+        sellerRepository.delete(seller);
     }
 }

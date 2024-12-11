@@ -30,7 +30,7 @@ public class UrbanLandService {
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + urbanLandDTO.getSellerId()));
         Agent agent = agentRepository.findById(urbanLandDTO.getAgentId())
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + urbanLandDTO.getAgentId()));
-        UrbanLand urbanLand = urbanLandMapper.toEntity(urbanLandDTO, seller, agent);
+        UrbanLand urbanLand = urbanLandMapper.toEntity(urbanLandDTO);
         UrbanLand savedUrbanLand = urbanLandRepository.save(urbanLand);
         return urbanLandMapper.toDTO(savedUrbanLand);
     }
@@ -59,7 +59,7 @@ public class UrbanLandService {
         Agent agent = agentRepository.findById(urbanLandDTO.getAgentId())
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + urbanLandDTO.getAgentId()));
 
-        urbanLandMapper.updateEntity(existingUrbanLand, urbanLandDTO, seller, agent);
+        urbanLandMapper.updateEntityFromDTO(urbanLandDTO, existingUrbanLand);
         UrbanLand updatedUrbanLand = urbanLandRepository.save(existingUrbanLand);
         return urbanLandMapper.toDTO(updatedUrbanLand);
     }

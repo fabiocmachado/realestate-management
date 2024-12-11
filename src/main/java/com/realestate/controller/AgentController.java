@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 
 import java.util.List;
 
@@ -24,7 +26,15 @@ public class AgentController {
     }
 
     @PostMapping
-    public ResponseEntity<AgentDTO> createAgent(@Valid @RequestBody AgentDTO agentDTO) {
+    public ResponseEntity<Object> createAgent(@Valid @RequestBody AgentDTO agentDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            StringBuilder errors = new StringBuilder();
+            for (ObjectError error : result.getAllErrors()) {
+                errors.append(error.getDefaultMessage()).append(". ");
+            }
+            return ResponseEntity.badRequest().body(errors.toString());
+        }
+
         AgentDTO createdAgent = agentService.registerAgent(agentDTO);
         return new ResponseEntity<>(createdAgent, HttpStatus.CREATED);
     }
@@ -39,13 +49,31 @@ public class AgentController {
     @PutMapping("/{id}")
     public ResponseEntity<AgentDTO> updateAgent(
             @PathVariable Long id,
-            @Valid @RequestBody AgentDTO agentDTO) {
-        return ResponseEntity.ok(agentService.updateAgent(id, agentDTO));
+            @Valid @RequestBody AgentDTO agentDTO,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            StringBuilder errors = new StringBuilder();
+            for (ObjectError error : result.getAllErrors()) {
+                errors.append(error.getDefaultMessage()).append(". ");
+            }
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        return agentService.findAgentById(id)
+                .map(existingAgent -> {
+                    AgentDTO updatedAgent = agentService.updateAgent(id, agentDTO);
+                    return ResponseEntity.ok(updatedAgent);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAgent(@PathVariable Long id) {
-        agentService.deleteAgent(id);
-        return ResponseEntity.noContent().build();
+        if (agentService.findAgentById(id).isPresent()) {
+            agentService.deleteAgent(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

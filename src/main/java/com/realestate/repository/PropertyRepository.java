@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,6 +16,7 @@ public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSp
     Optional<Property> getPropertyByPropertyCode(String propertyCode);
     Optional<Property> findTopByOrderByIdDesc();
     boolean existsByPropertyCode(String propertyCode);
+    List<Property> findByIdIn(List<Long> ids);
 }
 
 

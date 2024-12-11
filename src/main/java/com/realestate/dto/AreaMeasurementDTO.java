@@ -1,5 +1,6 @@
 package com.realestate.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.realestate.entity.property.rural.AreaMeasurement;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ public class AreaMeasurementDTO {
 
     private static final double ALQUEIRE_TO_HECTARE = 4.84;
 
+    @JsonCreator
     private AreaMeasurementDTO(Double alqueiresGoianos, Double hectares) {
         this.alqueiresGoianos = alqueiresGoianos;
         this.hectares = hectares;
@@ -29,6 +31,9 @@ public class AreaMeasurementDTO {
 
     @Builder(builderMethodName = "customBuilder")
     public static AreaMeasurementDTO builder(Double alqueiresGoianos) {
+        if (alqueiresGoianos == null) {
+            throw new IllegalArgumentException("Area in alqueires goianos cannot be null");
+        }
         return new AreaMeasurementDTO(alqueiresGoianos, alqueiresGoianos * ALQUEIRE_TO_HECTARE);
     }
 

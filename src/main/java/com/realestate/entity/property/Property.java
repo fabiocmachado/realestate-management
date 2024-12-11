@@ -1,6 +1,6 @@
 package com.realestate.entity.property;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.realestate.entity.person.Agent;
 import com.realestate.entity.person.Seller;
 import com.realestate.enums.PropertyStatus;
@@ -12,10 +12,9 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-import static com.realestate.dto.PropertyDTO.generateUniquePropertyCode;
 
 @Data
 @NoArgsConstructor
@@ -32,6 +31,7 @@ public abstract class Property {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     @Column(name = "property_code", unique = true, nullable = false, updatable = false)
@@ -43,14 +43,32 @@ public abstract class Property {
 
     @NotNull(message = "Preço é obrigatório")
     @Positive(message = "Preço deve ser positivo")
-    @Digits(integer = 10, fraction = 2, message = "Price should have up to 10 digits with up to 2 decimal places")
     @Column(nullable = false, precision = 19, scale = 2)
-    private BigDecimal price;
+    private Integer price;
 
-    @NotBlank(message = "Endereço é obrigatório")
-    @Size(max = 500, message = "Endereço deve ter no máximo 500 caracteres")
-    @Column(nullable = false, length = 500)
-    private String address;
+    @Column(name = "street")
+    private String street;
+
+    @Column(name = "block")
+    private String block;
+
+    @Column(name = "lot")
+    private String lot;
+
+    @Column(name = "complement")
+    private String complement;
+
+    @Column(name = "number")
+    private String number;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "state")
+    private String state;
+
+    @Column(name = "place_of_keys")
+    private String placeOfKeys;
 
     @Column(name = "orientation")
     private String orientation;
@@ -64,10 +82,6 @@ public abstract class Property {
     @Column(name = "status", nullable = false)
     private PropertyStatus status;
 
-    @Column(name = "is_active")
-    @Builder.Default
-    private Boolean isActive = true;
-
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -76,36 +90,40 @@ public abstract class Property {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @JsonIgnore
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agent_id")
     private Agent agent;
 
-    @JsonIgnore
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "prospected_by_id", referencedColumnName = "id")
-    private Agent prospectedBy;
-
     @Column(name = "property_category", insertable = false, updatable = false)
     private String propertyCategory;
+
+    @Column(name = "usable_area")
+    private Float usableArea;
+
+    @Column(name = "private_area")
+    private Float privateArea;
+
+    @Column(name = "total_area")
+    private Float totalArea;
+
+    private String generateUniquePropertyCode() {
+        return UUID.randomUUID().toString().substring(0, 8);
+    }
 
     @PrePersist
     protected void onCreate() {
         if (this.propertyCode == null) {
             this.propertyCode = generateUniquePropertyCode();
         }
-        if (this.isActive == null) {
-            this.isActive = true;
+        if (this.status == null) {
+            this.status = PropertyStatus.AVAILABLE;
         }
     }
 
-
-    public boolean isAvailable() {
-        return Boolean.TRUE.equals(isActive) && status == PropertyStatus.AVAILABLE;
-    }
 }

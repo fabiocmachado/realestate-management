@@ -44,15 +44,6 @@ public class Commercial extends Urban {
     @Column(name = "name_of_building")
     private String nameOfBuilding;
 
-    @Column(name = "usable_area")
-    private float usableArea;
-
-    @Column(name = "private_area")
-    private float privateArea;
-
-    @Column(name = "total_area")
-    private Float totalArea;
-
     @Column(name = "offices")
     private Integer offices;
 

@@ -27,7 +27,7 @@ public class FarmService {
 
     @Transactional
     public FarmDTO createFarm(FarmDTO farmDTO) {
-        Farm farm = farmMapper.toEntity(farmDTO, findSeller(farmDTO.getSellerId()), findAgent(farmDTO.getAgentId()));
+        Farm farm = farmMapper.toEntity(farmDTO);
         Farm savedFarm = farmRepository.save(farm);
         return farmMapper.toDTO(savedFarm);
     }
@@ -60,7 +60,7 @@ public class FarmService {
 
         Seller seller = findSeller(farmDTO.getSellerId());
         Agent agent = findAgent(farmDTO.getAgentId());
-        Farm farm = farmMapper.updateEntityFromDTO(farmDTO, existingFarm, seller, agent);
+        Farm farm = farmMapper.updateEntityFromDTO(farmDTO, existingFarm);
         farmRepository.save(farm);
 
         return farmMapper.toDTO(farm);

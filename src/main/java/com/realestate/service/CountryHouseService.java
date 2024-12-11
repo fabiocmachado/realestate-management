@@ -26,7 +26,7 @@ public class CountryHouseService {
 
     @Transactional
     public CountryHouseDTO createCountryHouse(CountryHouseDTO countryHouseDTO) {
-        CountryHouse countryHouse = countryHouseMapper.toEntity(countryHouseDTO, findSeller(countryHouseDTO.getSellerId()), findAgent(countryHouseDTO.getAgentId()));
+        CountryHouse countryHouse = countryHouseMapper.toEntity(countryHouseDTO);
         CountryHouse savedCountryHouse = countryHouseRepository.save(countryHouse);
         return countryHouseMapper.toDTO(savedCountryHouse);
     }
@@ -62,7 +62,7 @@ public class CountryHouseService {
 
         Seller seller = findSeller(countryHouseDTO.getSellerId());
         Agent agent = findAgent(countryHouseDTO.getAgentId());
-        CountryHouse countryHouse = countryHouseMapper.updateEntityFromDTO(countryHouseDTO, existingCountryHouse, seller, agent);
+        CountryHouse countryHouse = countryHouseMapper.updateEntityFromDTO(countryHouseDTO, existingCountryHouse);
         countryHouseRepository.save(countryHouse);
 
         return countryHouseMapper.toDTO(countryHouse);

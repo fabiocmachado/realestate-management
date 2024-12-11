@@ -1,6 +1,6 @@
 package com.realestate.entity.property.urban.comercial;
 
-import jakarta.persistence.Column;
+import com.realestate.entity.property.urban.comercial.Commercial;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -12,13 +12,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@DiscriminatorValue("COMMERCIAL_AREA")
+@DiscriminatorValue("COMMERCIAL_ROOM")
 @SuperBuilder
-public class CommercialArea extends Commercial{
-
-    @Column(name = "wall")
-    private Boolean hasWall;
-
-    @Column(name = "asphalt")
-    private Boolean hasAsphalt;
+public class CommercialRoom extends Commercial {
 }

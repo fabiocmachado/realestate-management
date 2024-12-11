@@ -15,17 +15,11 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder
-public class UrbanLand extends Urban {
+public class UrbanLand extends Residential {
 
-    @Column(name = "wall")
+    @Column(name = "hasWall")
     private Boolean hasWall;
 
     @Column(name = "asphalt")
     private Boolean hasAsphalt;
-
-    @Column(name = "total_area")
-    private Float totalArea;
-
-    @Column(name = "keyAvailable")
-    private Boolean keyAvailable;
 }

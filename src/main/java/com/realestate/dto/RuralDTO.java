@@ -1,5 +1,6 @@
 package com.realestate.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.realestate.entity.property.rural.Rural;
 import com.realestate.enums.PropertyType;
 import lombok.Data;
@@ -12,32 +13,44 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class RuralDTO extends PropertyDTO {
-
-    private AreaMeasurementDTO totalArea;
+    private AreaMeasurementDTO totalAreaRural;
     private AreaMeasurementDTO legalReserveArea;
     private PropertyType propertyType = PropertyType.RURAL;
 
-    public RuralDTO(AreaMeasurementDTO totalArea, AreaMeasurementDTO legalReserveArea) {
-        this.totalArea = totalArea;
-        this.legalReserveArea = legalReserveArea;
-        this.propertyType = PropertyType.RURAL;
+    @JsonProperty("totalAreaRural")
+    private void setTotalAreaRural(Double totalAreaAlqueirosGoianos) {
+        if (totalAreaAlqueirosGoianos != null) {
+            this.totalAreaRural = AreaMeasurementDTO.customBuilder()
+                    .alqueiresGoianos(totalAreaAlqueirosGoianos)
+                    .build();
+        }
     }
+
+    @JsonProperty("legalReserveArea")
+    private void setLegalReserveArea(Double legalReserveAreaAlqueirosGoianos) {
+        if (legalReserveAreaAlqueirosGoianos != null) {
+            this.legalReserveArea = AreaMeasurementDTO.customBuilder()
+                    .alqueiresGoianos(legalReserveAreaAlqueirosGoianos)
+                    .build();
+        }
+    }
+
+    public RuralDTO(AreaMeasurementDTO totalAreaRural, AreaMeasurementDTO legalReserveArea) {
+        this.totalAreaRural = totalAreaRural;
+        this.legalReserveArea = legalReserveArea;
+    }
+
 
     public Rural toEntity() {
+        if (totalAreaRural == null || legalReserveArea == null) {
+            throw new IllegalArgumentException("Total area and legal reserve area must be provided");
+        }
+
         return Rural.builder()
                 .id(this.getId())
-                .totalArea(this.totalArea.toEntity())
+                .totalAreaRural(this.totalAreaRural.toEntity())
                 .legalReserveArea(this.legalReserveArea.toEntity())
                 .propertyType(this.propertyType)
-                .build();
-    }
-
-    public static RuralDTO fromEntity(Rural rural) {
-        return RuralDTO.builder()
-                .id(rural.getId())
-                .totalArea(new AreaMeasurementDTO((double) rural.getTotalArea().getAlqueiresGoianos()))
-                .legalReserveArea(new AreaMeasurementDTO((double) rural.getLegalReserveArea().getAlqueiresGoianos()))
-                .propertyType(rural.getPropertyType())
                 .build();
     }
 }

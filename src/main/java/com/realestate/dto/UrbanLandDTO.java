@@ -13,13 +13,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class UrbanLandDTO extends ResidentialDTO {
 
-
     private Boolean hasWall;
-
     private Boolean hasAsphalt;
-
-    private String keyAvailable;
-
-    @NotNull(message = "Campo 'total area' é obrigatório")
-    private Float totalArea;
 }

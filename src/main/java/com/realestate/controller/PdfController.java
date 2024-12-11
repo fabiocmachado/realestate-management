@@ -6,6 +6,7 @@ import com.realestate.entity.property.rural.CountryHouse;
 import com.realestate.entity.property.rural.Farm;
 import com.realestate.entity.property.urban.comercial.CommercialArea;
 import com.realestate.entity.property.urban.comercial.CommercialBuilding;
+import com.realestate.entity.property.urban.comercial.CommercialRoom;
 import com.realestate.entity.property.urban.comercial.Warehouse;
 import com.realestate.entity.property.urban.residential.*;
 import com.realestate.mapper.*;
@@ -36,6 +37,7 @@ public class PdfController {
     private final PenthouseMapper penthouseMapper;
     private final CommercialAreaMapper commercialAreaMapper;
     private final CommercialBuildingMapper commercialBuildingMapper;
+    private final CommercialRoomMapper commercialRoomMapper;
     private final CountryHouseMapper countryHouseMapper;
     private final WarehouseMapper warehouseMapper;
 
@@ -49,6 +51,7 @@ public class PdfController {
                          PenthouseMapper penthouseMapper,
                          CommercialAreaMapper commercialAreaMapper,
                          CommercialBuildingMapper commercialBuildingMapper,
+                         CommercialRoomMapper commercialRoomMapper,
                          CountryHouseMapper countryHouseMapper,
                          WarehouseMapper warehouseMapper) {
         this.pdfGenerationService = pdfGenerationService;
@@ -61,6 +64,7 @@ public class PdfController {
         this.penthouseMapper = penthouseMapper;
         this.commercialAreaMapper = commercialAreaMapper;
         this.commercialBuildingMapper = commercialBuildingMapper;
+        this.commercialRoomMapper = commercialRoomMapper;
         this.countryHouseMapper = countryHouseMapper;
         this.warehouseMapper = warehouseMapper;
     }
@@ -114,23 +118,25 @@ public class PdfController {
 
     private PropertyDTO mapPropertyToDto(Property property) {
         if (property instanceof Apartment) {
-            return apartmentMapper.toDto((Apartment) property);
+            return apartmentMapper.toDTO((Apartment) property);
         } else if (property instanceof Farm) {
             return farmMapper.toDTO((Farm) property);
         } else if (property instanceof House) {
-            return houseMapper.toDto((House) property);
+            return houseMapper.toDTO((House) property);
         } else if (property instanceof Townhouse) {
-            return townhouseMapper.toDto((Townhouse) property);
+            return townhouseMapper.toDTO((Townhouse) property);
         } else if (property instanceof UrbanLand) {
             return urbanLandMapper.toDTO((UrbanLand) property);
         } else if (property instanceof Penthouse) {
-            return penthouseMapper.toDto((Penthouse) property);
+            return penthouseMapper.toDTO((Penthouse) property);
         } else if (property instanceof CommercialArea) {
             return commercialAreaMapper.toDTO((CommercialArea) property);
         } else if (property instanceof CommercialBuilding) {
             return commercialBuildingMapper.toDTO((CommercialBuilding) property);
         } else if (property instanceof CountryHouse) {
             return countryHouseMapper.toDTO((CountryHouse) property);
+        } else if (property instanceof CommercialRoom) {
+            return commercialRoomMapper.toDTO((CommercialRoom) property);
         } else if (property instanceof Warehouse) {
             return warehouseMapper.toDTO((Warehouse) property);
         }
@@ -140,21 +146,23 @@ public class PdfController {
     private PropertyDTO createEmptyPropertyDto(String propertyType) {
         switch (propertyType.toLowerCase()) {
             case "apartment":
-                return apartmentMapper.toDto(new Apartment());
+                return apartmentMapper.toDTO(new Apartment());
             case "farm":
                 return farmMapper.toDTO(new Farm());
             case "house":
-                return houseMapper.toDto(new House());
+                return houseMapper.toDTO(new House());
             case "townhouse":
-                return townhouseMapper.toDto(new Townhouse());
+                return townhouseMapper.toDTO(new Townhouse());
             case "urban-land":
                 return urbanLandMapper.toDTO(new UrbanLand());
             case "penthouse":
-                return penthouseMapper.toDto(new Penthouse());
+                return penthouseMapper.toDTO(new Penthouse());
             case "commercial-area":
                 return commercialAreaMapper.toDTO(new CommercialArea());
             case "commercial-building":
                 return commercialBuildingMapper.toDTO(new CommercialBuilding());
+            case "commercial-room":
+                return commercialRoomMapper.toDTO(new CommercialRoom());
             case "country-house":
                 return countryHouseMapper.toDTO(new CountryHouse());
             case "warehouse":

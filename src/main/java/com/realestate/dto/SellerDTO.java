@@ -1,77 +1,33 @@
 package com.realestate.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.realestate.entity.person.Seller;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class SellerDTO {
-
     private Long id;
-
-    @NotBlank(message = "O nome é obrigatório")
-    @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
     private String name;
-
-    @NotBlank(message = "O email é obrigatório")
-    @Email(message = "Email inválido")
+    private String cpf;
+    private String rg;
     private String email;
-
-    @NotBlank(message = "O telefone é obrigatório")
-    @Pattern(regexp = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[1-9])[0-9]{3}\\-?[0-9]{4}$",
-            message = "Formato de telefone inválido")
     private String phone;
 
-    @NotBlank(message = "O endereço é obrigatório")
-    private String address;
+    private String street;
+    private String block;
+    private String lot;
+    private String complement;
+    private String number;
+    private String city;
+    private String state;
 
-    @NotBlank(message = "O CPF é obrigatório")
-    @Size(min = 11, max = 11, message = "O CPF deve conter 11 números")
-    @Pattern(regexp = "^[0-9]{11}$", message = "CPF deve conter apenas números")
-    private String cpf;
+    private List<Long> properties;
 
-    @NotBlank(message = "O RG é obrigatório")
-    private String rg;
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate registrationDate;
-
-    public static SellerDTO fromEntity(Seller seller) {
-        return new SellerDTO(
-                seller.getId(),
-                seller.getName(),
-                seller.getEmail(),
-                seller.getPhone(),
-                seller.getAddress(),
-                seller.getCpf(),
-                seller.getRg(),
-                seller.getRegistrationDate()
-        );
-    }
-
-
-    public Seller toEntity() {
-        Seller seller = new Seller();
-        seller.setId(this.id);
-        seller.setName(this.name);
-        seller.setCpf(this.cpf);
-        seller.setRg(this.rg);
-        seller.setEmail(this.email);
-        seller.setPhone(this.phone);
-        seller.setAddress(this.address);
-        seller.setRegistrationDate(this.registrationDate);
-        return seller;
-    }
-
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
-

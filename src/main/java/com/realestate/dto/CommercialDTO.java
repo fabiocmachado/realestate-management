@@ -29,12 +29,6 @@ public class CommercialDTO extends PropertyDTO{
 
     private String nameOfBuilding;
 
-    private float usableArea;
-
-    private float privateArea;
-
-    private Float totalArea;
-
     private Integer offices;
 
     private String visitingTime;
@@ -48,7 +42,5 @@ public class CommercialDTO extends PropertyDTO{
     private Boolean hasGaragesInRow;
 
     private Boolean hasSolarEnergy;
-
-    private String keyAvailable;
 
 }

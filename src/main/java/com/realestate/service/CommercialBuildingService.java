@@ -1,10 +1,6 @@
 package com.realestate.service;
 
-import com.realestate.dto.CommercialAreaDTO;
 import com.realestate.dto.CommercialBuildingDTO;
-import com.realestate.entity.person.Agent;
-import com.realestate.entity.person.Seller;
-import com.realestate.entity.property.urban.comercial.CommercialArea;
 import com.realestate.entity.property.urban.comercial.CommercialBuilding;
 import com.realestate.mapper.CommercialBuildingMapper;
 import com.realestate.repository.AgentRepository;
@@ -23,12 +19,10 @@ public class CommercialBuildingService {
 
     private final CommercialBuildingRepository commercialBuildingRepository;
     private final CommercialBuildingMapper commercialBuildingMapper;
-    private final SellerRepository sellerRepository;
-    private final AgentRepository agentRepository;
 
     @Transactional
     public CommercialBuildingDTO createCommercialBuilding(CommercialBuildingDTO commercialBuildingDTO) {
-        CommercialBuilding commercialBuilding = commercialBuildingMapper.toEntity(commercialBuildingDTO, sellerRepository.findById(commercialBuildingDTO.getSellerId()).orElseThrow(), agentRepository.findById(commercialBuildingDTO.getAgentId()).orElseThrow());
+        CommercialBuilding commercialBuilding = commercialBuildingMapper.toEntity(commercialBuildingDTO);
         CommercialBuilding savedCommercialBuilding = commercialBuildingRepository.save(commercialBuilding);
         return commercialBuildingMapper.toDTO(savedCommercialBuilding);
     }
@@ -55,7 +49,7 @@ public class CommercialBuildingService {
             throw new EntityNotFoundException("Commercial Building not found with PropertyCode: " + propertyCode);
         }
 
-        commercialBuildingMapper.updateEntityFromDTO(existingEntity, commercialBuildingDTO,sellerRepository.findById(commercialBuildingDTO.getSellerId()).orElseThrow(), agentRepository.findById(commercialBuildingDTO.getAgentId()).orElseThrow()); // Passe os parâmetros Seller e Agent conforme necessário
+        commercialBuildingMapper.updateEntityFromDTO(commercialBuildingDTO, existingEntity);
         CommercialBuilding updatedEntity = commercialBuildingRepository.save(existingEntity);
         return commercialBuildingMapper.toDTO(updatedEntity);
     }

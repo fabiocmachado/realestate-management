@@ -24,9 +24,16 @@ public class ApartmentService {
 
     @Transactional
     public ApartmentDTO createApartment(ApartmentDTO apartmentDTO) {
-        Apartment apartment = apartmentMapper.toEntity(apartmentDTO, sellerRepository.findById(apartmentDTO.getSellerId()).orElseThrow(), agentRepository.findById(apartmentDTO.getAgentId()).orElseThrow());
+        Apartment apartment = apartmentMapper.toEntity(apartmentDTO);
+
+        apartment.setSeller(sellerRepository.findById(apartmentDTO.getSellerId())
+                .orElseThrow(() -> new EntityNotFoundException("Seller not found")));
+
+        apartment.setAgent(agentRepository.findById(apartmentDTO.getAgentId())
+                .orElseThrow(() -> new EntityNotFoundException("Agent not found")));
+
         Apartment savedApartment = apartmentRepository.save(apartment);
-        return apartmentMapper.toDto(savedApartment);
+        return apartmentMapper.toDTO(savedApartment);
     }
 
     @Transactional(readOnly = true)
@@ -35,13 +42,13 @@ public class ApartmentService {
         if (apartment == null) {
             throw new EntityNotFoundException("Apartment not found with code: " + propertyCode);
         }
-        return apartmentMapper.toDto(apartment);
+        return apartmentMapper.toDTO(apartment);
     }
 
     @Transactional(readOnly = true)
     public Page<ApartmentDTO> getAllApartments(Pageable pageable) {
         return apartmentRepository.findAll(pageable)
-                .map(apartmentMapper::toDto);
+                .map(apartmentMapper::toDTO);
     }
 
     @Transactional
@@ -50,9 +57,17 @@ public class ApartmentService {
         if (existingApartment == null) {
             throw new EntityNotFoundException("Apartment not found with code: " + propertyCode);
         }
-        apartmentMapper.updateEntity(existingApartment, apartmentDTO, sellerRepository.findById(apartmentDTO.getSellerId()).orElseThrow(), agentRepository.findById(apartmentDTO.getAgentId()).orElseThrow());
+
+        apartmentMapper.updateEntityFromDTO(apartmentDTO, existingApartment);
+
+        existingApartment.setSeller(sellerRepository.findById(apartmentDTO.getSellerId())
+                .orElseThrow(() -> new EntityNotFoundException("Seller not found")));
+
+        existingApartment.setAgent(agentRepository.findById(apartmentDTO.getAgentId())
+                .orElseThrow(() -> new EntityNotFoundException("Agent not found")));
+
         Apartment updatedApartment = apartmentRepository.save(existingApartment);
-        return apartmentMapper.toDto(updatedApartment);
+        return apartmentMapper.toDTO(updatedApartment);
     }
 
     @Transactional

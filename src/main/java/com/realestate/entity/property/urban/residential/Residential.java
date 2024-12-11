@@ -22,16 +22,13 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Residential extends Urban {
 
-    @NotNull(message = "Número de quartos é obrigatório")
-    @Min(value = 1, message = "Número de quartos deve ser no mínimo 1")
-    @Column(name = "bedrooms", nullable = false)
+    @Column(name = "bedrooms")
     private Integer bedrooms;
 
-    @NotNull(message = "Número de banheiros é obrigatório")
-    @Min(value = 1, message = "Número de banheiros deve ser no mínimo 1")
-    @Column(name = "bathrooms", nullable = false)
+    @Column(name = "bathrooms")
     private Integer bathrooms;
 
+    @Column(name = "kitchen")
     private Boolean hasKitchen;
 
     @Column(name = "garage_spaces")

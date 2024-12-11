@@ -12,18 +12,20 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
     private final Person person;
+    private final Agent agent;
 
-    public CustomUserDetails(Person person) {
+    public CustomUserDetails(Agent agent, Person person) {
+        this.agent = agent;
         this.person = person;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + person.getRole()));
 
-        if (person instanceof Agent) {
-            Agent agent = (Agent) person;
+        if (person instanceof Agent agent) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_AGENT"));
+
             if (agent.getHasAdminPermissions()) {
                 authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             }
@@ -37,7 +39,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return person.getPassword();
+        return agent.getPassword();
     }
 
     @Override

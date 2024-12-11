@@ -18,20 +18,9 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 public class Farm extends Rural {
 
-    @NotBlank
     @Size(max = 100)
     @Column(name = "name", length = 100)
     private String name;
-
-    @NotBlank
-    @Size(max = 100)
-    @Column(name = "city", length = 100)
-    private String city;
-
-    @NotBlank
-    @Size(max = 2)
-    @Column(name = "state", length = 2)
-    private String state;
 
     @Column(name = "type_of_soil", length = 50)
     private String typeOfSoil;

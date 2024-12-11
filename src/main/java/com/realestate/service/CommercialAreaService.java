@@ -1,9 +1,7 @@
 package com.realestate.service;
 
-import com.realestate.dto.ApartmentDTO;
 import com.realestate.dto.CommercialAreaDTO;
 import com.realestate.entity.property.urban.comercial.CommercialArea;
-import com.realestate.entity.property.urban.residential.Apartment;
 import com.realestate.mapper.CommercialAreaMapper;
 import com.realestate.repository.AgentRepository;
 import com.realestate.repository.CommercialAreaRepository;
@@ -26,7 +24,7 @@ public class CommercialAreaService {
 
     @Transactional
     public CommercialAreaDTO createCommercialArea(CommercialAreaDTO commercialAreaDTO) {
-        CommercialArea commercialArea = commercialAreaMapper.toEntity(commercialAreaDTO, sellerRepository.findById(commercialAreaDTO.getSellerId()).orElseThrow(), agentRepository.findById(commercialAreaDTO.getAgentId()).orElseThrow());
+        CommercialArea commercialArea = commercialAreaMapper.toEntity(commercialAreaDTO);
         CommercialArea savedEntity = commercialAreaRepository.save(commercialArea);
         return commercialAreaMapper.toDTO(savedEntity);
     }
@@ -53,7 +51,7 @@ public class CommercialAreaService {
             throw new EntityNotFoundException("Commercial Area not found with PropertyCode: " + propertyCode);
         }
 
-        commercialAreaMapper.updateEntityFromDTO(existingEntity, commercialAreaDTO, null, null); // Passe os parâmetros Seller e Agent conforme necessário
+        commercialAreaMapper.updateEntityFromDTO(commercialAreaDTO, existingEntity);
         CommercialArea updatedEntity = commercialAreaRepository.save(existingEntity);
         return commercialAreaMapper.toDTO(updatedEntity);
     }

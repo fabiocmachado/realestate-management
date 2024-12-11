@@ -34,9 +34,9 @@ public class HouseService {
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + houseDTO.getAgentId()))
                 : null;
 
-        House house = houseMapper.toEntity(houseDTO, seller, agent);
+        House house = houseMapper.toEntity(houseDTO);
         House savedHouse = houseRepository.save(house);
-        return houseMapper.toDto(savedHouse);
+        return houseMapper.toDTO(savedHouse);
     }
 
     @Transactional(readOnly = true)
@@ -45,12 +45,12 @@ public class HouseService {
         if (house == null) {
             throw new EntityNotFoundException("House not found with code: " + propertyCode);
         }
-        return houseMapper.toDto(house);
+        return houseMapper.toDTO(house);
     }
 
     @Transactional(readOnly = true)
     public Page<HouseDTO> getAllHouses(Pageable pageable) {
-        return houseRepository.findAll(pageable).map(houseMapper::toDto);
+        return houseRepository.findAll(pageable).map(houseMapper::toDTO);
     }
 
     @Transactional
@@ -68,9 +68,9 @@ public class HouseService {
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + houseDTO.getAgentId()))
                 : null;
 
-        houseMapper.updateEntity(existingHouse, houseDTO, seller, agent);
+        houseMapper.updateEntityFromDTO(houseDTO, existingHouse);
         House updatedHouse = houseRepository.save(existingHouse);
-        return houseMapper.toDto(updatedHouse);
+        return houseMapper.toDTO(updatedHouse);
     }
 
     @Transactional

@@ -30,7 +30,7 @@ public class WarehouseService {
                 .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + warehouseDTO.getSellerId()));
         Agent agent = agentRepository.findById(warehouseDTO.getAgentId())
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + warehouseDTO.getAgentId()));
-        Warehouse warehouse = warehouseMapper.toEntity(warehouseDTO, seller, agent);
+        Warehouse warehouse = warehouseMapper.toEntity(warehouseDTO);
         Warehouse savedWarehouse = warehouseRepository.save(warehouse);
         return warehouseMapper.toDTO(savedWarehouse);
     }
@@ -61,7 +61,7 @@ public class WarehouseService {
         Agent agent = agentRepository.findById(warehouseDTO.getAgentId())
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + warehouseDTO.getAgentId()));
 
-        warehouseMapper.updateEntityFromDTO(existingWarehouse, warehouseDTO, seller, agent);
+        warehouseMapper.updateEntityFromDTO(warehouseDTO, existingWarehouse);
         Warehouse updatedWarehouse = warehouseRepository.save(existingWarehouse);
         return warehouseMapper.toDTO(updatedWarehouse);
     }

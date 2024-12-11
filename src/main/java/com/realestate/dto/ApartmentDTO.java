@@ -11,7 +11,7 @@ public class ApartmentDTO extends ResidentialDTO {
 
     private String apartmentNumber;
 
-    private Integer floor;
+    private Integer numberOfFloors;
 
     private Integer livingRoom;
 
@@ -19,19 +19,13 @@ public class ApartmentDTO extends ResidentialDTO {
 
     private Integer offices;
 
-    private float usableArea;
-
-    private float privateArea;
-
     private String nameOfBuilding;
-
-    private Float totalArea;
 
     private Boolean hasPantry;
 
     private Integer toilet;
 
-    private Boolean hasBarbecueGrill;
+    private Boolean hasBarbecue;
 
     private Boolean hasSwimmingPool;
 
@@ -71,7 +65,7 @@ public class ApartmentDTO extends ResidentialDTO {
 
     private Boolean hasPartyHall;
 
-    private Boolean hasGamesRoom;
+    private Boolean hasGameRoom;
 
     private Boolean hasPlayground;
 
@@ -93,7 +87,7 @@ public class ApartmentDTO extends ResidentialDTO {
 
     private String visitingTime;
 
-    private Boolean hasExclusiveSwimmingPool;
+    private Boolean hasPrivateSwimmingPool;
 
     private Boolean hasExclusiveSauna;
 

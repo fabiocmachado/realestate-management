@@ -17,8 +17,8 @@ public class Apartment extends Residential {
     @Column(name = "apartment_number")
     private String apartmentNumber;
 
-    @Column(name = "apartment_floor")
-    private Integer floor;
+    @Column(name = "number_of_floors")
+    private Integer numberOfFloors;
 
     @Column(name = "living_room")
     private Integer livingRoom;
@@ -26,8 +26,8 @@ public class Apartment extends Residential {
     @Column(name = "toilet")
     private Integer toilet;
 
-    @Column(name = "barbecue_grill")
-    private Boolean hasBarbecueGrill;
+    @Column(name = "barbecue")
+    private Boolean hasBarbecue;
 
     @Column(name = "swimming_pool")
     private Boolean hasSwimmingPool;
@@ -63,19 +63,10 @@ public class Apartment extends Residential {
     private Boolean hasSauna;
 
     @Column(name = "condominium_fee")
-    private Double condominiumFee;
+    private Integer condominiumFee;
 
     @Column(name = "name_of_building")
     private String nameOfBuilding;
-
-    @Column(name = "usable_area")
-    private float usableArea;
-
-    @Column(name = "private_area")
-    private float privateArea;
-
-    @Column(name = "total_area")
-    private Float totalArea;
 
     @Column(name = "offices")
     private Integer offices;
@@ -107,8 +98,8 @@ public class Apartment extends Residential {
     @Column(name = "party_hall")
     private Boolean hasPartyHall;
 
-    @Column(name = "games_room")
-    private Boolean hasGamesRoom;
+    @Column(name = "game_room")
+    private Boolean hasGameRoom;
 
     @Column(name = "playground")
     private Boolean hasPlayground;
@@ -140,14 +131,12 @@ public class Apartment extends Residential {
     @Column(name = "visiting_time")
     private String visitingTime;
 
-    @Column(name = "exclusive_swimming_pool")
-    private Boolean hasExclusiveSwimmingPool;
+    @Column(name = "private_swimming_pool")
+    private Boolean hasPrivateSwimmingPool;
 
-    @Column(name = "exclusive_saunsa")
+    @Column(name = "exclusive_sauna")
     private Boolean hasExclusiveSauna;
 
     @Column(name = "mezzanine")
     private Boolean hasMezzanine;
-
-
 }
