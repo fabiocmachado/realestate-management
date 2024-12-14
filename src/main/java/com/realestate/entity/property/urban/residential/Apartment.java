@@ -29,6 +29,9 @@ public class Apartment extends Residential {
     @Column(name = "barbecue")
     private Boolean hasBarbecue;
 
+    @Column(name = "gym")
+    private Boolean hasGym;
+
     @Column(name = "swimming_pool")
     private Boolean hasSwimmingPool;
 

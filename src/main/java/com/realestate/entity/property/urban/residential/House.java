@@ -28,6 +28,9 @@ public class House extends Residential {
     @Column(name = "laundry_room")
     private Boolean hasLaundryRoom;
 
+    @Column(name = "gym")
+    private Boolean hasGym;
+
     @Column(name = "sauna")
     private Boolean hasSauna;
 

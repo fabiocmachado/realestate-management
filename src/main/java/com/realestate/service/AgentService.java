@@ -56,6 +56,12 @@ public class AgentService {
     public AgentDTO updateAgent(Long id, AgentDTO agentDTO) {
         Agent agent = agentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Agente não encontrado com ID: " + id));
+        if (agentDTO.getPassword() != null && !agentDTO.getPassword().isEmpty()) {
+            String encodedPassword = passwordEncoder.encode(agentDTO.getPassword());
+            agentDTO.setPassword(encodedPassword);
+        } else {
+            agentDTO.setPassword(agent.getPassword());
+        }
         agentMapper.updateEntityFromDTO(agentDTO, agent);
         Agent updatedAgent = agentRepository.save(agent);
         return agentMapper.toDTO(updatedAgent);

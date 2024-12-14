@@ -92,4 +92,6 @@ public class ApartmentDTO extends ResidentialDTO {
     private Boolean hasExclusiveSauna;
 
     private Boolean hasMezzanine;
+
+    private Boolean hasGym;
 }

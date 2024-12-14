@@ -80,7 +80,7 @@ public abstract class Property {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Status do imóvel é obrigatório")
     @Column(name = "status", nullable = false)
-    private PropertyStatus status;
+    private PropertyStatus status = PropertyStatus.AVAILABLE;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

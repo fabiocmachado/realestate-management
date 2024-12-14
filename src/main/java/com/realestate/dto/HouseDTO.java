@@ -33,4 +33,5 @@ public class HouseDTO extends ResidentialDTO {
     private Double condominiumFee;
     private String nameOfGatedCommunity;
     private Boolean hasPantry;
+    private Boolean hasGym;
 }

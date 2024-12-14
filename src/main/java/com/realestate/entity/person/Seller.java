@@ -19,9 +19,18 @@ import java.util.List;
 public class Seller extends Person {
 
     @JsonBackReference
-    @JsonManagedReference
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private List<Property> properties;
+
+    public void addProperty(Property property) {
+        properties.add(property);
+        property.setSeller(this);
+    }
+
+    public void removeProperty(Property property) {
+        properties.remove(property);
+        property.setSeller(null);
+    }
 
     @PreRemove
     private void validateDelete() {
