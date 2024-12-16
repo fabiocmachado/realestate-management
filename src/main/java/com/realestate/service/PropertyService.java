@@ -2,24 +2,11 @@ package com.realestate.service;
 
 import com.realestate.dto.PropertyDTO;
 import com.realestate.entity.property.Property;
-import com.realestate.entity.property.urban.comercial.Commercial;
-import com.realestate.entity.property.urban.comercial.CommercialArea;
-import com.realestate.entity.property.urban.comercial.CommercialBuilding;
-import com.realestate.entity.property.urban.comercial.CommercialRoom;
-import com.realestate.entity.property.rural.Farm;
-import com.realestate.entity.property.rural.CountryHouse;
-import com.realestate.entity.property.rural.Rural;
+import com.realestate.enums.PropertyStatus;
 import com.realestate.repository.PropertyRepository;
-import com.realestate.repository.CommercialAreaRepository;
-import com.realestate.repository.CommercialBuildingRepository;
-import com.realestate.repository.CommercialRepository;
-import com.realestate.repository.CommercialRoomRepository;
-import com.realestate.repository.FarmRepository;
-import com.realestate.repository.CountryHouseRepository;
-import com.realestate.repository.RuralRepository;
+import com.realestate.exception.InvalidCategoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -29,31 +16,53 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
-    @Autowired
-    private CommercialRepository commercialRepository;
+    public Page<PropertyDTO> getProperties(String status, String category, Pageable pageable) {
+        PropertyStatus propertyStatus = parseStatus(status);
 
-    @Autowired
-    private CommercialAreaRepository commercialAreaRepository;
+        if (category != null && !isValidCategory(category)) {
+            throw new InvalidCategoryException("Categoria inválida: " + category);
+        }
 
-    @Autowired
-    private CommercialBuildingRepository commercialBuildingRepository;
+        Page<Property> properties;
 
-    @Autowired
-    private CommercialRoomRepository commercialRoomRepository;
+        if (propertyStatus != null && category != null) {
+            properties = propertyRepository.findByStatusAndPropertyCategory(propertyStatus, category, pageable);
+        } else if (propertyStatus != null) {
+            properties = propertyRepository.findByStatus(propertyStatus, pageable);
+        } else if (category != null) {
+            properties = propertyRepository.findByPropertyCategory(category, pageable);
+        } else {
+            properties = propertyRepository.findAll(pageable);
+        }
 
-    @Autowired
-    private RuralRepository ruralRepository;
-
-    @Autowired
-    private FarmRepository farmRepository;
-
-    @Autowired
-    private CountryHouseRepository countryHouseRepository;
-
-    public Page<PropertyDTO> getAllProperties(Pageable pageable) {
-        Page<Property> propertyPage = propertyRepository.findAll(pageable);
-        return propertyPage.map(this::convertToDTO);
+        return properties.map(this::convertToDTO);
     }
+
+    private PropertyStatus parseStatus(String status) {
+        if (status == null) {
+            return null;
+        }
+        try {
+            return PropertyStatus.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Status inválido: " + status);
+        }
+    }
+
+    private boolean isValidCategory(String category) {
+        return category.equalsIgnoreCase("HOUSE") ||
+                category.equalsIgnoreCase("APARTMENT") ||
+                category.equalsIgnoreCase("PENTHOUSE") ||
+                category.equalsIgnoreCase("TOWNHOUSE") ||
+                category.equalsIgnoreCase("WAREHOUSE") ||
+                category.equalsIgnoreCase("COMMERCIAL_BUILDING") ||
+                category.equalsIgnoreCase("FARM") ||
+                category.equalsIgnoreCase("COUNTRY_HOUSE") ||
+                category.equalsIgnoreCase("URBAN_LAND") ||
+                category.equalsIgnoreCase("COMMERCIAL_AREA") ||
+                category.equalsIgnoreCase("COMMERCIAL_ROOM");
+    }
+
     private PropertyDTO convertToDTO(Property property) {
         PropertyDTO propertyDTO = new PropertyDTO();
         propertyDTO.setId(property.getId());
@@ -64,44 +73,13 @@ public class PropertyService {
         propertyDTO.setSellerId(property.getSeller().getId());
         propertyDTO.setAgentId(property.getAgent().getId());
         propertyDTO.setPropertyCategory(property.getPropertyCategory());
-
+        propertyDTO.setStreet(property.getStreet());
+        propertyDTO.setBlock(property.getBlock());
+        propertyDTO.setLot(property.getLot());
+        propertyDTO.setNumber(property.getNumber());
+        propertyDTO.setComplement(property.getComplement());
+        propertyDTO.setCity(property.getCity());
+        propertyDTO.setState(property.getState());
         return propertyDTO;
     }
-
-    public Page<Commercial> getAllCommercialProperties(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return commercialRepository.findAll(pageable);
-    }
-
-    public Page<CommercialArea> getAllCommercialAreas(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return commercialAreaRepository.findAll(pageable);
-    }
-
-    public Page<CommercialBuilding> getAllCommercialBuildings(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return commercialBuildingRepository.findAll(pageable);
-    }
-
-    public Page<CommercialRoom> getAllCommercialRooms(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return commercialRoomRepository.findAll(pageable);
-    }
-
-    public Page<Rural> getAllRuralProperties(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return ruralRepository.findAll(pageable);
-    }
-
-    public Page<Farm> getAllFarms(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return farmRepository.findAll(pageable);
-    }
-
-    public Page<CountryHouse> getAllCountryHouses(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return countryHouseRepository.findAll(pageable);
-    }
-
-
 }

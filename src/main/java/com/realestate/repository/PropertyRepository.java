@@ -1,6 +1,7 @@
 package com.realestate.repository;
 
 import com.realestate.entity.property.Property;
+import com.realestate.enums.PropertyStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +18,9 @@ public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSp
     Optional<Property> findTopByOrderByIdDesc();
     boolean existsByPropertyCode(String propertyCode);
     List<Property> findByIdIn(List<Long> ids);
+    Page<Property> findByStatus(PropertyStatus status, Pageable pageable);
+    Page<Property> findByPropertyCategory(String propertyCategory, Pageable pageable);
+    Page<Property> findByStatusAndPropertyCategory(PropertyStatus status, String category, Pageable pageable);
 }
 
 
