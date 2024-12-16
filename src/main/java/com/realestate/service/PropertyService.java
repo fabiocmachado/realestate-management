@@ -7,7 +7,9 @@ import com.realestate.repository.PropertyRepository;
 import com.realestate.exception.InvalidCategoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,21 +20,21 @@ public class PropertyService {
 
     public Page<PropertyDTO> getProperties(String status, String category, Pageable pageable) {
         PropertyStatus propertyStatus = parseStatus(status);
-
         if (category != null && !isValidCategory(category)) {
             throw new InvalidCategoryException("Categoria inválida: " + category);
         }
 
+        PageRequest pageRequest = createPageRequest(pageable);
         Page<Property> properties;
 
         if (propertyStatus != null && category != null) {
-            properties = propertyRepository.findByStatusAndPropertyCategory(propertyStatus, category, pageable);
+            properties = propertyRepository.findByStatusAndPropertyCategory(propertyStatus, category, pageRequest);
         } else if (propertyStatus != null) {
-            properties = propertyRepository.findByStatus(propertyStatus, pageable);
+            properties = propertyRepository.findByStatus(propertyStatus, pageRequest);
         } else if (category != null) {
-            properties = propertyRepository.findByPropertyCategory(category, pageable);
+            properties = propertyRepository.findByPropertyCategory(category, pageRequest);
         } else {
-            properties = propertyRepository.findAll(pageable);
+            properties = propertyRepository.findAll(pageRequest);
         }
 
         return properties.map(this::convertToDTO);
@@ -63,6 +65,10 @@ public class PropertyService {
                 category.equalsIgnoreCase("COMMERCIAL_ROOM");
     }
 
+    private PageRequest createPageRequest(Pageable pageable) {
+        return PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.desc("createdAt")));
+    }
+
     private PropertyDTO convertToDTO(Property property) {
         PropertyDTO propertyDTO = new PropertyDTO();
         propertyDTO.setId(property.getId());
@@ -80,6 +86,7 @@ public class PropertyService {
         propertyDTO.setComplement(property.getComplement());
         propertyDTO.setCity(property.getCity());
         propertyDTO.setState(property.getState());
+        propertyDTO.setCreatedAt(property.getCreatedAt());
         return propertyDTO;
     }
 }
