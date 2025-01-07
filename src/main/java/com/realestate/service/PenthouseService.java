@@ -64,6 +64,8 @@ public class PenthouseService {
         Agent agent = agentRepository.findById(penthouseDTO.getAgentId()).orElseThrow(() ->
                 new EntityNotFoundException("Agent not found with ID: " + penthouseDTO.getAgentId()));
         penthouseMapper.updateEntityFromDTO(penthouseDTO, existingPenthouse);
+        existingPenthouse.setSeller(seller);
+        existingPenthouse.setAgent(agent);
         Penthouse updatedPenthouse = penthouseRepository.save(existingPenthouse);
         return penthouseMapper.toDTO(updatedPenthouse);
     }

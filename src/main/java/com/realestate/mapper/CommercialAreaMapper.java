@@ -18,8 +18,6 @@ public interface CommercialAreaMapper {
     @Mapping(target = "id", ignore = true)
     CommercialArea toEntity(CommercialAreaDTO commercialAreaDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDTO(CommercialAreaDTO commercialAreaDTO, @MappingTarget CommercialArea commercialArea);
 }

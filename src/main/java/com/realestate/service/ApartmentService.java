@@ -66,6 +66,7 @@ public class ApartmentService {
         existingApartment.setAgent(agentRepository.findById(apartmentDTO.getAgentId())
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found")));
 
+
         Apartment updatedApartment = apartmentRepository.save(existingApartment);
         return apartmentMapper.toDTO(updatedApartment);
     }

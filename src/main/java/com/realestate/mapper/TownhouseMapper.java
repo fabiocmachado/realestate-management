@@ -18,8 +18,6 @@ public interface TownhouseMapper {
     @Mapping(target = "id", ignore = true)
     Townhouse toEntity(TownhouseDTO townhouseDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDTO(TownhouseDTO townhouseDTO, @MappingTarget Townhouse townhouse);
 }

@@ -18,8 +18,6 @@ public interface WarehouseMapper {
     @Mapping(target = "id", ignore = true)
     Warehouse toEntity(WarehouseDTO warehouseDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDTO(WarehouseDTO warehouseDTO, @MappingTarget Warehouse warehouse);
 }

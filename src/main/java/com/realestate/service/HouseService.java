@@ -69,6 +69,8 @@ public class HouseService {
                 : null;
 
         houseMapper.updateEntityFromDTO(houseDTO, existingHouse);
+        existingHouse.setSeller(seller);
+        existingHouse.setAgent(agent);
         House updatedHouse = houseRepository.save(existingHouse);
         return houseMapper.toDTO(updatedHouse);
     }

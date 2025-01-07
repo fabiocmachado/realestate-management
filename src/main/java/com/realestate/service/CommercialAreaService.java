@@ -1,6 +1,8 @@
 package com.realestate.service;
 
 import com.realestate.dto.CommercialAreaDTO;
+import com.realestate.entity.person.Agent;
+import com.realestate.entity.person.Seller;
 import com.realestate.entity.property.urban.comercial.CommercialArea;
 import com.realestate.mapper.CommercialAreaMapper;
 import com.realestate.repository.AgentRepository;
@@ -50,8 +52,13 @@ public class CommercialAreaService {
         if (existingEntity == null) {
             throw new EntityNotFoundException("Commercial Area not found with PropertyCode: " + propertyCode);
         }
-
+        Seller seller = sellerRepository.findById(commercialAreaDTO.getSellerId())
+                .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + commercialAreaDTO.getSellerId()));
+        Agent agent = agentRepository.findById(commercialAreaDTO.getAgentId())
+                .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + commercialAreaDTO.getAgentId()));
         commercialAreaMapper.updateEntityFromDTO(commercialAreaDTO, existingEntity);
+        existingEntity.setSeller(seller);
+        existingEntity.setAgent(agent);
         CommercialArea updatedEntity = commercialAreaRepository.save(existingEntity);
         return commercialAreaMapper.toDTO(updatedEntity);
     }

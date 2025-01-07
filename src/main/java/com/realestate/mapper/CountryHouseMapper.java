@@ -18,8 +18,6 @@ public interface CountryHouseMapper {
     @Mapping(target = "id", ignore = true)
     CountryHouse toEntity(CountryHouseDTO countryHouseDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     CountryHouse updateEntityFromDTO(CountryHouseDTO countryHouseDTO, @MappingTarget CountryHouse countryHouse);
 }

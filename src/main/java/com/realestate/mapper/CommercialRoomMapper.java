@@ -18,8 +18,6 @@ public interface CommercialRoomMapper {
     @Mapping(target = "id", ignore = true)
     CommercialRoom toEntity(CommercialRoomDTO commercialRoomDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDTO(CommercialRoomDTO commercialRoomDTO, @MappingTarget CommercialRoom commercialRoom);
 }

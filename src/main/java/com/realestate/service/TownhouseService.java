@@ -60,6 +60,8 @@ public class TownhouseService {
         Agent agent = agentRepository.findById(townhouseDTO.getAgentId())
                 .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + townhouseDTO.getAgentId()));
         townhouseMapper.updateEntityFromDTO(townhouseDTO, existingTownhouse);
+        existingTownhouse.setSeller(seller);
+        existingTownhouse.setAgent(agent);
         Townhouse updatedTownhouse = townhouseRepository.save(existingTownhouse);
         return townhouseMapper.toDTO(updatedTownhouse);
     }

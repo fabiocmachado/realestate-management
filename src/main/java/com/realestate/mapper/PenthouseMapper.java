@@ -18,8 +18,6 @@ public interface PenthouseMapper {
     @Mapping(target = "id", ignore = true)
     Penthouse toEntity(PenthouseDTO penthouseDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDTO(PenthouseDTO penthouseDTO, @MappingTarget Penthouse penthouse);
 }

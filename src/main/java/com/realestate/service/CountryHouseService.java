@@ -63,6 +63,8 @@ public class CountryHouseService {
         Seller seller = findSeller(countryHouseDTO.getSellerId());
         Agent agent = findAgent(countryHouseDTO.getAgentId());
         CountryHouse countryHouse = countryHouseMapper.updateEntityFromDTO(countryHouseDTO, existingCountryHouse);
+        existingCountryHouse.setSeller(seller);
+        existingCountryHouse.setAgent(agent);
         countryHouseRepository.save(countryHouse);
 
         return countryHouseMapper.toDTO(countryHouse);

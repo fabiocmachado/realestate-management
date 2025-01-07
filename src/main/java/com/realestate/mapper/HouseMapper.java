@@ -18,8 +18,6 @@ public interface HouseMapper {
     @Mapping(target = "id", ignore = true)
     House toEntity(HouseDTO houseDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDTO(HouseDTO houseDTO, @MappingTarget House house);
 }

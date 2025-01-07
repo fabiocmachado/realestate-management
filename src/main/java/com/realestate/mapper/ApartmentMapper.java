@@ -17,8 +17,6 @@ public interface ApartmentMapper {
     @Mapping(source = "sellerId", target = "seller.id")
     Apartment toEntity(ApartmentDTO apartmentDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDTO(ApartmentDTO apartmentDTO, @MappingTarget Apartment apartment);
 }

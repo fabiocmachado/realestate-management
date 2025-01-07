@@ -61,6 +61,8 @@ public class FarmService {
         Seller seller = findSeller(farmDTO.getSellerId());
         Agent agent = findAgent(farmDTO.getAgentId());
         Farm farm = farmMapper.updateEntityFromDTO(farmDTO, existingFarm);
+        existingFarm.setSeller(seller);
+        existingFarm.setAgent(agent);
         farmRepository.save(farm);
 
         return farmMapper.toDTO(farm);

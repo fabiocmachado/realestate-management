@@ -1,9 +1,13 @@
 package com.realestate.service;
 
 import com.realestate.dto.CommercialRoomDTO;
+import com.realestate.entity.person.Agent;
+import com.realestate.entity.person.Seller;
 import com.realestate.entity.property.urban.comercial.CommercialRoom;
 import com.realestate.mapper.CommercialRoomMapper;
+import com.realestate.repository.AgentRepository;
 import com.realestate.repository.CommercialRoomRepository;
+import com.realestate.repository.SellerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CommercialRoomService {
 
+    private final SellerRepository sellerRepository;
+    private final AgentRepository agentRepository;
     private final CommercialRoomRepository commercialRoomRepository;
     private final CommercialRoomMapper commercialRoomMapper;
 
@@ -46,8 +52,13 @@ public class CommercialRoomService {
         if (existingEntity == null) {
             throw new EntityNotFoundException("Commercial Room not found with PropertyCode: " + propertyCode);
         }
-
+        Seller seller = sellerRepository.findById(commercialRoomDTO.getSellerId())
+                .orElseThrow(() -> new EntityNotFoundException("Seller not found with ID: " + commercialRoomDTO.getSellerId()));
+        Agent agent = agentRepository.findById(commercialRoomDTO.getAgentId())
+                .orElseThrow(() -> new EntityNotFoundException("Agent not found with ID: " + commercialRoomDTO.getAgentId()));
         commercialRoomMapper.updateEntityFromDTO(commercialRoomDTO, existingEntity);
+        existingEntity.setSeller(seller);
+        existingEntity.setAgent(agent);
         CommercialRoom updatedEntity = commercialRoomRepository.save(existingEntity);
         return commercialRoomMapper.toDTO(updatedEntity);
     }

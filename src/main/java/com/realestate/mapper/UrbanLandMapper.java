@@ -1,6 +1,8 @@
 package com.realestate.mapper;
 
 import com.realestate.dto.UrbanLandDTO;
+import com.realestate.entity.person.Agent;
+import com.realestate.entity.person.Seller;
 import com.realestate.entity.property.urban.residential.UrbanLand;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,9 +20,25 @@ public interface UrbanLandMapper {
     @Mapping(target = "id", ignore = true)
     UrbanLand toEntity(UrbanLandDTO urbanLandDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDTO(UrbanLandDTO urbanLandDTO, @MappingTarget UrbanLand urbanLand);
+
+    default Agent mapAgent(Long agentId) {
+        if (agentId == null) {
+            return null;
+        }
+        Agent agent = new Agent();
+        agent.setId(agentId);
+        return agent;
+    }
+
+    default Seller mapSeller(Long sellerId) {
+        if (sellerId == null) {
+            return null;
+        }
+        Seller seller = new Seller();
+        seller.setId(sellerId);
+        return seller;
+    }
 }
 

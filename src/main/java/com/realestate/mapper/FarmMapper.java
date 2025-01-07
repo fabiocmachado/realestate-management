@@ -18,8 +18,6 @@ public interface FarmMapper {
     @Mapping(target = "id", ignore = true)
     Farm toEntity(FarmDTO farmDTO);
 
-    @Mapping(target = "agent", ignore = true)
-    @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     Farm updateEntityFromDTO(FarmDTO farmDTO, @MappingTarget Farm farm);
 }
