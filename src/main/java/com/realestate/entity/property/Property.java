@@ -61,6 +61,9 @@ public abstract class Property {
     @Column(name = "number")
     private String number;
 
+    @Column(name = "neighborhood")
+    private String neighborhood;
+
     @Column(name = "city")
     private String city;
 
