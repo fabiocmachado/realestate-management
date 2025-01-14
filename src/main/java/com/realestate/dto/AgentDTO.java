@@ -25,6 +25,7 @@ public class AgentDTO {
     private String lot;
     private String complement;
     private String number;
+    private String neighborhood;
     private String city;
     private String state;
 

@@ -9,6 +9,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,8 +25,8 @@ public class Agent extends Person {
     private String licenseNumber;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "agent", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private Set<Property> prospectedProperties = new HashSet<>();
+    @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL)
+    private List<Property> prospectedProperties;
 
     @NotNull(message = "Password is required")
     private String password;
