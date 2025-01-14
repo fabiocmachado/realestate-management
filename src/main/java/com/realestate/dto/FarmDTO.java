@@ -1,11 +1,7 @@
 package com.realestate.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.realestate.enums.ConservationStatus;
 import com.realestate.enums.EnergyType;
-import com.realestate.repository.SellerRepository;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -16,10 +12,7 @@ import lombok.experimental.SuperBuilder;
 public class FarmDTO extends RuralDTO {
 
     private String name;
-
-    @NotNull
-    private AreaMeasurementDTO formedArea;
-
+    private Double formedArea;
     private String typeOfSoil;
     private String predominantPasture;
     private String otherPastures;
@@ -42,22 +35,4 @@ public class FarmDTO extends RuralDTO {
     private Float distanceOfCity;
     private Float distanceDirtRoad;
     private Integer pastures;
-
-    @JsonCreator
-    public FarmDTO(
-            @JsonProperty("totalArea") Double totalAreaAlqueirosGoianos,
-            @JsonProperty("formedArea") Double formedAreaAlqueirosGoianos,
-            @JsonProperty("legalReserveArea") Double legalReserveAreaAlqueirosGoianos
-    ) {
-        super(
-                new AreaMeasurementDTO(totalAreaAlqueirosGoianos),
-                new AreaMeasurementDTO(legalReserveAreaAlqueirosGoianos)
-        );
-        this.formedArea = new AreaMeasurementDTO(formedAreaAlqueirosGoianos);
-    }
-
-    @JsonProperty("formedArea")
-    private void setFormedArea(Double formedAreaAlqueirosGoianos) {
-        this.formedArea = new AreaMeasurementDTO(formedAreaAlqueirosGoianos);
-    }
 }

@@ -14,45 +14,31 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 public class Rural extends Property {
-    @NotNull
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "hectares", column = @Column(name = "total_area_hectares")),
-            @AttributeOverride(name = "alqueiresGoianos", column = @Column(name = "total_area_alqueires"))
-    })
-    private AreaMeasurement totalAreaRural;
 
     @NotNull
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "hectares", column = @Column(name = "legal_reserve_hectares")),
-            @AttributeOverride(name = "alqueiresGoianos", column = @Column(name = "legal_reserve_alqueires"))
-    })
-    private AreaMeasurement legalReserveArea;
+    @Column(name = "total_area_alqueires")
+    private Double totalAreaRural;
+
+    @Column(name = "legal_reserve_alqueires")
+    private Double legalReserveArea;
 
     {
         setPropertyType(PropertyType.RURAL);
     }
+
     @PrePersist
     @PreUpdate
     private void validateAreas() {
-        if (totalAreaRural == null || legalReserveArea == null) {
-            throw new IllegalStateException("Total area and legal reserve area must be set");
-        }
-
-        double totalAreaHectares = totalAreaRural.getHectares();
-        double legalReserveAreaHectares = legalReserveArea.getHectares();
-
-        if (legalReserveAreaHectares > totalAreaHectares) {
-            throw new IllegalStateException("Legal reserve area cannot exceed total area");
-        }
-
-        if (totalAreaHectares <= 0) {
+        if (totalAreaRural <= 0) {
             throw new IllegalStateException("Total area must be greater than zero");
         }
 
-        if (legalReserveAreaHectares < 0) {
+        if (legalReserveArea < 0) {
             throw new IllegalStateException("Legal reserve area cannot be negative");
+        }
+
+        if (legalReserveArea > totalAreaRural) {
+            throw new IllegalStateException("Legal reserve area cannot exceed total area");
         }
     }
 }

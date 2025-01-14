@@ -4,8 +4,6 @@ import com.realestate.enums.ConservationStatus;
 import com.realestate.enums.EnergyType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -78,30 +76,21 @@ public class Farm extends Rural {
     @Column(name = "herd_support")
     private Integer herdSupport;
 
-    @NotNull
     @Min(0)
     @Column(name = "distance_of_gyn")
     private Float distanceOfGyn;
 
-    @NotNull
     @Min(0)
     @Column(name = "distance_of_city")
     private Float distanceOfCity;
 
-    @NotNull
     @Min(0)
     @Column(name = "distance_dirt_road")
     private Float distanceDirtRoad;
 
-    @NotNull
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "hectares", column = @Column(name = "formed_area_hectares")),
-            @AttributeOverride(name = "alqueiresGoianos", column = @Column(name = "formed_area_alqueires"))
-    })
-    private AreaMeasurement formedArea;
+    @Column(name = "formedArea")
+    private Double formedArea;
 
-    @NotNull
     @Min(0)
     @Column(name = "pastures")
     private Integer pastures;
