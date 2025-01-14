@@ -1,6 +1,7 @@
 package com.realestate.entity.property.urban.comercial;
 
 import com.realestate.entity.property.urban.comercial.Commercial;
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -15,4 +16,10 @@ import lombok.experimental.SuperBuilder;
 @DiscriminatorValue("COMMERCIAL_ROOM")
 @SuperBuilder
 public class CommercialRoom extends Commercial {
+
+    @Column(name = "apartment_number")
+    private String apartmentNumber;
+
+    @Column(name = "number_of_floors")
+    private Integer numberOfFloors;
 }

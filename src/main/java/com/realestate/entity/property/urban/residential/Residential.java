@@ -33,4 +33,7 @@ public class Residential extends Urban {
 
     @Column(name = "garage_spaces")
     private Integer garageSpaces;
+
+    @Column(name = "rental_value")
+    private Float rentalValue;
 }

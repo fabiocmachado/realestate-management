@@ -10,4 +10,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CommercialRoomDTO extends CommercialDTO {
+    private String apartmentNumber;
+    private Integer numberOfFloors;
 }
