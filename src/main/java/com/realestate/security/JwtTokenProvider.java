@@ -1,5 +1,6 @@
 package com.realestate.security;
 
+import com.realestate.exception.TokenExpiredException;
 import com.realestate.service.CustomUserDetailsService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.Base64;
 import java.util.Date;
 
 @Component
@@ -48,10 +48,13 @@ public class JwtTokenProvider {
                     .setSigningKey(secretKey)
                     .parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
+        } catch (ExpiredJwtException e) {
+            throw new TokenExpiredException("Token expirado");
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
+
 
 
     public String getUsername(String token) {

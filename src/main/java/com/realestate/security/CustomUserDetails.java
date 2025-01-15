@@ -23,16 +23,15 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if (person instanceof Agent agent) {
+        if (agent.getHasAdminPermissions()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
             authorities.add(new SimpleGrantedAuthority("ROLE_AGENT"));
-
-            if (agent.getHasAdminPermissions()) {
-                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            }
         }
 
         return authorities;
     }
+
 
 
 

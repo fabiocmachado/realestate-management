@@ -35,7 +35,11 @@ public class AgentService {
     public List<AgentDTO> findAllAgents() {
         List<Agent> agents = agentRepository.findAllByOrderByIdAsc();
         return agents != null ? agents.stream()
-                .map(agentMapper::toDTO)
+                .map(agent -> {
+                    AgentDTO agentDTO = agentMapper.toDTO(agent);
+                    agentDTO.setPassword(null);
+                    return agentDTO;
+                })
                 .collect(Collectors.toList())
                 : Collections.emptyList();
     }
@@ -43,7 +47,11 @@ public class AgentService {
     @Transactional(readOnly = true)
     public Optional<AgentDTO> findAgentById(Long id) {
         return agentRepository.findById(id)
-                .map(agentMapper::toDTO);
+                .map(agent -> {
+                    AgentDTO agentDTO = agentMapper.toDTO(agent);
+                    agentDTO.setPassword(null);
+                    return agentDTO;
+                });
     }
 
     @Transactional
@@ -62,10 +70,12 @@ public class AgentService {
         } else {
             agentDTO.setPassword(agent.getPassword());
         }
+
         agentMapper.updateEntityFromDTO(agentDTO, agent);
         Agent updatedAgent = agentRepository.save(agent);
         return agentMapper.toDTO(updatedAgent);
     }
+
 
     @Transactional
     public void deleteAgent(Long id) {
