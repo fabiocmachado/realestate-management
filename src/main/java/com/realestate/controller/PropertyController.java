@@ -40,6 +40,16 @@ public class PropertyController {
         }
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<PropertyDTO> searchByCode(@RequestParam String propertyCode) {
+        try {
+            PropertyDTO propertyDTO = propertyService.getPropertyByCode(propertyCode);
+            return ResponseEntity.ok(propertyDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     private Pageable createPageable(int page, int size) {
         if (page < 0 || size <= 0) {
             throw new IllegalArgumentException("Os parâmetros 'page' e 'size' devem ser válidos. 'page' não pode ser negativo e 'size' deve ser maior que zero.");

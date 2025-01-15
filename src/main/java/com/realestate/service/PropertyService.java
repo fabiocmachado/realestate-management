@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PropertyService {
 
@@ -39,6 +41,16 @@ public class PropertyService {
 
         return properties.map(this::convertToDTO);
     }
+
+    public PropertyDTO getPropertyByCode(String propertyCode) {
+        Optional<Property> property = propertyRepository.findPropertyByPropertyCode(propertyCode);
+        if (property.isPresent()) {
+            return convertToDTO(property.get());
+        } else {
+            throw new RuntimeException("Imóvel não encontrado para o código: " + propertyCode);
+        }
+    }
+
 
     private PropertyStatus parseStatus(String status) {
         if (status == null) {
