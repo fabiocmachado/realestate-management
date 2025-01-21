@@ -1,0 +1,109 @@
+/* Reset básico para garantir consistência entre navegadores */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Definir a fonte padrão para todo o app */
+body {
+  font-family: 'Roboto Condensed', 'Open Sans', 'Poppins', sans-serif;
+  background-color: #f4f4f4; /* Cor de fundo principal */
+  color: #333; /* Cor de texto */
+  line-height: 1.6;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Links padrão */
+a {
+  text-decoration: none;
+  color: #007bff; /* Cor de links */
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #0056b3; /* Cor de hover para links */
+}
+
+/* Botões padrões */
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+}
+
+button:hover {
+  background-color: #0056b3; /* Cor de hover de botões */
+  transform: scale(1.05); /* Efeito de hover */
+}
+
+/* Cartões (cards) padrão */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Formulários padrões */
+input,
+textarea,
+select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc; /* Borda cinza clara */
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #007bff; /* Cor da borda ao focar */
+  outline: none;
+}
+
+/* Cabeçalho padrão */
+header {
+  background-color: #333; /* Cor de fundo do cabeçalho */
+  color: white;
+  padding: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+header nav a {
+  color: white;
+  margin-left: 20px;
+  font-size: 1.1rem;
+}
+
+header nav a:hover {
+  color: #007bff; /* Cor de hover de links no cabeçalho */
+}
+
+.no-print {
+    display: none !important; /* Oculta elementos com a classe .no-print */
+  }

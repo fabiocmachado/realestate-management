@@ -1,0 +1,162 @@
+/* Global Styles */
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+/* Input and Select Styles */
+input[type="text"], select {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input[type="text"] {
+  max-width: 300px;
+}
+
+select {
+  max-width: 300px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+table th {
+  background-color: #333;
+  color: white;
+}
+
+table td {
+  background-color: white;
+}
+
+table tr:hover {
+  background-color: #f9f9f9;
+}
+
+button {
+  color: #333;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Pagination Styles */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination button:hover:not(.active) {
+  background-color: #f1f1f1;
+}
+
+/* Error Message */
+p {
+  margin: 15px 0;
+}
+
+p[style*="color: red"] {
+  color: red;
+}
+
+/* Estilo para o link de "Adicionar Imóvel" */
+.add-property-link {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.add-property-link a {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-property-link a:hover {
+  transform: scale(1.05);
+}
+
+/* Estilo para o grupo de filtros */
+.filter-group {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os itens rolem para a próxima linha se não couberem */
+  gap: 20px; /* Espaçamento entre os filtros */
+  margin-bottom: 20px; /* Espaçamento abaixo do grupo */
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column; /* Mantém o label e o input em coluna */
+  flex: 1; /* Permite que os itens cresçam de forma proporcional */
+  min-width: 250px; /* Define uma largura mínima para cada filtro */
+}
+
+
+.filter-item label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.filter-item input[type="text"],
+.filter-item select {
+  width: 100%;
+  max-width: 300px; /* Largura máxima */
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+}

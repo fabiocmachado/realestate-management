@@ -1,0 +1,121 @@
+/* styles/agentList.css */
+
+/* Estilo geral para a página de lista de agentes */
+.agent-list-container {
+  background-color: #f4f4f4;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para a tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 12px 15px;
+  text-align: left;
+  color: #333;
+}
+
+table th {
+  background-color: #333;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Estilo para os botões na coluna de ações */
+table td button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+table td button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  button {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  table th, table td {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  table td button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+/* Estilo para o link de "Adicionar Agente" */
+.add-agent-link {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.add-agent-link a {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-agent-link a:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,83 @@
+/* Estilo geral do cabeçalho */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333; /* Fundo preto */
+  color: white; /* Texto branco */
+  padding: 20px;
+}
+
+.logo h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.greeting {
+  text-align: center;
+}
+
+.greeting p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.navigation button {
+  background-color: #007bff; /* Azul */
+  color: balck;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navigation button:hover {
+  background-color: #0056b3; /* Azul mais escuro */
+}
+
+
+/* Estilo para o nav */
+header nav {
+  display: flex;
+  align-items: center;
+  }
+
+header nav a {
+  color: white;
+  margin-left: 20px;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+
+header nav a:hover {
+  color: #007bff; /* Cor de hover de links no cabeçalho */
+}
+
+/* Estilo para o botão de logout */
+header button {
+  background-color: white !important; /* Cor do botão */
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  max-width: 150px;
+  min-width: 100px;
+  text-align: center;
+}
+
+header button:hover {
+  background-color: #0056b3; /* Cor de hover para o botão */
+  transform: scale(1.05);
+}
+
+@media print {
+  /* Ocultar o cabeçalho durante a impressão */
+  .header {
+    display: none !important;
+  }
+}

@@ -1,0 +1,148 @@
+/* Estilos Gerais */
+.property-details-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0 auto;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* Seção de detalhes */
+.property-details-content {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-bottom: 3px;
+  page-break-inside: avoid;
+}
+
+/* Colunas */
+.one-column, .two-column, .three-column, .four-column, .five-column {
+  display: grid;
+}
+
+.one-column {
+  grid-template-columns: 1fr;
+}
+
+.two-column {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.three-column {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.four-column {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.five-column {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.five-column > div {
+  flex: 1 1 19%;
+}
+
+.four-column > div {
+  flex: 1 1 24%;
+}
+
+.three-column > div {
+  flex: 1 1 32%;
+  min-width: 50px;
+}
+
+.two-column > div {
+  flex: 1 1 48%;
+}
+
+.one-column > div {
+  flex: 1 1 100%;
+}
+
+h2, h3 {
+  text-align: center;
+  color: #333;
+  margin: 4px 0;
+  font-size: 16px;
+}
+
+p {
+  font-size: 12px;
+  margin: 3px 0;
+}
+.edit-button-container {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  margin-top: 10px; /* Espaçamento superior */
+}
+
+.edit-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+  background-color: #0056b3; /* Cor mais escura no hover */
+}
+
+
+textarea {
+  font-size: 10px;
+  width: 100%;
+  resize: none;
+  border: 1px solid #ccc;
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .two-column, .three-column, .four-column {
+    grid-template-columns: 1fr; /* Ajusta para uma coluna em telas pequenas */
+  }
+  h2, h3 {
+    font-size: 0.9rem;
+  }
+}
+
+/* Estilos de impressão específicos */
+@media print {
+  body {
+    font-size: 11px;
+    line-height: 1.1;
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  p {
+  font-size: 11px;
+      line-height: 1.1;
+  }
+
+  .no-print, button {
+    display: none;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 5mm;
+  }
+
+  .property-details-container {
+    page-break-after: always;
+  }
+}

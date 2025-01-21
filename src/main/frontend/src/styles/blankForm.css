@@ -1,0 +1,107 @@
+@page {
+  size: A4; /* Define o tamanho da página como A4 */
+  margin: 1cm; /* Define as margens da página */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  background-color: #fff;
+  font-size: 10pt; /* Tamanho reduzido para caber mais informações */
+  line-height: 1.1; /* Ajuste de espaçamento entre linhas */
+  width: 100%;
+}
+
+.print-only {
+  max-width: 100%; /* Garante que o conteúdo ocupe toda a largura disponível */
+}
+
+.no-print {
+  display: none !important; /* Oculta elementos irrelevantes para impressão */
+}
+
+/* Cabeçalhos */
+h1.heading {
+  font-size: 14pt; /* Ajuste do tamanho do título */
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+h2.section-heading {
+  font-size: 12pt; /* Ajuste do tamanho das seções */
+  text-align: center;
+  margin-bottom: 4px;
+  padding-bottom: 1px;
+}
+
+/* Seções e Layout */
+.section {
+  margin-bottom: 5px;
+  page-break-inside: avoid;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.two-column,
+.three-column {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.two-column .column {
+  flex: 1 1 calc(50% - 10px); /* Duas colunas com espaçamento */
+}
+
+.three-column .column {
+  flex: 1 1 calc(33.33% - 10px); /* Três colunas proporcionais */
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+/* Campos e Checkboxes */
+.field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: 11pt; /* Tamanho reduzido */
+  margin-right: 5px;
+}
+
+.checkbox {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #000;
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+/* Textarea */
+textarea {
+  width: 100%;
+  border: 1px solid #000;
+  resize: none;
+  height: 80px;
+  padding: 5px;
+  font-size: 8pt; /* Ajuste do tamanho do texto */
+  line-height: 1.2;
+}
+
+/* Ajuste geral de espaçamentos */
+div {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
