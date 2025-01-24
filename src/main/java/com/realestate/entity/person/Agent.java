@@ -19,14 +19,13 @@ import java.util.List;
 @DiscriminatorValue("AGENT")
 public class Agent extends Person {
 
-    @Column(name = "license_number", nullable = false, unique = true)
+    @Column(name = "license_number", unique = true)
     private String licenseNumber;
 
     @JsonBackReference
     @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL)
     private List<Property> prospectedProperties;
 
-    @NotNull(message = "Password is required")
     private String password;
 
     @Getter

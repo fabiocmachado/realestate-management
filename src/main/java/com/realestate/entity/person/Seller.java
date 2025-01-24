@@ -2,7 +2,6 @@ package com.realestate.entity.person;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.realestate.entity.property.Property;
 import jakarta.persistence.*;
 import lombok.*;
