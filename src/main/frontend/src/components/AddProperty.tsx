@@ -12,7 +12,7 @@ import FarmForm from './forms/FarmForm';
 import CountryHouseForm from './forms/CountryHouseForm';
 import CommercialAreaForm from './forms/CommercialAreaForm';
 import CommercialRoomForm from './forms/CommercialRoomForm';
-import "../styles/propertiesForms.css";
+import '../styles/addProperty.css'
 
 interface CommonFormProps {
   onSuccess: () => void;
@@ -50,13 +50,18 @@ const AddProperty: React.FC = () => {
 
   const handleCancel = () => {
     console.log('Formulário cancelado');
+    setPropertyType(null);
   };
 
   return (
     <div className="form-container">
       <h1>Cadastrar Propriedade</h1>
-      <label>
-        <select value={propertyType || ''} onChange={handlePropertyTypeChange}>
+      <div className="select-wrapper">
+        <select
+          className="property-select"
+          value={propertyType || ''}
+          onChange={handlePropertyTypeChange}
+        >
           <option value="" disabled>
             Escolha a categoria do imóvel
           </option>
@@ -78,8 +83,7 @@ const AddProperty: React.FC = () => {
             <option value="FARM">Fazenda</option>
           </optgroup>
         </select>
-      </label>
-      <br />
+      </div>
 
       {propertyType &&
         React.createElement(formComponents[propertyType as PropertyCategory], {
@@ -87,6 +91,7 @@ const AddProperty: React.FC = () => {
           onCancel: handleCancel,
         })}
     </div>
+
   );
 
 };

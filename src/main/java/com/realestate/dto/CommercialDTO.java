@@ -31,8 +31,6 @@ public class CommercialDTO extends PropertyDTO{
 
     private Integer offices;
 
-    private String visitingTime;
-
     private Boolean hasMezzanine;
 
     private Boolean hasKitchen;

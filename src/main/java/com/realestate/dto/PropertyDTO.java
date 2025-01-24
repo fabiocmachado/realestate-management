@@ -38,4 +38,5 @@ public class PropertyDTO {
     private Float totalArea;
     private Long agentId;
     private Long sellerId;
+    private String visitingTime;
 }

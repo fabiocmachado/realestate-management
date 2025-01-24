@@ -115,6 +115,9 @@ public abstract class Property {
     @Column(name = "total_area")
     private Float totalArea;
 
+    @Column(name = "visiting_time")
+    private String visitingTime;
+
     private String generateUniquePropertyCode() {
         return UUID.randomUUID().toString().substring(0, 8);
     }

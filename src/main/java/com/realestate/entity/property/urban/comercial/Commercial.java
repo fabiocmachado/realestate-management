@@ -50,9 +50,6 @@ public class Commercial extends Urban {
     @Column(name = "suites")
     private Integer suites;
 
-    @Column(name = "visiting_time")
-    private String visitingTime;
-
     @Column(name = "mezzanine")
     private Boolean mezzanine;
 

@@ -85,8 +85,6 @@ public class ApartmentDTO extends ResidentialDTO {
 
     private Boolean hasCompartment;
 
-    private String visitingTime;
-
     private Boolean hasPrivateSwimmingPool;
 
     private Boolean hasExclusiveSauna;

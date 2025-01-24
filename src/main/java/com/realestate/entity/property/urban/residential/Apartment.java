@@ -131,9 +131,6 @@ public class Apartment extends Residential {
     @Column(name = "compartment")
     private Boolean hasCompartment;
 
-    @Column(name = "visiting_time")
-    private String visitingTime;
-
     @Column(name = "private_swimming_pool")
     private Boolean hasPrivateSwimmingPool;
 
