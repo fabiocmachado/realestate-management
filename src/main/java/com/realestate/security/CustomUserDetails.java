@@ -11,8 +11,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
-    private final Person person;
+
     private final Agent agent;
+    private final Person person;
 
     public CustomUserDetails(Agent agent, Person person) {
         this.agent = agent;
@@ -23,7 +24,7 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if (agent.getHasAdminPermissions()) {
+        if (agent != null && agent.getHasAdminPermissions()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else {
             authorities.add(new SimpleGrantedAuthority("ROLE_AGENT"));
@@ -31,10 +32,6 @@ public class CustomUserDetails implements UserDetails {
 
         return authorities;
     }
-
-
-
-
 
     @Override
     public String getPassword() {
