@@ -1,5 +1,11 @@
-HELP.md
+# Arquivos de configuração sensíveis
+/src/main/resources/application.properties
+.env
+
+# Diretório de build do Maven
 target/
+
+# Exceções para arquivos específicos dentro de src/main e src/test
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -32,4 +38,17 @@ build/
 ### VS Code ###
 .vscode/
 
-/src/main/resources/application.properties
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de dependências do Maven (opcional)
+**/mvnw
+**/mvnw.cmd
+**/.mvn/
