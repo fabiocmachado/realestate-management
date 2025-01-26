@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Seller } from "../types/models";
 import api from "../services/api";
-import "../styles/sellerList.css";
+import '../styles/sellerList.css'
 
 const removeAccents = (str: string) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -20,34 +20,33 @@ const SellerList: React.FC = () => {
       .catch((error) => console.error("Erro ao carregar os vendedores", error));
   }, []);
 
-  const handleEdit = (id: number) => {
-    navigate(`/edit-seller/${id}`);
-  };
-
   const goToDetails = (id: number) => {
     navigate(`/sellers/${id}`);
   };
 
-  const filteredSellers = sellers.filter((seller) =>
+  const filteredSellers = sellers
+    .sort((a, b) => (b.id ?? 0) - (a.id ?? 0))
+    .filter((seller) =>
       removeAccents(seller.name.toLowerCase()).includes(removeAccents(searchTerm.toLowerCase()))
     );
 
+
   return (
     <div>
-     <div className="add-seller-link">
-       <Link to="/add-seller">Cadastrar Proprietário</Link>
-     </div>
+      <div className="add-seller-link">
+        <Link to="/add-seller">Cadastrar Proprietário</Link>
+      </div>
       <h2>Lista de Proprietários</h2>
       <div className="search-group">
-      <div className="search-container">
-        <label htmlFor="searchCode">Buscar por Nome:</label>
-         <input
+        <div className="search-container">
+          <label htmlFor="searchCode">Buscar por Nome:</label>
+          <input
             type="text"
             placeholder="Digite o nome..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-      </div>
+        </div>
       </div>
       <table>
         <thead>
@@ -67,7 +66,6 @@ const SellerList: React.FC = () => {
               <td>{seller.email}</td>
               <td>{seller.phone}</td>
               <td>
-                <button onClick={() => handleEdit(seller.id!)}>Editar</button>
                 <button onClick={() => goToDetails(seller.id!)}>Detalhes</button>
               </td>
             </tr>

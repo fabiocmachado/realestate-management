@@ -1,149 +1,151 @@
-/* sellerList.css */
+/* SellerList.css */
+
+/* Container principal */
 .seller-list-container {
-  background-color: #f4f4f4;
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  background-color: var(--text-light);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
 }
 
-.seller-list-header {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  font-size: 24px;
+/* Link para cadastrar novo proprietário */
+.add-seller-link {
+  margin-bottom: 20px;
+  text-align: right;
+   margin-bottom: 20px;
 }
 
-.filter-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+.add-seller-link a {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.add-seller-link a:hover {
+  background-color: var(--hover-color);
+}
+
+/* Título da página */
+.seller-list-container h2 {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+/* Grupo de busca */
+.search-group {
   margin-bottom: 20px;
 }
 
 .search-container {
-  margin: 20px 0;
   display: flex;
-  align-items: center; /* Garante que o label e o input fiquem alinhados verticalmente */
-  gap: 10px; /* Adiciona um pequeno espaço entre o label e o input */
+  align-items: center;
+  gap: 10px;
+}
+
+.search-container label {
+  font-weight: bold;
+  color: var(--primary-color);
 }
 
 .search-container input {
   padding: 10px;
-  font-size: 16px;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
-  border: 1px solid #ccc;
+  font-size: 1rem;
   width: 300px;
+  max-width: 100%;
 }
 
 .search-container input:focus {
-  border-color: #007bff;
+  border-color: var(--primary-color);
   outline: none;
 }
 
-label {
-  font-size: 16px;
-  color: #333;
-  font-weight: bold;
-  margin: 0; /* Remover margens extras do label */
-}
-
-.add-seller-link {
-  margin-bottom: 20px;
-  text-align: right;
-}
-
-.add-seller-link a {
-  display: inline-block;
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 18px;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.add-seller-link a:hover {
-  transform: scale(1.05);
-}
-
-.seller-table {
+/* Tabela */
+table {
   width: 100%;
-  margin-top: 20px;
   border-collapse: collapse;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  box-shadow: var(--shadow);
   border-radius: 8px;
+  overflow: hidden;
 }
 
-.seller-table th,
-.seller-table td {
-  padding: 15px;
+table th,
+table td {
+  padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.seller-table th {
-  background-color: #333;
-  color: white;
+table th {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  font-weight: bold;
 }
 
-.seller-table tr:nth-child(even) {
+table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.seller-table tr:hover {
+table tr:hover {
   background-color: #f1f1f1;
 }
 
-.seller-table td button {
-  background-color: #333;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
+/* Botões de ação */
+table td.actions {
+  display: flex;
+  gap: 10px;
+}
+
+table td.actions button {
+  background-color: var(--primary-color);
+  color: var(--text-light);
   border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-right: 10px;
+  font-size: 0.9rem;
   transition: background-color 0.3s ease;
 }
 
-.seller-table td button:hover {
-  background-color: #0056b3;
+table td.actions button:hover {
+  background-color: var(--hover-color);
 }
 
-.seller-table td button:focus {
-  outline: none;
-}
+/* Responsividade */
+@media (max-width: 768px) {
+  .seller-list-container {
+    padding: 15px;
+  }
 
-.seller-list-footer {
-  font-size: 14px;
-  color: #777;
-  text-align: center;
-  margin-top: 20px;
-}
+  .search-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-/* Estilo para os links de editar e detalhes */
-.seller-table td button {
-  background-color: #007bff;
-}
+  .search-container input {
+    width: 100%;
+  }
 
-.seller-table td button:hover {
-  background-color: #0056b3;
-}
+  table th,
+  table td {
+    padding: 8px;
+  }
 
-/* Adicionando estilo para os elementos da busca */
-label {
-  font-size: 16px;
-  color: #333;
-  font-weight: bold;
-  margin-right: 10px;
-}
+  table td.actions {
+    flex-direction: column;
+    gap: 5px;
+  }
 
-.seller-list-footer {
-  font-size: 14px;
-  color: #777;
-  text-align: center;
-  margin-top: 20px;
+  table td.actions button {
+    width: 100%;
+  }
 }

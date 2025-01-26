@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Seller } from "../../types/models";
-import '../../styles/personForm.css'
 
 interface SellerFormProps {
   seller?: Seller;

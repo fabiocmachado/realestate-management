@@ -4,7 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getSellerById } from "../services/sellerService";
 import { getProperties } from "../services/propertyService";
 import { formatCPF, formatPhoneNumber } from "../components/shared/shared";
-import "../styles/sellerDetails.css";
+import '../styles/sellerDetails.css'
+
 
 interface SellerDetailsProps {}
 
