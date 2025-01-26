@@ -17,7 +17,7 @@ const convertToHectares = (areaInAlqueires?: number): string => {
 export const CountryHouseDetails: React.FC<Props> = ({ property, seller, agent }) => (
   <div className="property-details-container">
     <div>
-      <h3><strong> Chácara - Código: </strong> {property.propertyCode}</h3>
+      <h1><strong> Chácara - Código: </strong> {property.propertyCode}</h1>
       <div className="three-column">
         <div className="property-details-content">
           <p><strong>Nome:</strong> {property.name}</p>

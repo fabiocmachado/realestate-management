@@ -5,7 +5,6 @@ import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
 import { createCountryHouse, updateCountryHouse, getCountryHouseByCode } from "../../services/countryHouseService";
 import { formatPrice } from "../../components/shared/shared";
-import "../../styles/propertiesForms.css";
 
 interface CountryHouseFormProps {
   initialData?: CountryHouseDTO;

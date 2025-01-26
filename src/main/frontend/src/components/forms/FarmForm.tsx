@@ -5,7 +5,6 @@ import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
 import { createFarm, updateFarm, getFarmByCode } from "../../services/farmService";
 import { formatPrice } from "../../components/shared/shared";
-import "../../styles/propertiesForms.css";
 
 interface FarmFormProps {
   initialData?: FarmDTO;
