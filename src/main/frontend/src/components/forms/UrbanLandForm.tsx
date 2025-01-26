@@ -4,7 +4,6 @@ import { createUrbanLand, updateUrbanLand } from '../../services/urbanLandServic
 import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
 import { UrbanLandDTO, Agent, Seller, PropertyStatus, PropertyType,PropertyStatusDescription } from "../../types/models";
-import "../../styles/propertiesForms.css";
 
 const formatPrice = (value: string) => {
   let number = value.replace(/[^\d,]/g, '');

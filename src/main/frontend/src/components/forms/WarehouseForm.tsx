@@ -4,7 +4,6 @@ import { WarehouseDTO, PropertyStatusDescription, Agent, Seller, PropertyStatus 
 import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
 import { createWarehouse, updateWarehouse, getWarehouseByCode } from "../../services/warehouseService";
-import "../../styles/propertiesForms.css";
 import { formatCPF, formatPhoneNumber } from "../../components/shared/shared";
 
 const formatPrice = (value: string) => {
