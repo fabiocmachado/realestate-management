@@ -4,7 +4,8 @@ import { Agent, PropertyDTO, RoleLabels } from "../types/models";
 import { getAgentById } from "../services/agentService";
 import { getProperties } from "../services/propertyService";
 import { formatCPF, formatPhoneNumber } from "../components/shared/shared";
-import '../styles/agentDetails.css';
+import '../styles/agentDetails.css'
+
 
 const formatAddress = (agent: Agent) => {
   const addressParts = [
@@ -98,9 +99,6 @@ const AgentDetails: React.FC<AgentDetailsProps> = () => {
             <li key={property.id}><strong>Código do imóvel:</strong> {property.propertyCode}</li>
           ))}
         </ul>
-      </div>
-      <div className="agent-details-footer">
-        <p>&copy; 2025 RealEstate. Todos os direitos reservados.</p>
       </div>
     </div>
   );

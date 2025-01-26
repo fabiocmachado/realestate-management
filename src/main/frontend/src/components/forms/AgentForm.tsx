@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Agent, RoleLabels, UserRole } from "../../types/models";
-import '../../styles/personForm.css'
 
 interface AgentFormProps {
   agent?: Agent;
