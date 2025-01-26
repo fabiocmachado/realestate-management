@@ -29,22 +29,13 @@ const PropertyList: React.FC = () => {
       let response: PaginatedResponse<PropertyDTO>;
 
       if (propertyCode) {
-        const property = await getPropertyByPropertyCode(propertyCode);
-        response = {
-          content: [property],
-          page: {
-            size: 1,
-            number: 0,
-            totalElements: 1,
-            totalPages: 1,
-          },
-        };
+        response = await getPropertyByPropertyCode(propertyCode);
       } else {
         response = await getProperties(pageable, status, category);
       }
 
       setProperties(response.content);
-      setTotalPages(response.page.totalPages);
+      setTotalPages(response.totalPages);
 
       if (response.content.length === 0) {
         setErrorMessage(`Não existem imóveis com o status "${status}" e categoria "${category}"`);

@@ -4,8 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getSellerById } from "../services/sellerService";
 import { getProperties } from "../services/propertyService";
 import { formatCPF, formatPhoneNumber } from "../components/shared/shared";
-import '../styles/sellerDetails.css'
-
+import '../styles/sellerDetails.css';
 
 interface SellerDetailsProps {}
 
@@ -41,10 +40,10 @@ const SellerDetails: React.FC<SellerDetailsProps> = () => {
             setLoadingProperties(true);
             try {
               const response = await getProperties({ page: 0, size: 1000 }, undefined, undefined);
-              const fetchedProperties = response.content.filter(prop =>
+              const fetchedProperties = response.content.filter((prop: PropertyDTO) =>
                 prop.id !== undefined && data.properties.includes(prop.id)
               );
-              setProperties(fetchedProperties as PropertyDTO[]);
+              setProperties(fetchedProperties);
             } catch (err) {
               console.error("Erro ao carregar detalhes das propriedades:", err);
               setError("Erro ao carregar detalhes das propriedades. Por favor, tente novamente.");
@@ -72,14 +71,14 @@ const SellerDetails: React.FC<SellerDetailsProps> = () => {
     return <div className="loading-message">Carregando...</div>;
   }
 
-   const handleEdit = (id: number) => {
-      navigate(`/edit-seller/${id}`);
-    };
+  const handleEdit = (id: number) => {
+    navigate(`/edit-seller/${id}`);
+  };
 
   return (
     <div className="seller-details-container">
       <div className="seller-details-header">
-          <h2>Detalhes do vendedor</h2>
+        <h2>Detalhes do vendedor</h2>
       </div>
       <div className="seller-details-info">
         <p><strong>Nome:</strong> {seller.name}</p>

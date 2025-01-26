@@ -41,7 +41,7 @@ const AgentDetails: React.FC<AgentDetailsProps> = () => {
             setLoadingProperties(true);
             try {
               const response = await getProperties({ page: 0, size: 1000 }, undefined, undefined);
-              const fetchedProperties = response?.content?.filter(prop =>
+              const fetchedProperties = response?.content?.filter((prop: PropertyDTO) =>
                 prop.id !== undefined && data.prospectedProperties.includes(prop.id)
               );
               setProperties(fetchedProperties as PropertyDTO[]);

@@ -116,13 +116,24 @@ export interface Agent {
 }
 
 export interface PaginatedResponse<T> {
-    content: T[];
-    page: {
-        size: number;
-        number: number;
-        totalElements: number;
-        totalPages: number;
-    };
+  content: T[];
+  totalPages: number;
+  totalElements: number;
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+  };
+  last: boolean;
+  first: boolean;
+  number: number;
+  size: number;
+  sort: {
+    sorted: boolean;
+    unsorted: boolean;
+    empty: boolean;
+  };
+  numberOfElements: number;
+  empty: boolean;
 }
 
 

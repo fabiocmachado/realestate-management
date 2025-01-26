@@ -23,7 +23,20 @@ export const getProperties = async (
     const response = await api.get(url, {
       params: { page: pageable.page, size: pageable.size }
     });
-    return response.data;
+
+    return {
+      content: response.data.content,
+      totalPages: response.data.totalPages,
+      totalElements: response.data.totalElements,
+      pageable: response.data.pageable,
+      last: response.data.last,
+      first: response.data.first,
+      number: response.data.number,
+      size: response.data.size,
+      sort: response.data.sort,
+      numberOfElements: response.data.numberOfElements,
+      empty: response.data.empty,
+    };
   } catch (error) {
     console.error('Erro ao buscar propriedades:', error);
     throw error;
@@ -31,10 +44,29 @@ export const getProperties = async (
 };
 
 
-export const getPropertyByPropertyCode = async (propertyCode: string): Promise<PropertyDTO> => {
+export const getPropertyByPropertyCode = async (propertyCode: string): Promise<PaginatedResponse<PropertyDTO>> => {
   try {
     const response = await api.get(`/properties/search?propertyCode=${propertyCode}`);
-    return response.data;
+    return {
+      content: [response.data],
+      totalPages: 1,
+      totalElements: 1,
+      pageable: {
+        pageNumber: 0,
+        pageSize: 1,
+      },
+      last: true,
+      first: true,
+      number: 0,
+      size: 1,
+      sort: {
+        sorted: false,
+        unsorted: true,
+        empty: true,
+      },
+      numberOfElements: 1,
+      empty: false,
+    };
   } catch (error) {
     console.error('Erro ao buscar imóvel:', error);
     throw error;
