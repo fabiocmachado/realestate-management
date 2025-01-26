@@ -23,7 +23,6 @@ import { getCountryHouseByCode } from '../services/countryHouseService';
 import { getCommercialAreaByCode } from '../services/commercialAreaService';
 import { getCommercialRoomByCode } from '../services/commercialRoomService';
 import { PropertyCategory, UrbanLandDTO, ApartmentDTO, PenthouseDTO, HouseDTO, TownhouseDTO, WarehouseDTO, FarmDTO, CountryHouseDTO, CommercialBuildingDTO, CommercialRoomDTO, CommercialAreaDTO } from '../types/models';
-import "../styles/propertiesForms.css";
 
 const EditProperty: React.FC = () => {
   const { propertyCode } = useParams<{ propertyCode: string }>();

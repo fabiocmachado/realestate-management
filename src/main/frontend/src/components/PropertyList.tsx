@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from "../contexts/AuthContext";
 import { PaginatedResponse, PropertyDTO, Pageable, PropertyStatusDescription, PropertyCategoryDescription } from '../types/models';
 import { getProperties, getPropertyByPropertyCode } from '../services/propertyService';
-import "../styles/propertyList.css";
+import '../styles/propertyList.css'
 
 const PropertyList: React.FC = () => {
   const [properties, setProperties] = useState<PropertyDTO[]>([]);
@@ -22,7 +22,7 @@ const PropertyList: React.FC = () => {
     setErrorMessage('');
     const pageable: Pageable = {
       page: page - 1,
-      size: 10,
+      size: 20,
     };
 
     try {

@@ -16,7 +16,7 @@ import { CommercialRoomDetails } from './details/CommercialRoomDetails';
 import { HouseDetails } from './details/HouseDetails';
 import { useAuth } from "../contexts/AuthContext";
 import { PropertyDTO, FarmDTO, CountryHouseDTO, Agent, Seller, UrbanLandDTO, ApartmentDTO, TownhouseDTO, PenthouseDTO, CommercialBuildingDTO, WarehouseDTO, CommercialAreaDTO, HouseDTO, CommercialRoomDTO } from '../types/models';
-import "../styles/propertyDetails.css";
+import '../styles/propertyDetails.css'
 
 const PropertyDetails = () => {
   const { propertyCategory, propertyCode } = useParams();
@@ -117,7 +117,8 @@ const PropertyDetails = () => {
         );
       case 'commercialbuilding':
         return (
-          <div>
+            <div>
+            <CommercialBuildingDetails property={property as CommercialBuildingDTO} seller={seller} agent={agent} />
             {user?.role === "ADMIN" && (
               <div className="edit-button-container">
                 <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
