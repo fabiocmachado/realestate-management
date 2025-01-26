@@ -43,6 +43,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/static/**").permitAll()
+                .requestMatchers("/index.html").permitAll()
+                .requestMatchers("/").permitAll()
                 .requestMatchers(HttpMethod.GET, "/agents/**").hasAnyRole("ADMIN", "AGENT")
                 .requestMatchers(HttpMethod.GET, "/sellers/**").hasAnyRole("ADMIN", "AGENT")
                 .requestMatchers(HttpMethod.GET, "/properties/**").hasAnyRole("ADMIN", "AGENT")
@@ -60,7 +63,8 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:3000", // Frontend local
-                "https://realestate-frontend.up.railway.app" // Frontend no Railway
+                "https://realestate-frontend.up.railway.app",
+                "https://realestate-app.up.railway.app"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
