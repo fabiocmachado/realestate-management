@@ -11,7 +11,7 @@ interface Props {
 export const CommercialRoomDetails: React.FC<Props> = ({ property, seller, agent }) => (
   <div className="property-details-container">
   <div>
-      <h3><strong> Sala comercial - Código: </strong> {property.propertyCode}</h3>
+      <h1><strong> Sala comercial - Código: </strong> {property.propertyCode}</h1>
        <div className="four-column">
       <div className="property-details-content">
         <p><strong>Nome do Edifício:</strong> {property.nameOfBuilding}</p>

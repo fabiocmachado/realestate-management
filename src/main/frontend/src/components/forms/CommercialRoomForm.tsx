@@ -4,7 +4,6 @@ import { CommercialRoomDTO, PropertyStatusDescription, Agent, Seller, PropertySt
 import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
 import { createCommercialRoom, updateCommercialRoom, getCommercialRoomByCode } from "../../services/commercialRoomService";
-import "../../styles/propertiesForms.css";
 import { formatCPF, formatPhoneNumber } from "../../components/shared/shared";
 
 

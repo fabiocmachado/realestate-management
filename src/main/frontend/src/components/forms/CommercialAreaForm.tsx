@@ -4,7 +4,6 @@ import { CommercialAreaDTO, PropertyStatusDescription, Agent, Seller, PropertySt
 import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
 import { createCommercialArea, updateCommercialArea, getCommercialAreaByCode } from "../../services/commercialAreaService";
-import "../../styles/propertiesForms.css";
 import { formatCPF, formatPhoneNumber } from "../../components/shared/shared";
 
 const formatPrice = (value: string) => {
