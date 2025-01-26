@@ -1,16 +1,19 @@
-/* Estilo geral do cabeçalho */
+/* header.css */
+
 .header {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333; /* Fundo preto */
-  color: white; /* Texto branco */
-  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo h1 {
-  font-size: 24px;
   margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 .greeting {
@@ -19,65 +22,50 @@
 
 .greeting p {
   margin: 0;
-  line-height: 1.5;
+  font-size: 1rem;
 }
 
 .navigation button {
-  background-color: #007bff; /* Azul */
-  color: balck;
+  background-color: var(--secondary-color);
+  color: var(--text-light);
   border: none;
+  padding: 10px 20px;
   border-radius: 5px;
-  padding: 10px 15px;
-  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .navigation button:hover {
-  background-color: #0056b3; /* Azul mais escuro */
+  background-color: var(--hover-color);
 }
 
-
-/* Estilo para o nav */
-header nav {
-  display: flex;
-  align-items: center;
+/* Responsividade */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
   }
 
-header nav a {
-  color: white;
-  margin-left: 20px;
-  font-size: 1.1rem;
-  transition: color 0.3s;
+  .logo h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .greeting p {
+    font-size: 0.9rem;
+  }
+
+  .navigation button {
+    margin-top: 10px;
+    width: 100%;
+  }
 }
 
-header nav a:hover {
-  color: #007bff; /* Cor de hover de links no cabeçalho */
-}
-
-/* Estilo para o botão de logout */
-header button {
-  background-color: white !important; /* Cor do botão */
-  color: black;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  max-width: 150px;
-  min-width: 100px;
-  text-align: center;
-}
-
-header button:hover {
-  background-color: #0056b3; /* Cor de hover para o botão */
-  transform: scale(1.05);
-}
-
+/* Ocultar o Header durante a impressão */
 @media print {
-  /* Ocultar o cabeçalho durante a impressão */
   .header {
-    display: none !important;
+    display: none;
   }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import '../styles/blankForm.css';
 import { ApartmentBlankForm } from './blankForms/ApartmentBlankForm';
 import { HouseBlankForm } from './blankForms/HouseBlankForm';
 import { PenthouseBlankForm } from './blankForms/PenthouseBlankForm';
@@ -12,6 +11,8 @@ import { CountryHouseBlankForm } from './blankForms/CountryHouseBlankForm';
 import { UrbanLandBlankForm } from './blankForms/UrbanLandBlankForm';
 import { CommercialAreaBlankForm } from './blankForms/CommercialAreaBlankForm';
 import { CommercialRoomBlankForm } from './blankForms/CommercialRoomBlankForm';
+import '../styles/printBlankForm.css'
+
 
 const FORM_COMPONENTS: Record<string, React.FC> = {
   APARTMENT: ApartmentBlankForm,
@@ -26,10 +27,6 @@ const FORM_COMPONENTS: Record<string, React.FC> = {
   COMMERCIAL_AREA: CommercialAreaBlankForm,
   COMMERCIAL_ROOM: CommercialRoomBlankForm,
 };
-
-interface PrintBlankFormProps {
-  propertyCategory: string;
-}
 
 const PrintBlankForm: React.FC = () => {
   const { propertyCategory } = useParams<{ propertyCategory: string }>();

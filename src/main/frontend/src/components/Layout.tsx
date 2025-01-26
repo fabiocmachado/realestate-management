@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import "../styles/layout.css";
+import '../styles/layout.css';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
@@ -12,7 +12,7 @@ const Layout: React.FC = () => {
   return (
     <div className="layout">
       <Header />
-      <nav>
+      <nav className="nav">
         <ul>
           <li>
             <Link to="/dashboard">Página Inicial</Link>

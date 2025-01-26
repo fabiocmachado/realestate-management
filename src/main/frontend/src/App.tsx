@@ -20,7 +20,6 @@ import AddProperty from "./components/AddProperty";
 import EditProperty from "./components/EditProperty";
 import Layout from "./components/Layout";
 import PrintBlankForm from './components/PrintBlankForm'
-import "./styles/global.css";
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();

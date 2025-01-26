@@ -1,31 +1,26 @@
-/* Estilo do rodapé */
-footer {
-  background-color: #333; /* Cor de fundo do rodapé */
-  color: white; /* Cor do texto */
-  padding: 20px;
+/* Footer.css */
+
+.footer {
+  background-color: var(--primary-color);
+  color: var(--text-light);
   text-align: center;
-  font-size: 0.9rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  padding: 20px;
+  margin-top: auto;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Layout para garantir espaço para o rodapé */
-.layout {
-  padding-bottom: 80px; /* Espaço para rodapé fixo */
-  min-height: 100vh; /* Garante que o conteúdo ocupe ao menos 100% da altura da tela */
-}
-
-footer p {
+.footer p {
   margin: 0;
+  font-size: 1rem;
 }
 
-@media print {
-  /* Ocultar o cabeçalho durante a impressão */
-  footer {
-    display: none !important;
+/* Responsividade */
+@media (max-width: 768px) {
+  .footer {
+    padding: 15px;
+  }
+
+  .footer p {
+    font-size: 0.9rem;
   }
 }

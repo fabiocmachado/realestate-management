@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import "../styles/header.css";
+import '../styles/header.css';
 
 const getGreeting = (): string => {
   const hour = new Date().getHours();

@@ -1,88 +1,52 @@
-/* Estilo geral do layout */
+/* Layout.css */
+
 .layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Garante que o layout ocupe toda a altura da tela */
-  min-width: 100vw; /* Garante que o layout ocupe toda a largura da tela */
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; /* Inclui bordas e padding no tamanho total */
+  min-height: 100vh;
 }
 
-/* Estilo para a navegação no topo */
-nav {
-  background-color: #333; /* Cor de fundo do menu */
-  width: 100%; /* Navegação ocupa toda a largura */
-  padding: 10px 20px; /* Padding no topo e nas laterais */
-  color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.nav {
+  background-color: var(--primary-color);
+  padding: 10px;
 }
 
-nav ul {
-  display: flex; /* Flexbox para alinhar os itens lado a lado */
-  list-style-type: none;
-  padding: 0;
-  justify-content: space-around; /* Espaçamento uniforme entre os itens */
-}
-
-nav ul li {
-  margin: 0;
-}
-
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.1rem;
-  transition: color 0.3s;
-}
-
-nav ul li a:hover {
-  color: #007bff; /* Cor de hover para os links da navegação */
-}
-
-/* Estilo para o conteúdo principal */
-.main-content {
-  flex: 1; /* O conteúdo principal ocupa o espaço restante */
-  padding: 20px;
-  background-color: #f4f4f4; /* Cor de fundo do conteúdo */
-  padding-bottom: 80px; /* Espaço suficiente para o rodapé fixo */
-}
-
-/* Estilo para o cabeçalho */
-.header {
-  background-color: #333;
-  color: white;
-  padding: 20px 40px;
+.nav ul {
+  list-style: none;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para o rodapé */
-footer {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  font-size: 0.9rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10; /* Para garantir que o rodapé fique acima de outros elementos */
-}
-
-footer p {
+  gap: 20px;
+  justify-content: center;
   margin: 0;
+  padding: 0;
 }
 
-@media print {
-  /* Ocultar o cabeçalho durante a impressão */
-  .header, ul{
-    display: none !important;
+.nav ul li a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav ul li a:hover {
+  color: var(--hover-color);
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
   }
 
-
+  .main-content {
+    padding: 15px;
+  }
 }
