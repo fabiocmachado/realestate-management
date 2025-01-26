@@ -1,6 +1,6 @@
 import React from 'react';
-import { ApartmentDTO, Seller, Agent, PropertyStatusDescription } from '../../types/models';
-import {formatPhoneNumber, formatAddress } from "../../components/shared/shared";
+import { ApartmentDTO, Seller, Agent } from '../../types/models';
+import { formatPhoneNumber, formatAddress } from "../../components/shared/shared";
 
 interface Props {
   property: ApartmentDTO;
@@ -10,34 +10,29 @@ interface Props {
 
 export const ApartmentDetails: React.FC<Props> = ({ property, seller, agent }) => (
   <div className="property-details-container">
-    <div>
-      <h3><strong> Apartamento - Código: </strong> {property.propertyCode}</h3>
-       <div className="two-column">
-       <div className="property-details-content">
+    <h1><strong>Apartamento - Código:</strong> {property.propertyCode}</h1>
+    <div className="two-column">
+      <div className="property-details-content">
         <p><strong>Nome do Prédio:</strong> {property.nameOfBuilding}</p>
         <p><strong>Número do apartamento:</strong> {property.apartmentNumber}</p>
-        <p><strong>Endereço: </strong>{formatAddress(property)}</p>
-         <p><strong>Preço:</strong> {property.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || 'Preço não disponível'}</p>
-         <p><strong>Taxa de condomínio:</strong> {property.condominiumFee.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
-         {property.isRented && (<p><strong>Valor do aluguel:</strong>{" "}{property.rentalValue?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>)}
-        </div>
-        <div className="property-details-content">
-         {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
-          <p><strong>Ocupado:</strong> {property.isInhabited ? 'Sim' : 'Não'}</p>
-          <p><strong>Alugado:</strong> {property.isRented ? 'Sim' : 'Não'}</p>
-          <p><strong>Área Total:</strong> {property.totalArea?.toLocaleString()} m²</p>
-          <p><strong>Área Privativa:</strong> {property.privateArea?.toLocaleString()} m²</p>
-          <p><strong>Área Útil:</strong> {property.usableArea?.toLocaleString()} m²</p>
+        <p><strong>Endereço:</strong> {formatAddress(property)}</p>
+        <p><strong>Preço:</strong> {property.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || 'Preço não disponível'}</p>
+        <p><strong>Taxa de condomínio:</strong> {property.condominiumFee.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+        {property.isRented && <p><strong>Valor do aluguel:</strong> {property.rentalValue?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>}
       </div>
+      <div className="property-details-content">
+        {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
+        <p><strong>Ocupado:</strong> {property.isInhabited ? 'Sim' : 'Não'}</p>
+        <p><strong>Alugado:</strong> {property.isRented ? 'Sim' : 'Não'}</p>
+        <p><strong>Área Total:</strong> {property.totalArea?.toLocaleString()} m²</p>
+        <p><strong>Área Privativa:</strong> {property.privateArea?.toLocaleString()} m²</p>
+        <p><strong>Área Útil:</strong> {property.usableArea?.toLocaleString()} m²</p>
       </div>
     </div>
 
-<div>
-</div>
-   <div className="two-column">
-    <div className="property-details-content">
-      <h2>Divisões Internas</h2>
-      <div className="one-column">
+    <div className="two-column">
+      <div className="property-details-content">
+        <h2>Divisões Internas</h2>
         <div>
           <p><strong>Quartos:</strong> {property.bedrooms}</p>
           <p><strong>Suítes:</strong> {property.suites}</p>
@@ -52,13 +47,11 @@ export const ApartmentDetails: React.FC<Props> = ({ property, seller, agent }) =
           <p><strong>Lavanderia:</strong> {property.hasLaundry ? 'Sim' : 'Não'}</p>
           <p><strong>Quarto para funcionário:</strong> {property.hasEmployeeRoom ? 'Sim' : 'Não'}</p>
           <p><strong>Banheiro para funcionário:</strong> {property.hasEmployeeBathroom ? 'Sim' : 'Não'}</p>
-          </div>
+        </div>
       </div>
-    </div>
 
-    <div className="property-details-content">
-      <h2>Comodidades</h2>
-      <div className="one-column">
+      <div className="property-details-content">
+        <h2>Comodidades</h2>
         <div>
           <p><strong>Piso:</strong> {property.floorType}</p>
           <p><strong>Vagas de Garagem:</strong> {property.garageSpaces}</p>
@@ -74,70 +67,73 @@ export const ApartmentDetails: React.FC<Props> = ({ property, seller, agent }) =
         </div>
       </div>
     </div>
-  </div>
-  <div className="property-details-content">
-        <h2>Infraestrutrua do Condomínio</h2>
-        <div className="two-column">
-          <div>
-            <p><strong>Salão de Festas:</strong> {property.hasPartyHall ? 'Sim' : 'Não'}</p>
-            <p><strong>Salão de Jogos:</strong> {property.hasGameRoom ? 'Sim' : 'Não'}</p>
-            <p><strong>Playground:</strong> {property.hasPlayground ? 'Sim' : 'Não'}</p>
-            <p><strong>Brinquedoteca:</strong> {property.hasToyArea ? 'Sim' : 'Não'}</p>
-            <p><strong>Quadra de Esportes:</strong> {property.hasSportsCourt ? 'Sim' : 'Não'}</p>
-            <p><strong>Piscina:</strong> {property.hasSwimmingPool ? 'Sim' : 'Não'}</p>
-            <p><strong>Academia:</strong> {property.hasGym ? 'Sim' : 'Não'}</p>
-            <p><strong>Sauna:</strong> {property.hasSauna ? 'Sim' : 'Não'}</p>
-            <p><strong>Churrasqueira:</strong> {property.hasBarbecue ? 'Sim' : 'Não'}</p>
-          </div>
-          <div>
-            <p><strong>Portão Eletrônico:</strong> {property.hasElectronicGate ? 'Sim' : 'Não'}</p>
-            <p><strong>Portaria Eletrônica:</strong> {property.hasElectronicDoorman ? 'Sim' : 'Não'}</p>
-            <p><strong>Anos de construção:</strong> {property.yearsOfConstruction}</p>
-            <p><strong>Mezanino:</strong> {property.hasMezzanine ? 'Sim' : 'Não'}</p>
-            <p><strong>Elevador:</strong> {property.elevator}</p>
-            <p><strong>Blocos:</strong> {property.numberOfBlocks}</p>
-            <p><strong>Total de Apartamentos:</strong> {property.totalOfApartments}</p>
-            <p><strong>Total de Andares:</strong> {property.numberOfFloors}</p>
-          </div>
+
+    <div className="property-details-content">
+      <h2>Infraestrutura do Condomínio</h2>
+      <div className="two-column">
+        <div>
+          <p><strong>Salão de Festas:</strong> {property.hasPartyHall ? 'Sim' : 'Não'}</p>
+          <p><strong>Salão de Jogos:</strong> {property.hasGameRoom ? 'Sim' : 'Não'}</p>
+          <p><strong>Playground:</strong> {property.hasPlayground ? 'Sim' : 'Não'}</p>
+          <p><strong>Brinquedoteca:</strong> {property.hasToyArea ? 'Sim' : 'Não'}</p>
+          <p><strong>Quadra de Esportes:</strong> {property.hasSportsCourt ? 'Sim' : 'Não'}</p>
+          <p><strong>Piscina:</strong> {property.hasSwimmingPool ? 'Sim' : 'Não'}</p>
+          <p><strong>Academia:</strong> {property.hasGym ? 'Sim' : 'Não'}</p>
+          <p><strong>Sauna:</strong> {property.hasSauna ? 'Sim' : 'Não'}</p>
+          <p><strong>Churrasqueira:</strong> {property.hasBarbecue ? 'Sim' : 'Não'}</p>
+        </div>
+        <div>
+          <p><strong>Portão Eletrônico:</strong> {property.hasElectronicGate ? 'Sim' : 'Não'}</p>
+          <p><strong>Portaria Eletrônica:</strong> {property.hasElectronicDoorman ? 'Sim' : 'Não'}</p>
+          <p><strong>Anos de construção:</strong> {property.yearsOfConstruction}</p>
+          <p><strong>Mezanino:</strong> {property.hasMezzanine ? 'Sim' : 'Não'}</p>
+          <p><strong>Elevador:</strong> {property.elevator}</p>
+          <p><strong>Blocos:</strong> {property.numberOfBlocks}</p>
+          <p><strong>Total de Apartamentos:</strong> {property.totalOfApartments}</p>
+          <p><strong>Total de Andares:</strong> {property.numberOfFloors}</p>
         </div>
       </div>
+    </div>
+
     <div className="property-details-content">
       <h2>Outras Informações</h2>
-       <div className="five-column">
+      <div className="five-column">
         <div>
-        {property.placeOfKeys && <p><strong>Local das Chaves:</strong><br></br> {property.placeOfKeys}</p>}
+          {property.placeOfKeys && <p><strong>Local das Chaves:</strong><br /> {property.placeOfKeys}</p>}
         </div>
         <div>
-        <p><strong>Hora de Visita:</strong><br></br> {property.visitingTime}</p>
+          <p><strong>Hora de Visita:</strong><br /> {property.visitingTime}</p>
         </div>
         <div>
-        {property.createdAt && <p><strong>Data de cadastro:</strong><br></br> {new Date(property.createdAt).toLocaleDateString()}</p>}
+          {property.createdAt && <p><strong>Data de cadastro:</strong><br /> {new Date(property.createdAt).toLocaleDateString()}</p>}
         </div>
         <div>
-        {property.updatedAt && <p><strong>Última Atualização:</strong><br></br> {new Date(property.updatedAt).toLocaleDateString()}</p>}
+          {property.updatedAt && <p><strong>Última Atualização:</strong><br /> {new Date(property.updatedAt).toLocaleDateString()}</p>}
         </div>
         <div>
-        <p><strong>Captador do Imóvel:</strong><br></br> {agent.name}</p>
+          <p><strong>Captador do Imóvel:</strong><br /> {agent.name}</p>
         </div>
       </div>
-     </div>
+    </div>
+
     <div className="property-details-content">
       <h2>Descrição</h2>
       <textarea value={property.description || ''} readOnly rows={5} />
     </div>
+
     <div className="property-details-content">
       <h2>Proprietário</h2>
       <div className="three-column">
-      <div>
+        <div>
           <p><strong>Nome:</strong> {seller.name}</p>
-      </div>
-     <div>
+        </div>
+        <div>
           <p><strong>Telefone:</strong> {formatPhoneNumber(seller.phone)}</p>
-      </div>
-     <div>
+        </div>
+        <div>
           <p><strong>Email:</strong> {seller.email}</p>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 );

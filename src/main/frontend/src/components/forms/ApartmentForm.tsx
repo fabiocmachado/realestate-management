@@ -5,7 +5,6 @@ import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
 import { createApartment, updateApartment, getApartmentByCode } from "../../services/apartmentService";
 import { ApartmentBlankForm } from '../blankForms/ApartmentBlankForm';
-import "../../styles/propertiesForms.css";
 
 const formatPrice = (value: string) => {
   let number = value.replace(/[^\d,]/g, '');
@@ -307,7 +306,7 @@ const ApartmentForm: React.FC<ApartmentFormProps> = ({ initialData, onSuccess, o
         <button type="submit" disabled={loading}>
           {loading ? 'Carregando...' : isEditMode ? 'Salvar Alterações' : 'Cadastrar Apartamento'}
         </button>
-        <button type="button" className="cancel-button" onClick={onCancel}>
+        <button type="button" className="button" onClick={onCancel}>
           Cancelar
         </button>
       </form>

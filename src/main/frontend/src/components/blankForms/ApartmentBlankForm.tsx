@@ -5,14 +5,7 @@ interface FieldProps {
 }
 
 export const ApartmentBlankForm = () => {
-  const BooleanField: React.FC<FieldProps> = ({ label }) => (
-    <div className="field">
-      <span className="label">{label}:</span>
-      <div className="checkbox"></div>
-    </div>
-  );
-
-  const TextField: React.FC<FieldProps> = ({ label }) => (
+    const TextField: React.FC<FieldProps> = ({ label }) => (
     <div className="field">
       <span className="label">{label}:</span>
     </div>
@@ -21,12 +14,14 @@ export const ApartmentBlankForm = () => {
   return (
     <div className="print-only">
       <h1 className="heading">Ficha de Apartamento</h1>
+      <div className="section">
        <div className="two-column">
         <div className="section">
           <h2><TextField label="Código"/></h2>
          </div>
          <div className="section">
           <h2><TextField label="Data de cadastro"/></h2>
+            </div>
          </div>
       </div>
       {/* Informações Gerais */}
@@ -42,8 +37,8 @@ export const ApartmentBlankForm = () => {
           </div>
           <div>
             <TextField label="Orientação" />
-            <BooleanField label="Ocupado" />
-            <BooleanField label="Alugado" />
+            <TextField label="Ocupado" />
+            <TextField label="Alugado" />
             <TextField label="Valor do Aluguel" />
           </div>
           <div>
@@ -63,27 +58,27 @@ export const ApartmentBlankForm = () => {
             <TextField label="Banheiro Social" />
             <TextField label="Lavabo" />
             <TextField label="Escritórios" />
-            <BooleanField label="Cozinha" />
-            <BooleanField label="Despensa" />
-            <BooleanField label="Sacada" />
-            <BooleanField label="Varanda Goumert" />
-            <BooleanField label="Lavanderia" />
-            <BooleanField label="Quarto para Funcionário" />
-            <BooleanField label="Banheiro para Funcionário" />
+            <TextField label="Cozinha" />
+            <TextField label="Despensa" />
+            <TextField label="Sacada" />
+            <TextField label="Varanda Goumert" />
+            <TextField label="Lavanderia" />
+            <TextField label="Quarto para Funcionário" />
+            <TextField label="Banheiro para Funcionário" />
     </div>
   <div>
         <h2 className="section-heading">Comodidades</h2>
             <TextField label="Tipo de Piso" />
             <TextField label="Vagas de garagem" />
-            <BooleanField label="Garagens em Gaveta" />
-            <BooleanField label="Escaninho" />
-            <BooleanField label="Armários" />
-            <BooleanField label="Interfone" />
-            <BooleanField label="Câmeras de Vigilância" />
-            <BooleanField label="Rede de Segurança" />
-            <BooleanField label="Ar-condicionado" />
-            <BooleanField label="Sauna Exclusiva" />
-            <BooleanField label="Piscina Exclusiva" />
+            <TextField label="Garagens em Gaveta" />
+            <TextField label="Escaninho" />
+            <TextField label="Armários" />
+            <TextField label="Interfone" />
+            <TextField label="Câmeras de Vigilância" />
+            <TextField label="Rede de Segurança" />
+            <TextField label="Ar-condicionado" />
+            <TextField label="Sauna Exclusiva" />
+            <TextField label="Piscina Exclusiva" />
             </div>
          </div>
        </div>
@@ -92,20 +87,20 @@ export const ApartmentBlankForm = () => {
         <h2 className="section-heading">Condomínio</h2>
           <div className="three-column">
           <div>
-            <BooleanField label="Salão de Festas" />
-            <BooleanField label="Salão de Jogos" />
-            <BooleanField label="Playground" />
-            <BooleanField label="Brinquedoteca" />
-            <BooleanField label="Quadra de Esportes" />
-            <BooleanField label="Piscina" />
+            <TextField label="Salão de Festas" />
+            <TextField label="Salão de Jogos" />
+            <TextField label="Playground" />
+            <TextField label="Brinquedoteca" />
+            <TextField label="Quadra de Esportes" />
+            <TextField label="Piscina" />
           </div>
           <div>
-            <BooleanField label="Academia" />
-            <BooleanField label="Sauna" />
-            <BooleanField label="Churrasqueira" />
-            <BooleanField label="Mezanino" />
-            <BooleanField label="Portão Eletrônico" />
-            <BooleanField label="Portaria Eletrônica" />
+            <TextField label="Academia" />
+            <TextField label="Sauna" />
+            <TextField label="Churrasqueira" />
+            <TextField label="Mezanino" />
+            <TextField label="Portão Eletrônico" />
+            <TextField label="Portaria Eletrônica" />
            </div>
            <div>
             <TextField label="Anos de construção" />
