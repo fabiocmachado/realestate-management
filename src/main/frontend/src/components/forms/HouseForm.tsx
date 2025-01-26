@@ -4,7 +4,6 @@ import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
 import { createHouse, updateHouse, getHouseByCode } from "../../services/houseService";
 import { useNavigate } from "react-router-dom";
-import "../../styles/propertiesForms.css";
 
 const formatPrice = (value: string) => {
   let number = value.replace(/[^\d,]/g, '');
@@ -165,7 +164,9 @@ const HouseForm: React.FC<HouseFormProps> = ({ initialData, onSuccess, onCancel 
       {successMessage && <div className="success-message">{successMessage}</div>}
       <div className="form-header"><button onClick={() => print()}>Imprimir ficha</button></div>
       <form onSubmit={handleSubmit}>
+      <div className="form-section">
         <h3>Informações Gerais</h3>
+         <div className="form-group">
         <FormField label="Rua" type="text" name="street" value={house.street} onChange={handleChange} />
         <FormField label="Quadra" type="text" name="block" value={house.block} onChange={handleChange} />
         <FormField label="Lote" type="text" name="lot" value={house.lot} onChange={handleChange} />
@@ -174,15 +175,22 @@ const HouseForm: React.FC<HouseFormProps> = ({ initialData, onSuccess, onCancel 
         <FormField label="Bairro" type="text" name="neighborhood" value={house.neighborhood} onChange={handleChange} />
         <FormField label="Cidade" type="text" name="city" value={house.city} onChange={handleChange} />
         <FormField label="Estado" type="text" name="state" value={house.state} onChange={handleChange} />
+        </div>
+        <div className="form-group">
         <FormField label="Preço" type="text" name="price" value={house.price.toString()} onChange={handleChange} />
         <FormField label="Taxa de Condomínio" type="number" name="condominiumFee" value={house.condominiumFee} onChange={handleChange} />
         <FormField label="Orientação" type="text" name="orientation" value={house.orientation} onChange={handleChange} />
         <SelectField label="Ocupado" name="isInhabited" value={house.isInhabited ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
         <SelectField label="Alugado" name="isRented" value={house.isRented ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
         <FormField label="Valor do aluguel" type="number" name="rentalValue" value={house.rentalValue ?? 0} onChange={handleChange} />
+        </div>
+        </div>
+        <div className="form-section">
         <h3>Áreas</h3>
         <FormField label="Área de terreno" type="text" name="totalArea" value={house.totalArea ?? 0} onChange={handleChange} />
         <FormField label="Área construída" type="text" name="usableArea" value={house.usableArea ?? 0} onChange={handleChange} />
+        </div>
+        <div className="form-section">
         <h3>Divisões Internas</h3>
         <FormField label="Quartos" type="number" name="bedrooms" value={house.bedrooms ?? 0} onChange={handleChange} />
         <FormField label="Suítes" type="number" name="suites" value={house.suites ?? 0} onChange={handleChange} />
@@ -195,6 +203,8 @@ const HouseForm: React.FC<HouseFormProps> = ({ initialData, onSuccess, onCancel 
         <SelectField label="Lavanderia" name="hasLaundry" value={house.hasLaundry ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
         <SelectField label="Quarto para funcionário" name="hasEmployeeRoom" value={house.hasEmployeeRoom ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
         <SelectField label="Banheiro para funcionário" name="hasEmployeeBathroom" value={house.hasEmployeeBathroom ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
+        </div>
+        <div className="form-section">
         <h3>Comodidades</h3>
         <FormField label="Tipo de piso" type="text" name="floorType" value={house.floorType} onChange={handleChange} />
         <FormField label="Vagas de garagems" type="number" name="garageSpaces" value={house.garageSpaces?? 0} onChange={handleChange} />
@@ -209,9 +219,12 @@ const HouseForm: React.FC<HouseFormProps> = ({ initialData, onSuccess, onCancel 
         <SelectField label="Sauna" name="hasSauna" value={house.hasSauna ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
         <SelectField label="Portão Eletrônico" name="hasElectronicGate" value={house.hasElectronicGate ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
         <SelectField label="Portaria Eletrônica" name="hasElectronicDoorman" value={house.hasElectronicDoorman ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
-
+        </div>
+        <div className="form-section">
         <h2>Descrição</h2>
         <FormField label="Descrição" type="textarea" name="description" value={house.description || ''} onChange={handleChange} />
+        </div>
+        <div className="form-section">
         <h2>Outras Informações</h2>
         <FormField label="Local das chaves" type="text" name="placeOfKeys" value={house.placeOfKeys} onChange={handleChange} />
         <FormField label="Hora de Visita" type="text" name="visitingTime" value={house.visitingTime} onChange={handleChange} />
@@ -255,6 +268,7 @@ const HouseForm: React.FC<HouseFormProps> = ({ initialData, onSuccess, onCancel 
           onChange={handleChange}
           required
         />
+       </div>
         <button type="submit" disabled={loading}>
           {loading ? 'Carregando...' : isEditMode ? 'Salvar Alterações' : 'Adicionar casa'}
         </button>

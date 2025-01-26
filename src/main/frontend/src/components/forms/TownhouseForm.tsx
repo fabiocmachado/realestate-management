@@ -4,7 +4,6 @@ import { TownhouseDTO, PropertyStatusDescription, Agent, Seller, PropertyStatus,
 import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
 import { createTownhouse, updateTownhouse, getTownhouseByCode } from "../../services/townhouseService";
-import "../../styles/propertiesForms.css";
 
 const formatPrice = (value: string) => {
   let number = value.replace(/[^\d,]/g, '');

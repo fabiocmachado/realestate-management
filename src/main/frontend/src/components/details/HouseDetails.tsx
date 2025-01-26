@@ -11,7 +11,7 @@
     export const HouseDetails: React.FC<Props> = ({ property, seller, agent }) => (
     <div className="property-details-container">
     <div>
-      <h3><strong> Casa - Código: </strong> {property.propertyCode}</h3>
+      <h1><strong> Casa - Código: </strong> {property.propertyCode}</h1>
       <div className="two-column">
       <div className="property-details-content">
         <p><strong>Nome do Condomínio:</strong> {property.nameOfGatedCommunity}</p>
