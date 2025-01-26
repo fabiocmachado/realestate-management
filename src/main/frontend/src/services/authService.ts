@@ -2,11 +2,11 @@ import axios, { AxiosError } from "axios";
 import { LoginDTO } from "../types/models";
 import { AuthResponseDTO } from "../types/models";
 
-const API_URL = "http://localhost:8080/auth";
+const API_URL = "https://realestate-app.up.railway.app";
 
 export const login = async (loginDTO: LoginDTO): Promise<AuthResponseDTO> => {
   try {
-    const response = await axios.post<AuthResponseDTO>(`${API_URL}/login`, loginDTO);
+    const response = await axios.post<AuthResponseDTO>(`${API_URL}/auth/login`, loginDTO);
     localStorage.setItem("authToken", response.data.token);
     return response.data;
   } catch (error) {
@@ -19,7 +19,7 @@ export const login = async (loginDTO: LoginDTO): Promise<AuthResponseDTO> => {
 
 export const validateToken = async (token: string): Promise<boolean> => {
   try {
-    const response = await axios.post(`${API_URL}/validate`, {}, {
+    const response = await axios.post(`${API_URL}/auth/validate`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
