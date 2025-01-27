@@ -18,11 +18,20 @@ export const formatPhoneNumber = (phone: string): string => {
   return phone;
 };
 
-export const formatCurrency = (value: number, currency: string = 'BRL', locale: string = 'pt-BR'): string => {
+export const formatCurrency = (
+  value: string | number,
+  currency: string = 'BRL',
+  locale: string = 'pt-BR'
+): string => {
+  const numericValue =
+    typeof value === 'string'
+      ? parseFloat(value.replace(/\D/g, '')) / 100
+      : value;
+
   return new Intl.NumberFormat(locale, {
     style: 'currency',
-    currency: currency
-  }).format(value);
+    currency: currency,
+  }).format(numericValue || 0);
 };
 
 export const formatAddress = (property: PropertyDTO) => {
@@ -39,10 +48,12 @@ export const formatAddress = (property: PropertyDTO) => {
       return addressParts.filter(Boolean).join(', ') || 'Endereço não disponível';
  };
 
-export const formatPrice = (value: string) => {
-  let number = value.replace(/[^\d,]/g, '');
-  const [integer, decimal] = number.split(',');
-  const formattedInteger = integer ? integer.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
-  const formattedDecimal = decimal ? decimal.substring(0, 2) : '';
-  return formattedDecimal ? `${formattedInteger},${formattedDecimal}` : formattedInteger;
+export const formatPrice = (value: string): string => {
+    const numericValue = value.replace(/\D/g, "");
+  const formattedValue = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(Number(numericValue) / 100);
+
+  return formattedValue;
 };

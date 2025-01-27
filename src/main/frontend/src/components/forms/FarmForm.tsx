@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FarmDTO, PropertyStatusDescription, Agent, Seller, PropertyStatus, PropertyType, ConservationStatus, EnergyType } from "../../types/models";
 import { getAgents } from "../../services/agentService";
 import { getSellers } from "../../services/sellerService";
-import { createFarm, updateFarm, getFarmByCode } from "../../services/farmService";
-import { formatPrice } from "../../components/shared/shared";
+import { createFarm, updateFarm } from "../../services/farmService";
 
 interface FarmFormProps {
   initialData?: FarmDTO;
@@ -95,15 +94,17 @@ const FarmForm: React.FC<FarmFormProps> = ({ initialData, onSuccess, onCancel })
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
     let formattedValue: any = value;
 
     if (name === "price" || name === "rentalValue") {
       formattedValue = value ? parseFloat(value.replace(/\./g, "").replace(",", ".")) : 0;
-    } else if (["mainHouse", "staffHouse", "warehouse", "accommodation", "pens", "hasSmoothWireFence", "hasRocks", "hasOrchard", "isRented"].includes(name)) {
+    } else if (["hasSmoothWireFence", "hasRocks", "hasOrchard", "isRented"].includes(name)) {
       formattedValue = value === "true";
-    } else if (["formedArea", "totalAreaRural", "legalReserveArea"].includes(name)) {
+    } else if (["formedArea", "totalAreaRural", "legalReserveArea", "herdSupport", "pastures", "distanceOfGyn", "distanceOfCity", "distanceDirtRoad"].includes(name)) {
       formattedValue = Number(value) || 0;
+    } else {
+      formattedValue = value;
     }
 
     setFarm(prev => ({
@@ -183,12 +184,12 @@ const print = () => {
         />
 
         <h3>Infraestrutura</h3>
-        <SelectField label="Casa Principal" name="mainHouse" value={farm.mainHouse ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
-        <SelectField label="Casa para Funcionários" name="staffHouse" value={farm.staffHouse ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
-        <SelectField label="Galpão" name="warehouse" value={farm.warehouse ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
-        <SelectField label="Alojamento" name="accommodation" value={farm.accommodation ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
-        <SelectField label="Curral" name="pens" value={farm.pens ? 'true' : 'false'} options={[{ id: 'true', name: 'Sim' }, { id: 'false', name: 'Não' }]} onChange={handleChange} />
-        <FormField label="Energia" type="text" name="energy" value={farm.energy ?? 0} onChange={handleChange} />
+        <FormField label="Casa Principal" type="text" name="mainHouse" value={farm.mainHouse || ''} onChange={handleChange} />
+        <FormField label="Casa para Funcionários" type="text" name="staffHouse" value={farm.staffHouse || ''} onChange={handleChange} />
+        <FormField label="Galpão" type="text" name="warehouse" value={farm.warehouse || ''} onChange={handleChange} />
+        <FormField label="Alojamento" type="text" name="accommodation" value={farm.accommodation || ''} onChange={handleChange} />
+        <FormField label="Curral" type="text" name="pens" value={farm.pens || ''} onChange={handleChange} />
+        <FormField label="Energia" type="text" name="energy" value={farm.energy || ''} onChange={handleChange} />
 
         <h2>Pastagens e Conservação</h2>
         <FormField label="Capacidade de Rebanho" type="text" name="herdSupport" value={farm.herdSupport ?? 0} onChange={handleChange} />

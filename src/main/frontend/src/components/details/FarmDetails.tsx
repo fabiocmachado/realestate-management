@@ -1,5 +1,5 @@
 import React from 'react';
-import { FarmDTO, Seller, Agent } from '../../types/models';
+import { FarmDTO, Seller, Agent, ConservationStatusLabels } from '../../types/models';
 import { formatPhoneNumber, formatAddress } from "../../components/shared/shared";
 
 interface Props {
@@ -56,7 +56,7 @@ export const FarmDetails: React.FC<Props> = ({ property, seller, agent }) => (
     <p><strong>Tipo de Solo:</strong> {property.typeOfSoil || 'Sem informações'}</p>
     <p><strong>Pastagem Predominante:</strong> {property.predominantPasture || 'Sem informações'}</p>
     <p><strong>Outras Pastagens:</strong> {property.otherPastures || 'Sem informações'}</p>
-    <p><strong>Conservação das Pastagens:</strong> {property.pastureConservation || 'N/A'}</p>
+    <p><strong>Conservação das Pastagens:</strong> {ConservationStatusLabels[property.pastureConservation] || 'N/A'}</p>
     <p><strong>Cercas de Arame Liso:</strong> {property.hasSmoothWireFence ? 'Sim' : 'Não'}</p>
   </div>
 </div>

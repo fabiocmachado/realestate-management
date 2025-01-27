@@ -49,6 +49,13 @@ export enum ConservationStatus {
     POOR = "POOR"
 }
 
+export const ConservationStatusLabels: Record<ConservationStatus, string> = {
+    [ConservationStatus.EXCELLENT]: "Excelente",
+    [ConservationStatus.GOOD]: "Boa",
+    [ConservationStatus.REGULAR]: "Regular",
+    [ConservationStatus.POOR]: "Ruim",
+};
+
 export enum EnergyType {
     NONE = "NONE",
     MONOPHASIC = "MONOPHASIC",
