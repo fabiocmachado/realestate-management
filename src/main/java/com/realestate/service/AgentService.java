@@ -65,17 +65,17 @@ public class AgentService {
         Agent agent = agentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Agente não encontrado com ID: " + id));
         if (agentDTO.getPassword() != null && !agentDTO.getPassword().isEmpty()) {
-            String encodedPassword = passwordEncoder.encode(agentDTO.getPassword());
-            agentDTO.setPassword(encodedPassword);
-        } else {
-            agentDTO.setPassword(agent.getPassword());
+            agent.setPassword(passwordEncoder.encode(agentDTO.getPassword()));
         }
-
+        if (agentDTO.getRole() != null) {
+            agent.setRole(agentDTO.getRole());
+            agent.setHasAdminPermissions(agentDTO.getRole() == UserRole.ADMIN);
+        }
         agentMapper.updateEntityFromDTO(agentDTO, agent);
+
         Agent updatedAgent = agentRepository.save(agent);
         return agentMapper.toDTO(updatedAgent);
     }
-
 
     @Transactional
     public void deleteAgent(Long id) {

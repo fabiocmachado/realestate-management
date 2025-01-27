@@ -117,6 +117,7 @@ export interface Agent {
   licenseNumber: string;
   role: UserRole;
   password: string;
+  hasAdminPermissions: boolean;
   prospectedProperties: number[];
   createdAt?: string;
   updatedAt?: string;

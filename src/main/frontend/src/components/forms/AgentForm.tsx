@@ -25,7 +25,8 @@ const AgentForm: React.FC<AgentFormProps> = ({ agent, onSubmit, onCancel }) => {
     state: "",
     licenseNumber: "",
     role: UserRole.AGENT,
-    password: "",  // senha vazia inicialmente
+    password: "",
+    hasAdminPermissions: false,
     prospectedProperties: [],
     createdAt: "",
     updatedAt: "",
@@ -39,6 +40,7 @@ const AgentForm: React.FC<AgentFormProps> = ({ agent, onSubmit, onCancel }) => {
         ...agent,
         role: agent.role || UserRole.AGENT,
         password: agent.password || "",
+        hasAdminPermissions: agent.hasAdminPermissions || false,
       });
     }
   }, [agent]);
@@ -46,10 +48,18 @@ const AgentForm: React.FC<AgentFormProps> = ({ agent, onSubmit, onCancel }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+
+    setFormData((prevState) => {
+      const updatedData = {
+        ...prevState,
+        [name]: type === "checkbox" ? checked : value,
+      };
+      if (name === "role") {
+        updatedData.hasAdminPermissions = value === UserRole.ADMIN;
+      }
+
+      return updatedData;
+    });
   };
 
   const togglePasswordVisibility = () => {
@@ -83,13 +93,13 @@ const AgentForm: React.FC<AgentFormProps> = ({ agent, onSubmit, onCancel }) => {
       ]).map(({ name, type, label, required = false }) => (
         <div className="form-group" key={name}>
           <label htmlFor={name}>{label}</label>
-          { name === "password" ? (
+          {name === "password" ? (
             <div className="password-group">
               <input
                 type={showPassword ? "text" : "password"}
                 id={name}
                 name={name}
-                value={formData.password || ""}  // Exibe a senha descriptografada
+                value={formData.password || ""}
                 onChange={handleChange}
                 placeholder={agent ? "Deixe vazio para manter a senha atual" : "Digite uma senha"}
                 className="form-control"
@@ -129,8 +139,13 @@ const AgentForm: React.FC<AgentFormProps> = ({ agent, onSubmit, onCancel }) => {
           )}
         </div>
       ))}
-      <button type="submit" className="btn btn-primary">{agent ? "Salvar" : "Cadastrar"}</button>
-      <button type="button" className="cancel-button" onClick={onCancel}>Cancelar</button>
+
+      <button type="submit" className="btn btn-primary">
+        {agent ? "Salvar" : "Cadastrar"}
+      </button>
+      <button type="button" className="cancel-button" onClick={onCancel}>
+        Cancelar
+      </button>
     </form>
   );
 };
