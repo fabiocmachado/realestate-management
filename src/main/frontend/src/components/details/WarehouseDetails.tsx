@@ -11,27 +11,30 @@ interface Props {
 export const WarehouseDetails: React.FC<Props> = ({ property, seller, agent }) => (
   <div className="property-details-container">
       <h1><strong> Galpão - Código: </strong> {property.propertyCode}</h1>
+        <div className="property-details-content">
+       <h2>Informações</h2>
        <div className="four-column">
-       <div className="property-details-content">
+       <div>
         <p><strong>Endereço:</strong>{formatAddress(property)}</p>
       </div>
-       <div className="property-details-content">
+       <div>
       <p><strong>Preço:</strong> {property.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || 'Preço não disponível'}</p>
       <p><strong>Taxa de Condomínio:</strong> {property.condominiumFee?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
     </div>
-      <div className="property-details-content">
+       <div>
       {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
       <p><strong>Ocupado:</strong> {property.isInhabited ? 'Sim' : 'Não'}</p>
       <p><strong>Alugado:</strong> {property.isRented ? 'Sim' : 'Não'}</p>
     </div>
-  <div className="property-details-content">
+       <div>
       <p><strong>Área de terreno:</strong> {property.totalArea?.toLocaleString()} m²</p>
       <p><strong>Área Útil:</strong> {property.usableArea?.toLocaleString()} m²</p>
     </div>
     </div>
+    </div>
     <div className="two-column">
     <div className="property-details-content">
-      <h2>Características da Área Comercial</h2>
+      <h2>Características</h2>
       <p><strong>Está Alugada:</strong> {property.isRented ? 'Sim' : 'Não'}</p>
       <p><strong>Valor do Aluguel:</strong> {property.rentalValue
         ? property.rentalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
@@ -45,18 +48,18 @@ export const WarehouseDetails: React.FC<Props> = ({ property, seller, agent }) =
     </div>
 
     <div className="property-details-content">
-           <h2>Outras Informações</h2>
-             <div className="one-column">
-             <div>
-             {property.placeOfKeys && <p><strong>Local das Chaves:</strong>{property.placeOfKeys}</p>}
-             <p><strong>Hora de Visita:</strong>{property.visitingTime}</p>
-             {property.createdAt && <p><strong>Data de cadastro:</strong> {new Date(property.createdAt).toLocaleDateString()}</p>}
-             {property.updatedAt && <p><strong>Última Atualização:</strong> {new Date(property.updatedAt).toLocaleDateString()}</p>}
-               <p><strong>Captador do Imóvel:</strong> {agent.name}</p>
-            </div>
-           </div>
-           </div>
-         </div>
+       <h2>Dados Adicionais</h2>
+         <div className="one-column">
+         <div>
+         {property.placeOfKeys && <p><strong>Local das Chaves:</strong>{property.placeOfKeys}</p>}
+         <p><strong>Hora de Visita:</strong>{property.visitingTime}</p>
+         {property.createdAt && <p><strong>Data de cadastro:</strong> {new Date(property.createdAt).toLocaleDateString()}</p>}
+         {property.updatedAt && <p><strong>Última Atualização:</strong> {new Date(property.updatedAt).toLocaleDateString()}</p>}
+           <p><strong>Captador do Imóvel:</strong> {agent.name}</p>
+        </div>
+       </div>
+       </div>
+     </div>
         <div className="property-details-content">
           <h2>Descrição</h2>
           <textarea value={property.description || ''} readOnly rows={5} />

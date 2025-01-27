@@ -11,29 +11,32 @@ interface Props {
 export const CommercialAreaDetails: React.FC<Props> = ({ property, seller, agent }) => (
   <div className="property-details-container">
     <h1><strong> Área comercial - Código: </strong> {property.propertyCode}</h1>
-    <div className="three-column">
     <div className="property-details-content">
+    <h2>Informações</h2>
+    <div className="three-column">
+    <div>
         <p><strong>Endereço: </strong>{formatAddress(property)}</p>
       </div>
-    <div className="property-details-content">
+    <div>
        <p><strong>Preço:</strong> {property.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || 'Preço não disponível'}</p>
        <p><strong>Taxa de condomínio:</strong> {property.condominiumFee.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
        {property.isRented && (<p><strong>Valor do aluguel:</strong>{" "}{property.rentalValue?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>)}
       </div>
-    <div className="property-details-content">
+    <div>
         {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
          <p><strong>Área terreno:</strong> {property.totalArea?.toLocaleString()} m²</p>
         <p><strong>Alugado:</strong> {property.isRented ? 'Sim' : 'Não'}</p>
       </div>
       </div>
+     </div>
     <div className="two-column">
     <div className="property-details-content">
-      <h2>Características da Área Comercial</h2>
+      <h2>Características</h2>
       <p><strong>Possui Muro:</strong> {property.hasWall ? 'Sim' : 'Não'}</p>
       <p><strong>Possui Asfalto:</strong> {property.hasAsphalt ? 'Sim' : 'Não'}</p>
      </div>
       <div className="property-details-content">
-       <h2>Outras Informações</h2>
+       <h2>Dados Adicionais</h2>
          <div className="one-column">
          <div>
          {property.placeOfKeys && <p><strong>Local das Chaves:</strong>{property.placeOfKeys}</p>}

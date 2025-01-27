@@ -12,8 +12,10 @@
     <div className="property-details-container">
     <div>
       <h1><strong> Casa - Código: </strong> {property.propertyCode}</h1>
-      <div className="two-column">
-      <div className="property-details-content">
+        <div className="property-details-content">
+        <h2>Informações</h2>
+         <div className="two-column">
+      <div>
         <p><strong>Nome do Condomínio:</strong> {property.nameOfGatedCommunity}</p>
         <p><strong>Endereço: </strong>{formatAddress(property)}</p>
         <p><strong>Preço:</strong> {property.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || 'Preço não disponível'}</p>
@@ -21,7 +23,7 @@
         {property.isRented && (<p><strong>Valor do aluguel:</strong>{" "}{property.rentalValue?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>)}
         {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
      </div>
-     <div className="property-details-content">
+     <div>
        <p><strong>Ocupado:</strong> {property.isInhabited ? 'Sim' : 'Não'}</p>
        <p><strong>Alugado:</strong> {property.isRented ? 'Sim' : 'Não'}</p>
       <p><strong>Área de terreno:</strong> {property.totalArea?.toLocaleString()} m²</p>
@@ -29,6 +31,8 @@
     </div>
     </div>
     </div>
+    </div>
+
  <div className="property-details-content">
   <div className="three-column">
     <div className="property-details-content">
@@ -67,25 +71,25 @@
      </div>
     </div>
     <div className="property-details-content">
-          <h2>Outras Informações</h2>
-           <div className="five-column">
-            <div>
-            {property.placeOfKeys && <p><strong>Local das Chaves:</strong><br></br> {property.placeOfKeys}</p>}
-            </div>
-            <div>
-            <p><strong>Hora de Visita:</strong><br></br> {property.visitingTime}</p>
-            </div>
-            <div>
-            {property.createdAt && <p><strong>Data de cadastro:</strong><br></br> {new Date(property.createdAt).toLocaleDateString()}</p>}
-            </div>
-            <div>
-            {property.updatedAt && <p><strong>Última Atualização:</strong><br></br> {new Date(property.updatedAt).toLocaleDateString()}</p>}
-            </div>
-            <div>
-            <p><strong>Captador do Imóvel:</strong><br></br> {agent.name}</p>
-            </div>
-          </div>
-         </div>
+      <h2>Dados Adicionais</h2>
+       <div className="five-column">
+        <div>
+        {property.placeOfKeys && <p><strong>Local das Chaves:</strong><br></br> {property.placeOfKeys}</p>}
+        </div>
+        <div>
+        <p><strong>Hora de Visita:</strong><br></br> {property.visitingTime}</p>
+        </div>
+        <div>
+        {property.createdAt && <p><strong>Data de cadastro:</strong><br></br> {new Date(property.createdAt).toLocaleDateString()}</p>}
+        </div>
+        <div>
+        {property.updatedAt && <p><strong>Última Atualização:</strong><br></br> {new Date(property.updatedAt).toLocaleDateString()}</p>}
+        </div>
+        <div>
+        <p><strong>Captador do Imóvel:</strong><br></br> {agent.name}</p>
+        </div>
+      </div>
+     </div>
     {/* Descrição */}
     <div className="property-details-content">
       <h2>Descrição</h2>

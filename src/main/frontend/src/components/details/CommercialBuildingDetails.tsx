@@ -12,22 +12,23 @@ export const CommercialBuildingDetails: React.FC<Props> = ({ property, seller, a
   <div className="property-details-container">
       <h1><strong> Prédio comercial - Código: </strong> {property.propertyCode}</h1>
        <div className="property-details-content">
+        <h2>Informações</h2>
       <div className="four-column">
-    <div className="property-details-content">
+         <div>
           <p><strong>Nome do Edifício:</strong> {property.nameOfBuilding}</p>
           <p><strong>Endereço:</strong>{formatAddress(property)}</p>
        </div>
-    <div className="property-details-content">
+         <div>
           <p><strong>Preço:</strong> {property.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || 'Preço não disponível'}</p>
           <p><strong>Taxa de Condomínio:</strong> {property.condominiumFee?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
           {property.isRented && (<p><strong>Valor do aluguel:</strong>{" "}{property.rentalValue?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>)}
         </div>
-    <div className="property-details-content">
+         <div>
           {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
           <p><strong>Ocupado:</strong> {property.isInhabited ? 'Sim' : 'Não'}</p>
           <p><strong>Alugado:</strong> {property.isRented ? 'Sim' : 'Não'}</p>
         </div>
-        <div className="property-details-content">
+         <div>
           <p><strong>Área de terreno:</strong> {property.totalArea?.toLocaleString()} m²</p>
           <p><strong>Área Privativa:</strong> {property.privateArea?.toLocaleString()} m²</p>
           <p><strong>Área Útil:</strong> {property.usableArea?.toLocaleString()} m²</p>
@@ -36,7 +37,7 @@ export const CommercialBuildingDetails: React.FC<Props> = ({ property, seller, a
   </div>
    <div className="two-column">
     <div className="property-details-content">
-      <h2>Características do Prédio Comercial</h2>
+      <h2>Características</h2>
       <p><strong>Piso:</strong> {property.floorType}</p>
       <p><strong>Andares:</strong> {property.offices}</p>
       <p><strong>Tempo de Construção:</strong> {property.yearsOfConstruction} anos</p>
@@ -50,7 +51,7 @@ export const CommercialBuildingDetails: React.FC<Props> = ({ property, seller, a
     </div>
 
     <div className="property-details-content">
-       <h2>Outras Informações</h2>
+       <h2>Dados Adicionais</h2>
          <div className="one-column">
          <div>
          {property.placeOfKeys && <p><strong>Local das Chaves:</strong>{property.placeOfKeys}</p>}

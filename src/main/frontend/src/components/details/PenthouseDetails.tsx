@@ -12,8 +12,10 @@ export const PenthouseDetails: React.FC<Props> = ({ property, seller, agent }) =
   <div className="property-details-container">
       <div>
         <h1><strong> Cobertura - Código: </strong> {property.propertyCode}</h1>
+        <div className="property-details-content">
+        <h2>Informações</h2>
        <div className="two-column">
-       <div className="property-details-content">
+       <div>
         <p><strong>Nome do Prédio:</strong> {property.nameOfBuilding}</p>
         <p><strong>Número do apartamento:</strong> {property.apartmentNumber}</p>
         <p><strong>Endereço: </strong>{formatAddress(property)}</p>
@@ -21,7 +23,7 @@ export const PenthouseDetails: React.FC<Props> = ({ property, seller, agent }) =
          <p><strong>Taxa de condomínio:</strong> {property.condominiumFee.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
          {property.isRented && (<p><strong>Valor do aluguel:</strong>{" "}{property.rentalValue?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>)}
         </div>
-        <div className="property-details-content">
+       <div>
          {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
           <p><strong>Ocupado:</strong> {property.isInhabited ? 'Sim' : 'Não'}</p>
           <p><strong>Alugado:</strong> {property.isRented ? 'Sim' : 'Não'}</p>
@@ -30,6 +32,7 @@ export const PenthouseDetails: React.FC<Props> = ({ property, seller, agent }) =
           <p><strong>Área Útil:</strong> {property.usableArea?.toLocaleString()} m²</p>
       </div>
       </div>
+    </div>
     </div>
 
 <div className="two-column">
@@ -100,7 +103,7 @@ export const PenthouseDetails: React.FC<Props> = ({ property, seller, agent }) =
         </div>
       </div>
     <div className="property-details-content">
-      <h2>Outras Informações</h2>
+      <h2>Dados Adicionais</h2>
        <div className="five-column">
         <div>
             {property.placeOfKeys && <p><strong>Local das Chaves:</strong><br></br> {property.placeOfKeys}</p>}

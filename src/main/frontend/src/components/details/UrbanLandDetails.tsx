@@ -11,19 +11,22 @@ interface Props {
 export const UrbanLandDetails: React.FC<Props> = ({ property, seller, agent }) => (
    <div className="property-details-container">
        <h1><strong> Terreno - Código: </strong> {property.propertyCode}</h1>
-       <div className="four-column">
        <div className="property-details-content">
+       <h2>Informações</h2>
+       <div className="four-column">
+       <div>
         <p><strong>Endereço:</strong>{formatAddress(property)}</p>
        </div>
-        <div className="property-details-content">
+       <div>
          <p><strong>Preço:</strong> {property.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || 'Preço não disponível'}</p>
        </div>
-       <div className="property-details-content">
+       <div>
           {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
         </div>
-       <div className="property-details-content">
+       <div>
        <p><strong>Tamanho:</strong> {property.totalArea} m2</p>
         </div>
+     </div>
      </div>
       <div className="two-column">
      <div className="property-details-content">
@@ -32,15 +35,15 @@ export const UrbanLandDetails: React.FC<Props> = ({ property, seller, agent }) =
        <p><strong>Asfalto:</strong> {property.hasAsphalt ? 'Sim' : 'Não'}</p>
       </div>
        <div className="property-details-content">
-               <h2>Outras Informações</h2>
-                 <div className="one-column">
-                 {property.placeOfKeys && <p><strong>Local das Chaves:</strong><br></br> {property.placeOfKeys}</p>}
-                 <p><strong>Hora de Visita:</strong><br></br> {property.visitingTime}</p>
-                 {property.createdAt && <p><strong>Data de cadastro:</strong><br></br> {new Date(property.createdAt).toLocaleDateString()}</p>}
-                 {property.updatedAt && <p><strong>Última Atualização:</strong><br></br> {new Date(property.updatedAt).toLocaleDateString()}</p>}
-                 <p><strong>Captador do Imóvel:</strong><br></br> {agent.name}</p>
-               </div>
-              </div>
+       <h2>Dados Adicionais</h2>
+         <div className="one-column">
+         {property.placeOfKeys && <p><strong>Local das Chaves:</strong><br></br> {property.placeOfKeys}</p>}
+         <p><strong>Hora de Visita:</strong><br></br> {property.visitingTime}</p>
+         {property.createdAt && <p><strong>Data de cadastro:</strong><br></br> {new Date(property.createdAt).toLocaleDateString()}</p>}
+         {property.updatedAt && <p><strong>Última Atualização:</strong><br></br> {new Date(property.updatedAt).toLocaleDateString()}</p>}
+         <p><strong>Captador do Imóvel:</strong><br></br> {agent.name}</p>
+       </div>
+      </div>
          </div>
            <div className="property-details-content">
              <h2>Descrição</h2>
