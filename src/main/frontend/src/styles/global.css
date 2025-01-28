@@ -75,7 +75,6 @@ body {
 .main-content {
   flex: 1;
   padding: 10px;
-  max-width: 1200px;
   margin: 0 auto;
   background-color: var(--text-light);
   box-shadow: var(--shadow);
@@ -123,8 +122,7 @@ button:disabled {
   padding: 20px;
   border-radius: 8px;
   box-shadow: var(--shadow);
-  max-width: 600px;
-  margin: 20px auto;
+  margin: 5px;
 }
 
 .form-container h2 {

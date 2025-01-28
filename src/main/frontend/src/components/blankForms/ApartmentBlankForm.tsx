@@ -5,7 +5,7 @@ interface FieldProps {
 }
 
 export const ApartmentBlankForm = () => {
-    const TextField: React.FC<FieldProps> = ({ label }) => (
+  const TextField: React.FC<FieldProps> = ({ label }) => (
     <div className="field">
       <span className="label">{label}:</span>
     </div>
@@ -15,20 +15,21 @@ export const ApartmentBlankForm = () => {
     <div className="print-only">
       <h1 className="heading">Ficha de Apartamento</h1>
       <div className="section">
-       <div className="two-column">
-        <div className="section">
-          <h2><TextField label="Código"/></h2>
-         </div>
-         <div className="section">
-          <h2><TextField label="Data de cadastro"/></h2>
-            </div>
-         </div>
+        <div className="two-column">
+          <div className="section">
+            <h2><TextField label="Código" /></h2>
+          </div>
+          <div className="section">
+            <h2><TextField label="Data de cadastro" /></h2>
+          </div>
+        </div>
       </div>
+
       {/* Informações Gerais */}
       <div className="section">
         <h2 className="section-heading">Informações Gerais</h2>
         <div className="three-column">
-          <div >
+          <div>
             <TextField label="Preço" />
             <TextField label="Nome do Prédio" />
             <TextField label="Número do Apartamento" />
@@ -45,13 +46,15 @@ export const ApartmentBlankForm = () => {
             <TextField label="Área Total" />
             <TextField label="Área Privativa" />
             <TextField label="Área Útil" />
-         </div>
+          </div>
         </div>
       </div>
+
+      {/* Divisões Internas */}
       <div className="section">
-       <div className="two-column">
-         <div>
-        <h2 className="section-heading">Divisões Internas</h2>
+        <div className="two-column">
+          <div>
+            <h2 className="section-heading">Divisões Internas</h2>
             <TextField label="Quartos" />
             <TextField label="Suítes" />
             <TextField label="Salas" />
@@ -61,13 +64,13 @@ export const ApartmentBlankForm = () => {
             <TextField label="Cozinha" />
             <TextField label="Despensa" />
             <TextField label="Sacada" />
-            <TextField label="Varanda Goumert" />
+            <TextField label="Varanda Gourmet" />
             <TextField label="Lavanderia" />
             <TextField label="Quarto para Funcionário" />
             <TextField label="Banheiro para Funcionário" />
-    </div>
-  <div>
-        <h2 className="section-heading">Comodidades</h2>
+          </div>
+          <div>
+            <h2 className="section-heading">Comodidades</h2>
             <TextField label="Tipo de Piso" />
             <TextField label="Vagas de garagem" />
             <TextField label="Garagens em Gaveta" />
@@ -79,13 +82,14 @@ export const ApartmentBlankForm = () => {
             <TextField label="Ar-condicionado" />
             <TextField label="Sauna Exclusiva" />
             <TextField label="Piscina Exclusiva" />
-            </div>
-         </div>
-       </div>
+          </div>
+        </div>
+      </div>
 
+      {/* Condomínio */}
       <div className="section">
         <h2 className="section-heading">Condomínio</h2>
-          <div className="three-column">
+        <div className="three-column">
           <div>
             <TextField label="Salão de Festas" />
             <TextField label="Salão de Jogos" />
@@ -101,32 +105,32 @@ export const ApartmentBlankForm = () => {
             <TextField label="Mezanino" />
             <TextField label="Portão Eletrônico" />
             <TextField label="Portaria Eletrônica" />
-           </div>
-           <div>
+          </div>
+          <div>
             <TextField label="Anos de construção" />
             <TextField label="Elevador" />
             <TextField label="Blocos" />
             <TextField label="Total de apartamentos" />
             <TextField label="Total de andares" />
           </div>
-          </div>
         </div>
+      </div>
 
       {/* Outras Informações */}
       <div className="section">
         <h2 className="section-heading">Outras Informações</h2>
-          <div className="three-column">
+        <div className="three-column">
           <div>
             <TextField label="Local das Chaves" />
           </div>
-          <div className="column">
+          <div>
             <TextField label="Hora de Visita" />
           </div>
-          <div className="column">
+          <div>
             <TextField label="Captador" />
           </div>
-         </div>
         </div>
+      </div>
 
       {/* Descrição */}
       <div className="section">
@@ -134,22 +138,22 @@ export const ApartmentBlankForm = () => {
         <textarea />
       </div>
 
-      {/* Propretário */}
-    <div className="section">
-      <h2 className="section-heading">Proprietário</h2>
+      {/* Proprietário */}
+      <div className="section">
+        <h2 className="section-heading">Proprietário</h2>
         <div className="two-column">
-         <div>
-          <TextField label="Nome" />
-          <TextField label="Endereço" />
-          <TextField label="RG" />
+          <div>
+            <TextField label="Nome" />
+            <TextField label="Endereço" />
+            <TextField label="RG" />
           </div>
           <div>
             <TextField label="CPF" />
             <TextField label="Email" />
             <TextField label="Telefone" />
-       </div>
+          </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
