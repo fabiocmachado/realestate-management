@@ -29,5 +29,4 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
 
     List<Agent> findByRole(String role);
 
-    List<Agent> findByHasAdminPermissionsTrue();
 }

@@ -33,9 +33,6 @@ public class Agent extends Person {
     @NotNull(message = "Role is required")
     private UserRole role;
 
-    @Column(name = "has_admin_permissions")
-    private Boolean hasAdminPermissions;
-
     @PreRemove
     private void validateDelete() {
         if (!prospectedProperties.isEmpty()) {

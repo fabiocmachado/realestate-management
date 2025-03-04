@@ -17,9 +17,11 @@ public interface AgentMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "prospectedProperties", ignore = true)
+    @Mapping(target = "password", source = "password")
     Agent toEntity(AgentDTO agentDTO);
 
     @Mapping(target = "prospectedProperties", expression = "java(mapToIds(agent.getProspectedProperties()))")
+    @Mapping(target = "password", ignore = true)
     AgentDTO toDTO(Agent agent);
 
     @Mapping(target = "id", ignore = true)

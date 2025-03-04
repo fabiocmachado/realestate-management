@@ -27,7 +27,7 @@ public class AgentService {
 
     @Transactional
     public AgentDTO createFirstAdmin(AgentDTO agentDTO) {
-        agentDTO.setHasAdminPermissions(true);
+        agentDTO.setRole(UserRole.ADMIN);
         return saveAgent(agentDTO);
     }
 
@@ -56,22 +56,22 @@ public class AgentService {
 
     @Transactional
     public AgentDTO registerAgent(AgentDTO agentDTO) {
-        agentDTO.setHasAdminPermissions(UserRole.ADMIN == agentDTO.getRole());
         return saveAgent(agentDTO);
     }
+
 
     @Transactional
     public AgentDTO updateAgent(Long id, AgentDTO agentDTO) {
         Agent agent = agentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Agente não encontrado com ID: " + id));
-        if (agentDTO.getPassword() != null && !agentDTO.getPassword().isEmpty()) {
-            agent.setPassword(passwordEncoder.encode(agentDTO.getPassword()));
-        }
-        if (agentDTO.getRole() != null) {
-            agent.setRole(agentDTO.getRole());
-            agent.setHasAdminPermissions(agentDTO.getRole() == UserRole.ADMIN);
-        }
+
         agentMapper.updateEntityFromDTO(agentDTO, agent);
+
+        if (agentDTO.getPassword() != null && !agentDTO.getPassword().isEmpty()) {
+            if (!passwordEncoder.matches(agentDTO.getPassword(), agent.getPassword())) {
+                agent.setPassword(passwordEncoder.encode(agentDTO.getPassword()));
+            }
+        }
 
         Agent updatedAgent = agentRepository.save(agent);
         return agentMapper.toDTO(updatedAgent);

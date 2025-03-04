@@ -50,6 +50,7 @@ public class AuthService {
     }
 
     private String determineRole(Agent agent) {
-        return agent.getHasAdminPermissions() ? UserRole.ADMIN.name() : UserRole.AGENT.name();
+        return UserRole.AGENT.name();
     }
+
 }

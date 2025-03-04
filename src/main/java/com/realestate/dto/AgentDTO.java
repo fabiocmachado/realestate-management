@@ -33,8 +33,6 @@ public class AgentDTO {
     private UserRole role;
     private String password;
 
-    private Boolean hasAdminPermissions;
-
     private List<Long> prospectedProperties;
 
     private LocalDateTime createdAt;
