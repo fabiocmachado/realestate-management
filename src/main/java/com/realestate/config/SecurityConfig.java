@@ -55,25 +55,13 @@ public class SecurityConfig {
                 .requestMatchers("/index.html").permitAll()
                 .requestMatchers("/").permitAll();
 
-        // Se estiver em modo de desenvolvimento, permite mais acessos
-        if ("dev".equals(environment)) {
-            http.authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.GET, "/agents/**").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/sellers/**").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/properties/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/properties/**").permitAll()
-                    .requestMatchers(HttpMethod.PUT, "/properties/**").permitAll()
-                    .requestMatchers(HttpMethod.DELETE, "/properties/**").permitAll();
-        } else {
-            // Em produção, mantém as restrições de segurança
-            http.authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.GET, "/agents/**").hasAnyRole("ADMIN", "AGENT")
-                    .requestMatchers(HttpMethod.GET, "/sellers/**").hasAnyRole("ADMIN", "AGENT")
-                    .requestMatchers(HttpMethod.GET, "/properties/**").hasAnyRole("ADMIN", "AGENT")
-                    .requestMatchers(HttpMethod.POST, "/properties/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/properties/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/properties/**").hasRole("ADMIN");
-        }
+        http.authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/agents/**").hasAnyRole("ADMIN", "AGENT")
+                .requestMatchers(HttpMethod.GET, "/sellers/**").hasAnyRole("ADMIN", "AGENT")
+                .requestMatchers(HttpMethod.GET, "/properties/**").hasAnyRole("ADMIN", "AGENT")
+                .requestMatchers(HttpMethod.POST, "/properties/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/properties/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/properties/**").hasRole("ADMIN");
 
         http.authorizeHttpRequests()
                 .anyRequest().authenticated()

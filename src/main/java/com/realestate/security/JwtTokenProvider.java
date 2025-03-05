@@ -45,11 +45,11 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser()
-                    .verifyWith(secretKey)
+                    .setSigningKey(secretKey)
                     .build()
-                    .parseSignedClaims(token);
+                    .parseClaimsJws(token);
 
-            return !claims.getPayload().getExpiration().before(new Date());
+            return !claims.getBody().getExpiration().before(new Date());
         } catch (ExpiredJwtException e) {
             throw new TokenExpiredException("Token expired");
         } catch (JwtException | IllegalArgumentException e) {
@@ -59,10 +59,10 @@ public class JwtTokenProvider {
 
     public String getUsername(String token) {
         return Jwts.parser()
-                .verifyWith(secretKey)
+                .setSigningKey(secretKey)
                 .build()
-                .parseSignedClaims(token)
-                .getPayload()
+                .parseClaimsJws(token)
+                .getBody()
                 .getSubject();
     }
 

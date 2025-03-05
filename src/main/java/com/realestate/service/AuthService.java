@@ -31,10 +31,11 @@ public class AuthService {
 
             String role = determineRole(agent);
             String token = jwtTokenProvider.createToken(person.getEmail(), role);
+
             return AuthResponseDTO.builder()
                     .token(token)
                     .email(person.getEmail())
-                    .role(UserRole.valueOf(role))
+                    .role(role)
                     .type("Bearer")
                     .name(person.getName())
                     .build();
@@ -50,7 +51,6 @@ public class AuthService {
     }
 
     private String determineRole(Agent agent) {
-        return UserRole.AGENT.name();
+        return agent.getRole().name();
     }
-
 }

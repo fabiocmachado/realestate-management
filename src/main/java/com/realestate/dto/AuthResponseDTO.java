@@ -14,6 +14,6 @@ public class AuthResponseDTO {
     private String token;
     private String type = "Bearer";
     private String email;
-    private UserRole role;
+    private String role;
     private String name;
 }
