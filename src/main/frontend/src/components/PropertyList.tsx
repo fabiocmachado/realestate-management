@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from "../contexts/AuthContext";
 import { PaginatedResponse, PropertyDTO, Pageable, PropertyStatusDescription, PropertyCategoryDescription } from '../types/models';
 import { getProperties, getPropertyByPropertyCode } from '../services/propertyService';
+import { formatAddress } from './shared/shared';
 import '../styles/propertyList.css'
 
 const PropertyList: React.FC = () => {
@@ -87,20 +88,6 @@ const PropertyList: React.FC = () => {
       const prevPage = currentPage - 1;
       setCurrentPage(prevPage);
     }
-  };
-
-  const formatAddress = (property: PropertyDTO) => {
-    const addressParts = [
-      property.street,
-      property.block,
-      property.lot,
-      property.number,
-      property.complement,
-      property.city,
-      property.state,
-    ];
-
-    return addressParts.filter(Boolean).join(', ') || 'Endereço não disponível';
   };
 
   const formatCreatedAt = (createdAt: string) => {

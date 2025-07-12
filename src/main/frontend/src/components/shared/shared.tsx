@@ -8,7 +8,9 @@ export const formatCPF = (cpf: string): string => {
   return cpf;
 };
 
-export const formatPhoneNumber = (phone: string): string => {
+export const formatPhoneNumber = (phone?: string | null): string => {
+  if (!phone) return '';
+
   const cleaned = phone.replace(/\D/g, "");
   if (cleaned.length === 11) {
     return `(${cleaned.slice(0, 2)})${cleaned.slice(2, 7)}-${cleaned.slice(7)}`;
@@ -17,6 +19,7 @@ export const formatPhoneNumber = (phone: string): string => {
   }
   return phone;
 };
+
 
 export const formatCurrency = (
   value: string | number,
@@ -35,18 +38,28 @@ export const formatCurrency = (
 };
 
 export const formatAddress = (property: PropertyDTO) => {
-    const addressParts = [
-      property.street,
-      property.block,
-      property.lot,
-      property.number,
-      property.complement,
-      property.neighborhood,
-      property.city,
-      property.state,
-    ];
-      return addressParts.filter(Boolean).join(', ') || 'Endereço não disponível';
- };
+  const addressParts = [
+    property.street ? `Rua ${property.street}` : '',
+    property.block ? `Quadra ${property.block}` : '',
+    property.lot ? `Lote ${property.lot}` : '',
+    property.number ? `Nº ${property.number}` : '',
+    property.complement ? `${property.complement}` : '',
+    property.neighborhood ? `Bairro ${property.neighborhood}` : '',
+    property.city ? `${property.city}` : '',
+    property.state ? `${property.state}` : '',
+  ];
+
+  return addressParts.filter(Boolean).join(', ') || 'Endereço não disponível';
+};
+
+export const formatArea = (area: number | null | undefined): string => {
+  if (area == null || isNaN(area)) return 'Área não disponível';
+
+  return `${area.toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })}`;
+};
 
 export const formatPrice = (value: string): string => {
     const numericValue = value.replace(/\D/g, "");

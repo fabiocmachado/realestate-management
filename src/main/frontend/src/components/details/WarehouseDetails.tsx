@@ -1,6 +1,6 @@
 import React from 'react';
 import { WarehouseDTO, Seller, Agent } from '../../types/models';
-import { formatCPF, formatPhoneNumber,formatAddress } from "../../components/shared/shared";
+import { formatCPF, formatPhoneNumber,formatAddress, formatArea } from "../../components/shared/shared";
 
 interface Props {
   property: WarehouseDTO;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ApartmentDTO, Seller, Agent } from '../../types/models';
-import { formatPhoneNumber, formatAddress } from "../../components/shared/shared";
+import { formatPhoneNumber, formatAddress,formatArea } from "../../components/shared/shared";
 
 interface Props {
   property: ApartmentDTO;
@@ -26,9 +26,9 @@ export const ApartmentDetails: React.FC<Props> = ({ property, seller, agent }) =
         {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
         <p><strong>Ocupado:</strong> {property.isInhabited ? 'Sim' : 'Não'}</p>
         <p><strong>Alugado:</strong> {property.isRented ? 'Sim' : 'Não'}</p>
-        <p><strong>Área Total:</strong> {property.totalArea?.toLocaleString()} m²</p>
-        <p><strong>Área Privativa:</strong> {property.privateArea?.toLocaleString()} m²</p>
-        <p><strong>Área Útil:</strong> {property.usableArea?.toLocaleString()} m²</p>
+        {property.totalArea ? ( <p><strong>Área Total:</strong> {formatArea(property.totalArea)} m²</p>) : null}
+        {property.privateArea ? (  <p><strong>Área Privativa:</strong> {formatArea(property.privateArea)} m²</p>) : null}
+        <p><strong>Área Útil:</strong> {formatArea(property.usableArea)} m²</p>
       </div>
     </div>
    </div>

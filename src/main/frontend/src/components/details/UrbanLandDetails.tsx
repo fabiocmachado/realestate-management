@@ -1,6 +1,6 @@
 import React from "react";
 import { UrbanLandDTO, Agent, Seller, PropertyStatusDescription} from '../../types/models';
-import  { formatCPF, formatPhoneNumber,formatAddress} from "../../components/shared/shared"
+import  { formatCPF, formatPhoneNumber,formatAddress, formatArea} from "../../components/shared/shared"
 
 interface Props {
  property: UrbanLandDTO;
@@ -24,7 +24,7 @@ export const UrbanLandDetails: React.FC<Props> = ({ property, seller, agent }) =
           {property.orientation && <p><strong>Orientação:</strong> {property.orientation}</p>}
         </div>
        <div>
-       <p><strong>Tamanho:</strong> {property.totalArea} m2</p>
+       <p><strong>Tamanho:</strong> {formatArea(property.totalArea)} m²</p>
         </div>
      </div>
      </div>

@@ -1,35 +1,32 @@
-import axios, { AxiosError } from "axios";
-import { LoginDTO } from "../types/models";
-import { AuthResponseDTO } from "../types/models";
-
-const API_URL = "https://realestate-app.up.railway.app";
+import api from "./api";
+import { LoginDTO, AuthResponseDTO } from "../types/models";
 
 export const login = async (loginDTO: LoginDTO): Promise<AuthResponseDTO> => {
   try {
-    const response = await axios.post<AuthResponseDTO>(`${API_URL}/auth/login`, loginDTO);
+    const response = await api.post<AuthResponseDTO>("/auth/login", loginDTO);
     localStorage.setItem("authToken", response.data.token);
     return response.data;
-  } catch (error) {
-    if (error instanceof AxiosError && error.response) {
-      throw new Error(`Erro ao realizar login: ${error.response.data.message || error.message}`);
-    }
-    throw new Error("Erro ao realizar login: " + (error instanceof Error ? error.message : error));
+  } catch (error: any) {
+    const message =
+      error.response?.data?.message || error.message || "Erro ao realizar login";
+    throw new Error(message);
   }
 };
 
 export const validateToken = async (token: string): Promise<boolean> => {
   try {
-    const response = await axios.post(`${API_URL}/auth/validate`, {}, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await api.post(
+      "/auth/validate",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
+    );
     return response.status === 200;
   } catch (error) {
-    if (error instanceof AxiosError) {
-      console.error("Erro ao validar o token:", error.response?.data);
-    }
-    console.error("Erro ao validar o token:", error instanceof Error ? error.message : error);
+    console.error("Erro ao validar o token:", error);
     return false;
   }
 };
