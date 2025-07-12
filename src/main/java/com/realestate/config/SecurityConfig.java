@@ -23,13 +23,15 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     private final JwtTokenProvider jwtTokenProvider;
 
+    /**
+     * Lista de origens permitidas para CORS, configurada via application.properties
+     * Deve ser separada por vírgulas.
+     */
     @Value("${app.cors.allowed-origins}")
-    private List<String> allowedOrigins;
-
-    @Value("${app.environment:dev}")
-    private String environment;
+    private String allowedOriginsString;
 
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -48,38 +50,42 @@ public class SecurityConfig {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/static/**").permitAll()
-                .requestMatchers("/index.html").permitAll()
-                .requestMatchers("/").permitAll();
-
-        http.authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/agents/**").hasAnyRole("ADMIN", "AGENT")
-                .requestMatchers(HttpMethod.GET, "/sellers/**").hasAnyRole("ADMIN", "AGENT")
-                .requestMatchers(HttpMethod.GET, "/properties/**").hasAnyRole("ADMIN", "AGENT")
-                .requestMatchers(HttpMethod.POST, "/properties/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/properties/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/properties/**").hasRole("ADMIN");
-
-        http.authorizeHttpRequests()
-                .anyRequest().authenticated()
-                .and()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/auth/**", "/static/**", "/", "/index.html").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/agents/**", "/sellers/**", "/properties/**")
+                        .hasAnyRole("ADMIN", "AGENT")
+                        .requestMatchers(HttpMethod.POST, "/properties/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/properties/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/properties/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
+    /**
+     * Configuração CORS que lê as origens permitidas da propriedade e configura métodos,
+     * headers permitidos e credentials.
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
+        List<String> allowedOrigins = Arrays.asList(allowedOriginsString.split(","));
         configuration.setAllowedOrigins(allowedOrigins);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+        configuration.setAllowedHeaders(List.of("*"));
+
         configuration.setAllowCredentials(true);
+
+        configuration.setExposedHeaders(List.of("Authorization"));
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 }

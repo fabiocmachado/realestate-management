@@ -1,59 +1,82 @@
 package com.realestate.controller;
 
 import com.realestate.dto.PropertyDTO;
+import com.realestate.dto.PropertyPageDTO;
+import com.realestate.entity.property.Property;
 import com.realestate.service.PropertyService;
-import com.realestate.exception.InvalidCategoryException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/properties")
-@RequiredArgsConstructor
 public class PropertyController {
 
     private final PropertyService propertyService;
 
-    private static final int DEFAULT_PAGE = 0;
-    private static final int DEFAULT_SIZE = 10;
+    public PropertyController(PropertyService propertyService) {
+        this.propertyService = propertyService;
+    }
 
     @GetMapping
-    public ResponseEntity<Page<PropertyDTO>> getProperties(
+    public ResponseEntity<PropertyPageDTO> listProperties(
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String category,
-            @RequestParam(defaultValue = "" + DEFAULT_PAGE) int page,
-            @RequestParam(defaultValue = "" + DEFAULT_SIZE) int size) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
 
-        Pageable pageable = createPageable(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<Property> propertyPage = propertyService.getProperties(status, category, pageable);
 
-        try {
-            Page<PropertyDTO> propertyDTOs = propertyService.getProperties(status, category, pageable);
+        List<PropertyDTO> dtos = propertyPage.stream()
+                .map(this::convertToDTO)
+                .toList();
 
-            return propertyDTOs.isEmpty()
-                    ? ResponseEntity.noContent().build()
-                    : ResponseEntity.ok(propertyDTOs);
-        } catch (InvalidCategoryException e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+        PropertyPageDTO response = new PropertyPageDTO(
+                dtos,
+                propertyPage.getNumber(),
+                propertyPage.getSize(),
+                propertyPage.getTotalElements(),
+                propertyPage.getTotalPages()
+        );
+
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<PropertyDTO> searchByCode(@RequestParam String propertyCode) {
-        try {
-            PropertyDTO propertyDTO = propertyService.getPropertyByCode(propertyCode);
-            return ResponseEntity.ok(propertyDTO);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/{propertyCode}")
+    public ResponseEntity<PropertyDTO> getPropertyByCode(@PathVariable String propertyCode) {
+        Property property = propertyService.getPropertyByCode(propertyCode);
+        return ResponseEntity.ok(convertToDTO(property));
     }
 
-    private Pageable createPageable(int page, int size) {
-        if (page < 0 || size <= 0) {
-            throw new IllegalArgumentException("Os parâmetros 'page' e 'size' devem ser válidos. 'page' não pode ser negativo e 'size' deve ser maior que zero.");
-        }
-        return PageRequest.of(page, size);
+    private PropertyDTO convertToDTO(Property property) {
+        PropertyDTO dto = new PropertyDTO();
+        dto.setId(property.getId());
+        dto.setPropertyCode(property.getPropertyCode());
+        dto.setPrice(property.getPrice());
+        dto.setDescription(property.getDescription());
+        dto.setStatus(property.getStatus());
+        dto.setSellerId(property.getSeller().getId());
+        dto.setAgentId(property.getAgent().getId());
+        dto.setPropertyCategory(property.getPropertyCategory());
+        dto.setStreet(property.getStreet());
+        dto.setBlock(property.getBlock());
+        dto.setLot(property.getLot());
+        dto.setNumber(property.getNumber());
+        dto.setComplement(property.getComplement());
+        dto.setCity(property.getCity());
+        dto.setState(property.getState());
+        dto.setCreatedAt(property.getCreatedAt());
+        dto.setUpdatedAt(property.getUpdatedAt());
+        dto.setUsableArea(property.getUsableArea());
+        dto.setPrivateArea(property.getPrivateArea());
+        dto.setTotalArea(property.getTotalArea());
+        dto.setVisitingTime(property.getVisitingTime());
+        return dto;
     }
 }
