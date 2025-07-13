@@ -26,6 +26,11 @@ public class EventService {
         return mapper.toDTO(saved);
     }
 
+    public Optional<EventDTO> getEventByIdAndAgent(Long id, Agent agent) {
+        return repository.findByIdAndAgent(id, agent)
+                .map(mapper::toDTO);
+    }
+
     public List<EventDTO> getAllEventsForAgent(Agent agent) {
         return repository.findByAgent(agent).stream()
                 .map(mapper::toDTO)

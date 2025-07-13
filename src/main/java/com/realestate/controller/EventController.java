@@ -38,6 +38,14 @@ public class EventController {
         return ResponseEntity.ok(saved);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EventDTO> getEventById(@PathVariable Long id) {
+        Agent agent = getAuthenticatedAgent();
+        return eventService.getEventByIdAndAgent(id, agent)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<EventDTO> updateEvent(@PathVariable Long id, @RequestBody EventDTO dto) {
         Agent agent = getAuthenticatedAgent();

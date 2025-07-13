@@ -20,6 +20,8 @@ import AddProperty from "./components/AddProperty";
 import EditProperty from "./components/EditProperty";
 import Layout from "./components/Layout";
 import PrintBlankForm from './components/PrintBlankForm'
+import EditEventPage from './components/EditEventPage'
+import AddEventPage from './components/AddEventPage'
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
@@ -53,6 +55,9 @@ const AppRoutes: React.FC = () => {
         <Route path="edit-property/:propertyCategory/:propertyCode" element={<EditProperty />} />
         <Route path="add-property" element={<AddProperty />} />
         <Route path="print/:propertyCategory" element={<PrintBlankForm />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/events/create" element={<AddEventPage />} />
+        <Route path="/events/edit/:id" element={<EditEventPage />} />
       </Route>
     </Routes>
   );
