@@ -3,24 +3,10 @@ import { Seller, PropertyDTO } from "../types/models";
 import { useParams, useNavigate } from "react-router-dom";
 import { getSellerById } from "../services/sellerService";
 import { getProperties } from "../services/propertyService";
-import { formatCPF, formatPhoneNumber } from "../components/shared/shared";
+import { formatCPF, formatPhoneNumber, formatSellerAddress } from "../components/shared/shared";
 import '../styles/sellerDetails.css';
 
 interface SellerDetailsProps {}
-
-const formatAddress = (seller: Seller) => {
-  const addressParts = [
-    seller.street,
-    seller.block,
-    seller.lot,
-    seller.number,
-    seller.complement,
-    seller.neighborhood,
-    seller.city,
-    seller.state,
-  ];
-  return addressParts.filter(Boolean).join(", ");
-};
 
 const SellerDetails: React.FC<SellerDetailsProps> = () => {
   const { id } = useParams<{ id: string }>();
@@ -86,7 +72,7 @@ const SellerDetails: React.FC<SellerDetailsProps> = () => {
         <p><strong>Telefone:</strong> {formatPhoneNumber(seller.phone)}</p>
         <p><strong>CPF:</strong> {formatCPF(seller.cpf)}</p>
         <p><strong>RG:</strong> {seller.rg}</p>
-        <p><strong>Endereço:</strong> {formatAddress(seller)}</p>
+        <p><strong>Endereço:</strong> {formatSellerAddress(seller)}</p>
       </div>
       <div><button onClick={() => handleEdit(seller.id!)}>Editar</button></div>
       <div className="seller-details-properties">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Agent, RoleLabels, UserRole } from "../../types/models";
+import { formatPhoneNumber } from "../../components/shared/shared";
 
 interface AgentFormProps {
   agent?: Agent;
@@ -66,9 +67,15 @@ const AgentForm: React.FC<AgentFormProps> = ({ agent, onSubmit, onCancel }) => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    const cleanedFormData: Agent = {
+      ...formData,
+      phone: formatPhoneNumber(formData.phone),
+    };
+
+    onSubmit(cleanedFormData);
   };
 
   return (

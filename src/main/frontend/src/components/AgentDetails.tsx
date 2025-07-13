@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Agent, PropertyDTO, RoleLabels } from "../types/models";
 import { getAgentById } from "../services/agentService";
 import { getProperties } from "../services/propertyService";
-import { formatCPF, formatPhoneNumber } from "../components/shared/shared";
+import { formatCPF, formatPhoneNumber, formatAgentAddress } from "../components/shared/shared";
 import '../styles/agentDetails.css'
 
 
@@ -88,7 +88,7 @@ const AgentDetails: React.FC<AgentDetailsProps> = () => {
         <p><strong>CPF:</strong> {formatCPF(agent.cpf)}</p>
         <p><strong>RG:</strong> {agent.rg}</p>
         <p><strong>CRECI:</strong> {agent.licenseNumber}</p>
-        <p><strong>Endereço:</strong> {formatAddress(agent)}</p>
+        <p><strong>Endereço:</strong> {formatAgentAddress(agent)}</p>
         <p><strong>Função:</strong> {RoleLabels[agent.role]}</p>
       </div>
       <div><button onClick={() => handleEdit(agent.id!)}>Editar</button></div>

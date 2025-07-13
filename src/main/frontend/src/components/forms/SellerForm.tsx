@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Seller } from "../../types/models";
+import { formatPhoneNumber } from "../../components/shared/shared";
 
 interface SellerFormProps {
   seller?: Seller;
@@ -44,7 +45,13 @@ const SellerForm: React.FC<SellerFormProps> = ({ seller, onSubmit, onCancel }) =
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    const cleanedFormData: Seller = {
+      ...formData,
+      phone: formatPhoneNumber(formData.phone),
+    };
+
+    onSubmit(cleanedFormData);
   };
 
   return (

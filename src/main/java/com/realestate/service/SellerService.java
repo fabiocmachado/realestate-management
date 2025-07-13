@@ -51,30 +51,23 @@ public class SellerService {
 
     @Transactional
     public SellerDTO update(Long id, SellerDTO sellerDTO) {
-        // Buscar o vendedor existente
         Seller seller = sellerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Vendedor não encontrado com ID: " + id));
 
-        // Validar CPF
         if (sellerRepository.existsByCpf(sellerDTO.getCpf()) && !seller.getCpf().equals(sellerDTO.getCpf())) {
             throw new IllegalArgumentException("CPF já cadastrado para outro vendedor");
         }
 
-        // Atualizar dados básicos do vendedor
         sellerMapper.updateEntityFromDTO(sellerDTO, seller, propertyRepository);
 
-        // Atualizar propriedades corretamente
         if (sellerDTO.getProperties() != null) {
-            // Buscar as novas propriedades
             List<Property> newProperties = propertyRepository.findByIdIn(sellerDTO.getProperties());
 
-            // Limpar associações antigas
             if (seller.getProperties() != null) {
                 seller.getProperties().forEach(property -> property.setSeller(null));
                 seller.getProperties().clear();
             }
 
-            // Estabelecer novas associações
             newProperties.forEach(property -> {
                 property.setSeller(seller);
                 if (seller.getProperties() == null) {
@@ -84,7 +77,6 @@ public class SellerService {
             });
         }
 
-        // Salvar e retornar
         return sellerMapper.toDTO(sellerRepository.save(seller));
     }
 

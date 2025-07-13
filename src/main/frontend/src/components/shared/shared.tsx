@@ -1,4 +1,4 @@
-import { PropertyDTO }from '../../types/models'
+import { PropertyDTO,Seller,Agent }from '../../types/models'
 
 export const formatCPF = (cpf: string): string => {
   const cleaned = cpf.replace(/\D/g, "");
@@ -19,7 +19,6 @@ export const formatPhoneNumber = (phone?: string | null): string => {
   }
   return phone;
 };
-
 
 export const formatCurrency = (
   value: string | number,
@@ -51,6 +50,36 @@ export const formatAddress = (property: PropertyDTO) => {
 
   return addressParts.filter(Boolean).join(', ') || 'Endereço não disponível';
 };
+
+export const formatSellerAddress = (seller: Seller): string => {
+  const addressParts = [
+      seller.street ? `Rua ${seller.street}` : '',
+      seller.block ? `Quadra ${seller.block}` : '',
+      seller.lot ? `Lote ${seller.lot}` : '',
+      seller.number ? `Nº ${seller.number}` : '',
+      seller.complement ? `${seller.complement}` : '',
+      seller.neighborhood ? `Bairro ${seller.neighborhood}` : '',
+      seller.city ? `${seller.city}` : '',
+      seller.state ? `${seller.state}` : '',
+    ];
+
+    return addressParts.filter(Boolean).join(', ') || 'Endereço não disponível';
+  };
+
+export const formatAgentAddress = (agent: Agent): string => {
+  const addressParts = [
+      agent.street ? `Rua ${agent.street}` : '',
+      agent.block ? `Quadra ${agent.block}` : '',
+      agent.lot ? `Lote ${agent.lot}` : '',
+      agent.number ? `Nº ${agent.number}` : '',
+      agent.complement ? `${agent.complement}` : '',
+      agent.neighborhood ? `Bairro ${agent.neighborhood}` : '',
+      agent.city ? `${agent.city}` : '',
+      agent.state ? `${agent.state}` : '',
+    ];
+
+    return addressParts.filter(Boolean).join(', ') || 'Endereço não disponível';
+  };
 
 export const formatArea = (area: number | null | undefined): string => {
   if (area == null || isNaN(area)) return 'Área não disponível';
