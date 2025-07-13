@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { validateToken } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { Calendar, momentLocalizer, Event } from "react-big-calendar";
+import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../styles/dashboard.css";
@@ -10,6 +10,7 @@ import "../styles/dashboard.css";
 const localizer = momentLocalizer(moment);
 
 interface CalendarEvent {
+  id: number;
   title: string;
   start: Date;
   end: Date;
@@ -17,20 +18,8 @@ interface CalendarEvent {
 
 const Dashboard: React.FC = () => {
   const [isValid, setIsValid] = useState(false);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
   const navigate = useNavigate();
-
-  const [events] = useState<CalendarEvent[]>([
-    {
-      title: "Reunião com cliente",
-      start: new Date(2023, 9, 25, 10, 0),
-      end: new Date(2023, 9, 25, 11, 0),
-    },
-    {
-      title: "Entrega de relatório",
-      start: new Date(2023, 9, 26, 14, 0),
-      end: new Date(2023, 9, 26, 15, 0),
-    },
-  ]);
 
   useEffect(() => {
     const checkToken = async () => {
@@ -47,6 +36,39 @@ const Dashboard: React.FC = () => {
     };
     checkToken();
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        const response = await fetch("http://localhost:8080/events", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro ao buscar eventos");
+        }
+
+        const data = await response.json();
+
+        const parsedEvents = data.map((event: any) => ({
+          ...event,
+          start: new Date(event.start),
+          end: new Date(event.end),
+        }));
+
+        setEvents(parsedEvents);
+      } catch (error) {
+        console.error("Erro ao carregar eventos:", error);
+      }
+    };
+
+    if (isValid) {
+      fetchEvents();
+    }
+  }, [isValid]);
 
   return (
     <div className="dashboard-page">

@@ -24,7 +24,7 @@ const getCurrentDate = (): string => {
   const month = today.toLocaleString('pt-BR', { month: 'long' });
   const year = today.getFullYear();
 
-  return `${daysOfWeek[today.getDay()]}, ${dayOfMonth} de ${month} de ${year}`;
+  return `${daysOfWeek[today.getDay()]}, ${dayOfMonth} de ${month} de ${year}.`;
 };
 
 const Header: React.FC = () => {

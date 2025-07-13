@@ -15,6 +15,11 @@ public class CustomUserDetails implements UserDetails {
     private final Agent agent;
     private final Person person;
 
+    public Long getAgentId() {
+        return agent.getId();
+    }
+
+
     public CustomUserDetails(Agent agent, Person person) {
         this.agent = agent;
         this.person = person;
@@ -27,8 +32,6 @@ public class CustomUserDetails implements UserDetails {
                 new SimpleGrantedAuthority("ROLE_ADMIN")
         );
     }
-
-
 
 
     @Override

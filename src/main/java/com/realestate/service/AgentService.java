@@ -54,6 +54,11 @@ public class AgentService {
                 });
     }
 
+    @Transactional(readOnly = true)
+    public Optional<Agent> findAgentEntityById(Long id) {
+        return agentRepository.findById(id);
+    }
+
     @Transactional
     public AgentDTO registerAgent(AgentDTO agentDTO) {
         return saveAgent(agentDTO);
