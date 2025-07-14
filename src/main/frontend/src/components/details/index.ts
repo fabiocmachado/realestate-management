@@ -1,0 +1,11 @@
+export { default as ApartmentDetails } from './ApartmentDetails';
+export { default as PenthouseDetails } from './PenthouseDetails';
+export { default as TownhouseDetails } from './TownhouseDetails';
+export { default as HouseDetails } from './HouseDetails';
+export { default as CommercialBuildingDetails } from './CommercialBuildingDetails';
+export { default as WarehouseDetails } from './WarehouseDetails';
+export { default as CommercialAreaDetails } from './CommercialAreaDetails';
+export { default as FarmDetails } from './FarmDetails';
+export { default as CountryHouseDetails } from './CountryHouseDetails';
+export { default as UrbanLandDetails } from './UrbanLandDetails';
+export { default as CommercialRoomDetails } from './CommercialRoomDetails';

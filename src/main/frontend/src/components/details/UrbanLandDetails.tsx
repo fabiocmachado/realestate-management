@@ -65,3 +65,5 @@ export const UrbanLandDetails: React.FC<Props> = ({ property, seller, agent }) =
            </div>
          </div>
  );
+
+export default UrbanLandDetails;

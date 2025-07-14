@@ -70,3 +70,6 @@ export const CommercialAreaDetails: React.FC<Props> = ({ property, seller, agent
     </div>
   </div>
 );
+
+
+export default CommercialAreaDetails;

@@ -12,7 +12,6 @@ import FarmForm from './forms/FarmForm';
 import CountryHouseForm from './forms/CountryHouseForm';
 import CommercialAreaForm from './forms/CommercialAreaForm';
 import CommercialRoomForm from './forms/CommercialRoomForm';
-import '../styles/addProperty.css'
 
 interface CommonFormProps {
   onSuccess: () => void;
