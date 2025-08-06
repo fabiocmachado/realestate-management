@@ -104,51 +104,11 @@ const PropertyDetails: React.FC = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6 bg-gray-light rounded-lg shadow-md">
-      <header className="mb-6 border-b border-gray-pale pb-4">
-        <h1 className="text-3xl font-bold text-primary-dark">
-          Detalhes do Imóvel - {property.propertyCode}
-        </h1>
-        <p className="text-gray-medium mt-1">Categoria: {propertyCategory?.toUpperCase()}</p>
-      </header>
-
-      <section className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <section className="mb-8 grid grid-cols-1 md:grid-cols-1 gap-6">
         <div className="bg-white p-4 rounded shadow-sm">
-          <h3 className="text-lg font-semibold mb-2">Características Gerais</h3>
-          <p><span className="font-semibold">Código:</span> {property.propertyCode}</p>
-          <p><span className="font-semibold">Tipo:</span> {propertyCategory}</p>
-          <p><span className="font-semibold">Área (m²):</span> {property.area}</p>
-          <p><span className="font-semibold">Preço:</span> R$ {property.price?.toLocaleString()}</p>
-        </div>
-
-        <div className="bg-white p-4 rounded shadow-sm">
-          <h3 className="text-lg font-semibold mb-2">Localização</h3>
-          <p><span className="font-semibold">Cidade:</span> {property.city}</p>
-          <p><span className="font-semibold">Bairro:</span> {property.neighborhood}</p>
-          <p><span className="font-semibold">Endereço:</span> {property.address}</p>
-          <p><span className="font-semibold">CEP:</span> {property.zipCode}</p>
-        </div>
-
-        <div className="bg-white p-4 rounded shadow-sm">
-          <h3 className="text-lg font-semibold mb-2">Detalhes Adicionais</h3>
           <DetailsComponent property={property} seller={seller} agent={agent} />
         </div>
       </section>
-
-      <section className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-4 bg-white border border-gray-pale rounded shadow-sm">
-          <h2 className="text-xl font-semibold text-primary DEFAULT mb-2">Informações do Vendedor</h2>
-          <p><span className="font-semibold">Nome:</span> {seller.name}</p>
-          <p><span className="font-semibold">Telefone:</span> {seller.phone}</p>
-          <p><span className="font-semibold">Email:</span> {seller.email}</p>
-        </div>
-        <div className="p-4 bg-white border border-gray-pale rounded shadow-sm">
-          <h2 className="text-xl font-semibold text-primary DEFAULT mb-2">Informações do Agente</h2>
-          <p><span className="font-semibold">Nome:</span> {agent.name}</p>
-          <p><span className="font-semibold">Telefone:</span> {agent.phone}</p>
-          <p><span className="font-semibold">Email:</span> {agent.email}</p>
-        </div>
-      </section>
-
       {user?.role === "ADMIN" && <EditButton onClick={handleEditClick} />}
     </div>
   );

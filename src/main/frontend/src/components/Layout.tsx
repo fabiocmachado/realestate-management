@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useAuth } from "../contexts/AuthContext";
 
-const Layout: React.FC = () => {
+const Layout = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -14,30 +14,30 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
 
-      <nav className="bg-blue-50 border-b border-blue-200">
-        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between text-blue-700 font-medium">
+      <nav className="bg-blue-50 border-b border-blue-200 max-w-6xl mx-auto px-6 py-3">
+        <div className="flex items-center justify-between text-blue-700 font-medium">
           <ul className="flex space-x-6">
-            <li>
+            <li className="relative">
               <Link to="/dashboard" className="hover:text-blue-900 transition-colors">
                 Página Inicial
               </Link>
             </li>
-            <li>
+            <li className="relative">
               <Link to="/properties" className="hover:text-blue-900 transition-colors">
                 Imóveis
               </Link>
             </li>
             {user?.role === "ADMIN" && (
               <>
-                <li>
+                <li className="relative">
                   <Link to="/sellers" className="hover:text-blue-900 transition-colors">
                     Proprietários
                   </Link>
                 </li>
-                <li>
+                <li className="relative">
                   <Link to="/agents" className="hover:text-blue-900 transition-colors">
                     Corretores
                   </Link>
@@ -46,11 +46,9 @@ const Layout: React.FC = () => {
             )}
           </ul>
 
-          {/* Botão Sair alinhado à direita */}
           <button
             onClick={handleLogout}
-            className="text-red-600 hover:text-red-700 hover:bg-red-100 border border-red-300 rounded-lg px-4 py-1.5 font-semibold transition duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400"
-            aria-label="Sair do sistema"
+            className="bg-blue-50 border-b border-blue-200 max-w-6xl mx-auto px-6 py-3"
           >
             Sair
           </button>

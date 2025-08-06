@@ -19,6 +19,8 @@ const EditEventPage: React.FC = () => {
 
   useEffect(() => {
     const fetchEvent = async () => {
+      setLoading(true);
+      setError("");
       try {
         const token = localStorage.getItem("authToken");
         const response = await fetch(`http://localhost:8080/events/${id}`, {
@@ -36,7 +38,7 @@ const EditEventPage: React.FC = () => {
           end: data.end.slice(0, 16),
         });
       } catch (err: any) {
-        setError(err.message);
+        setError(err.message || "Erro desconhecido");
       } finally {
         setLoading(false);
       }
@@ -45,13 +47,33 @@ const EditEventPage: React.FC = () => {
     fetchEvent();
   }, [id]);
 
-  if (loading) return <p>Carregando evento...</p>;
-  if (error) return <p>Erro: {error}</p>;
-  if (!event) return <p>Evento não encontrado</p>;
+  if (loading) {
+    return (
+      <div className="max-w-3xl mx-auto p-6 text-center text-primary-dark">
+        <p>Carregando evento...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-3xl mx-auto p-6 text-center text-red-600 font-semibold">
+        <p>Erro: {error}</p>
+      </div>
+    );
+  }
+
+  if (!event) {
+    return (
+      <div className="max-w-3xl mx-auto p-6 text-center text-gray-dark">
+        <p>Evento não encontrado.</p>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <h2>Editar Evento</h2>
+    <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+      <h2 className="text-2xl font-semibold mb-6 text-primary-dark">Editar Evento</h2>
       <EventForm
         event={event}
         onSuccess={() => navigate("/dashboard")}
