@@ -3,201 +3,115 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getPropertyDetails } from '../services/propertyService';
 import { getAgentById } from '../services/agentService';
 import { getSellerById } from '../services/sellerService';
-import { FarmDetails } from './details/FarmDetails';
-import { UrbanLandDetails } from './details/UrbanLandDetails';
-import { ApartmentDetails } from './details/ApartmentDetails';
-import { CountryHouseDetails } from './details/CountryHouseDetails';
-import { PenthouseDetails } from './details/PenthouseDetails';
-import { TownhouseDetails } from './details/TownhouseDetails';
-import { CommercialBuildingDetails } from './details/CommercialBuildingDetails';
-import { WarehouseDetails } from './details/WarehouseDetails';
-import { CommercialAreaDetails } from './details/CommercialAreaDetails';
-import { CommercialRoomDetails } from './details/CommercialRoomDetails';
-import { HouseDetails } from './details/HouseDetails';
 import { useAuth } from "../contexts/AuthContext";
-import { PropertyDTO, FarmDTO, CountryHouseDTO, Agent, Seller, UrbanLandDTO, ApartmentDTO, TownhouseDTO, PenthouseDTO, CommercialBuildingDTO, WarehouseDTO, CommercialAreaDTO, HouseDTO, CommercialRoomDTO } from '../types/models';
-import '../styles/propertyDetails.css'
 
-const PropertyDetails = () => {
+import {
+  PropertyDTO,
+  Agent,
+  Seller,
+} from '../types/models';
+
+import ApartmentDetails from './details/ApartmentDetails';
+import FarmDetails from './details/FarmDetails';
+import UrbanLandDetails from './details/UrbanLandDetails';
+import CountryHouseDetails from './details/CountryHouseDetails';
+import PenthouseDetails from './details/PenthouseDetails';
+import TownhouseDetails from './details/TownhouseDetails';
+import CommercialBuildingDetails from './details/CommercialBuildingDetails';
+import WarehouseDetails from './details/WarehouseDetails';
+import CommercialAreaDetails from './details/CommercialAreaDetails';
+import CommercialRoomDetails from './details/CommercialRoomDetails';
+import HouseDetails from './details/HouseDetails';
+
+const componentMap: Record<string, React.FC<any>> = {
+  apartment: ApartmentDetails,
+  penthouse: PenthouseDetails,
+  townhouse: TownhouseDetails,
+  house: HouseDetails,
+  commercialbuilding: CommercialBuildingDetails,
+  warehouse: WarehouseDetails,
+  commercialarea: CommercialAreaDetails,
+  farm: FarmDetails,
+  countryhouse: CountryHouseDetails,
+  urbanland: UrbanLandDetails,
+  commercialroom: CommercialRoomDetails,
+};
+
+const EditButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
+  <div className="mt-6 flex justify-end">
+    <button
+      onClick={onClick}
+      className="bg-primary DEFAULT hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded shadow transition-colors"
+    >
+      Editar Imóvel
+    </button>
+  </div>
+);
+
+const PropertyDetails: React.FC = () => {
   const { propertyCategory, propertyCode } = useParams();
   const [property, setProperty] = useState<PropertyDTO | null>(null);
   const [seller, setSeller] = useState<Seller | null>(null);
   const [agent, setAgent] = useState<Agent | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const navigate = useNavigate();
   const { user } = useAuth();
 
-
   useEffect(() => {
     const fetchPropertyDetails = async () => {
-      if (propertyCategory && propertyCode) {
-        try {
-          const propertyData = await getPropertyDetails(propertyCategory, propertyCode);
-          setProperty(propertyData);
+      if (!propertyCategory || !propertyCode) return;
 
-          const sellerId = propertyData.sellerId;
-          const agentId = propertyData.agentId;
+      setLoading(true);
+      setError(null);
 
-          const [sellerData, agentData] = await Promise.all([
-            sellerId ? getSellerById(sellerId) : Promise.resolve(null),
-            agentId ? getAgentById(agentId) : Promise.resolve(null),
-          ]);
+      try {
+        const propertyData = await getPropertyDetails(propertyCategory, propertyCode);
+        setProperty(propertyData);
 
-          setSeller(sellerData);
-          setAgent(agentData);
-        } catch (error) {
-          console.error("Erro ao carregar os detalhes da propriedade:", error);
-        } finally {
-          setLoading(false);
-        }
+        const [sellerData, agentData] = await Promise.all([
+          propertyData.sellerId ? getSellerById(propertyData.sellerId) : Promise.resolve(null),
+          propertyData.agentId ? getAgentById(propertyData.agentId) : Promise.resolve(null),
+        ]);
+
+        setSeller(sellerData);
+        setAgent(agentData);
+      } catch (err) {
+        console.error(err);
+        setError("Erro ao carregar os detalhes da propriedade.");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPropertyDetails();
   }, [propertyCategory, propertyCode]);
 
-  const renderDetails = () => {
-    if (loading) {
-      return <div>Carregando...</div>;
-    }
-
-    if (!property || !seller || !agent) {
-      return <div>Carregando detalhes do imóvel, vendedor e agente...</div>;
-    }
-
-    const handleEditClick = () => {
-      navigate(`/edit-property/${propertyCategory}/${propertyCode}`);
-    };
-
-    const formattedCategory = propertyCategory?.toLowerCase().replace(/_/g, '').trim();
-     switch (formattedCategory) {
-      case 'apartment':
-        return (
-          <div>
-            <ApartmentDetails property={property as ApartmentDTO} seller={seller} agent={agent} />
-            {user?.role === "ADMIN" && (
-              <div className="edit-button-container">
-                <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-              </div>
-            )}
-          </div>
-        );
-      case 'penthouse':
-        return (
-          <div>
-            <PenthouseDetails property={property as PenthouseDTO} seller={seller} agent={agent} />
-            {user?.role === "ADMIN" && (
-              <div className="edit-button-container">
-                <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-              </div>
-            )}
-          </div>
-        );
-      case 'townhouse':
-        return (
-          <div>
-            <TownhouseDetails property={property as TownhouseDTO} seller={seller} agent={agent} />
-            {user?.role === "ADMIN" && (
-              <div className="edit-button-container">
-                <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-              </div>
-            )}
-          </div>
-        );
-      case 'house':
-        return (
-          <div>
-            <HouseDetails property={property as HouseDTO} seller={seller} agent={agent} />
-            {user?.role === "ADMIN" && (
-              <div className="edit-button-container">
-                <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-              </div>
-            )}
-          </div>
-        );
-      case 'commercialbuilding':
-        return (
-            <div>
-            <CommercialBuildingDetails property={property as CommercialBuildingDTO} seller={seller} agent={agent} />
-            {user?.role === "ADMIN" && (
-              <div className="edit-button-container">
-                <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-              </div>
-            )}
-          </div>
-        );
-      case 'warehouse':
-        return (
-          <div>
-            <WarehouseDetails property={property as WarehouseDTO} seller={seller} agent={agent} />
-           {user?.role === "ADMIN" && (
-             <div className="edit-button-container">
-               <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-             </div>
-           )}
-         </div>
-        );
-      case 'commercialarea':
-        return (
-          <div>
-            <CommercialAreaDetails property={property as CommercialAreaDTO} seller={seller} agent={agent} />
-           {user?.role === "ADMIN" && (
-             <div className="edit-button-container">
-               <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-             </div>
-           )}
-         </div>
-       );
-      case 'farm':
-        return (
-          <div>
-            <FarmDetails property={property as FarmDTO} seller={seller} agent={agent} />
-            {user?.role === "ADMIN" && (
-              <div className="edit-button-container">
-                <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-              </div>
-            )}
-          </div>
-        );
-      case 'countryhouse':
-        return (
-          <div>
-            <CountryHouseDetails property={property as CountryHouseDTO} seller={seller} agent={agent} />
-           {user?.role === "ADMIN" && (
-             <div className="edit-button-container">
-               <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-             </div>
-           )}
-         </div>
-       );
-      case 'urbanland':
-        return (
-          <div>
-            <UrbanLandDetails property={property as UrbanLandDTO} seller={seller} agent={agent} />
-           {user?.role === "ADMIN" && (
-             <div className="edit-button-container">
-               <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-             </div>
-           )}
-         </div>
-       );
-      case 'commercialroom':
-        return (
-          <div>
-            <CommercialRoomDetails property={property as CommercialRoomDTO} seller={seller} agent={agent} />
-           {user?.role === "ADMIN" && (
-             <div className="edit-button-container">
-               <button className="edit-button" onClick={handleEditClick}>Editar Imóvel</button>
-             </div>
-           )}
-         </div>
-       );
-      default:
-        return <div>Tipo de imóvel não suportado</div>;
-    }
+  const handleEditClick = () => {
+    navigate(`/edit-property/${propertyCategory}/${propertyCode}`);
   };
 
-  return renderDetails();
+  if (loading) return <div className="text-primary-light font-medium">Carregando...</div>;
+  if (error) return <div className="text-red-600 font-semibold">{error}</div>;
+  if (!property || !seller || !agent)
+    return <div className="text-gray-600 italic">Detalhes do imóvel, vendedor e agente indisponíveis.</div>;
+
+  const key = propertyCategory?.toLowerCase().replace(/_/g, '').trim() ?? '';
+  const DetailsComponent = componentMap[key];
+
+  if (!DetailsComponent) return <div className="text-red-500 font-bold">Tipo de imóvel não suportado</div>;
+
+  return (
+    <div className="max-w-5xl mx-auto p-6 bg-gray-light rounded-lg shadow-md">
+          <section className="mb-8 grid grid-cols-1 md:grid-cols-1 gap-6">
+        <div className="bg-white p-4 rounded shadow-sm">
+          <DetailsComponent property={property} seller={seller} agent={agent} />
+        </div>
+      </section>
+      {user?.role === "ADMIN" && <EditButton onClick={handleEditClick} />}
+    </div>
+  );
 };
 
 export default PropertyDetails;

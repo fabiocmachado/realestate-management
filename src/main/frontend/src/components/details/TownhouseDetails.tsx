@@ -115,3 +115,5 @@ export const TownhouseDetails: React.FC<Props> = ({ property, seller, agent }) =
             </div>
       </div>
     );
+
+export default TownhouseDetails;

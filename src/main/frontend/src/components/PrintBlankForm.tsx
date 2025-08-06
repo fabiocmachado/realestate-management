@@ -11,7 +11,6 @@ import { CountryHouseBlankForm } from './blankForms/CountryHouseBlankForm';
 import { UrbanLandBlankForm } from './blankForms/UrbanLandBlankForm';
 import { CommercialAreaBlankForm } from './blankForms/CommercialAreaBlankForm';
 import { CommercialRoomBlankForm } from './blankForms/CommercialRoomBlankForm';
-import '../styles/printBlankForm.css'
 
 
 const FORM_COMPONENTS: Record<string, React.FC> = {
