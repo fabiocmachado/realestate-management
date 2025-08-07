@@ -37,8 +37,6 @@ const Header: React.FC = () => {
         </p>
         <p className="text-sm text-gray-500 mt-0.5">{getCurrentDate()}</p>
       </div>
-
-      {/* Botão "Sair" removido daqui */}
     </header>
   );
 };

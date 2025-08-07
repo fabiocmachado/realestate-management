@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { ApartmentBlankForm } from './blankForms/ApartmentBlankForm';
-import { HouseBlankForm } from './blankForms/HouseBlankForm';
+import ApartmentBlankForm from './blankForms/ApartmentBlankForm';import { HouseBlankForm } from './blankForms/HouseBlankForm';
 import { PenthouseBlankForm } from './blankForms/PenthouseBlankForm';
 import { TownhouseBlankForm } from './blankForms/TownhouseBlankForm';
 import { WarehouseBlankForm } from './blankForms/WarehouseBlankForm';
